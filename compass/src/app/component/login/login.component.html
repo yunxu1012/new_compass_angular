@@ -1,0 +1,32 @@
+<div class="box_no_border">
+    <a class="link" routerLink="/register">Register</a>
+</div>
+<div class="box">
+    <h2>Login</h2>
+    <div class="row">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <label class="textLabel" for="email">Email: </label>
+                <br />
+                <input id="email" type="text" formControlName="email" />
+                <label class="error" *ngIf="loginForm.get('email')?.hasError('required')
+         && loginForm.get('email')?.touched">
+                    &nbsp;&nbsp; Email is required.
+                </label>
+                <label class="error" *ngIf="loginForm.get('email')?.hasError('email')
+        && loginForm.get('email')?.touched">
+                    &nbsp;&nbsp; Email format not correct.
+                </label>
+                <br />
+                <label class="textLabel" for="password">Password: </label>
+                <br />
+                <input id="password" type="text" formControlName="password" />
+                <label class="error" *ngIf="loginForm.get('password')?.hasError('required')
+         && loginForm.get('password')?.touched">
+                    &nbsp;&nbsp; Password is required.
+                </label>
+            <div>
+                <button class="button" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>

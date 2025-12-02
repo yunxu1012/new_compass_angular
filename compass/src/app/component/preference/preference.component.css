@@ -1,0 +1,55 @@
+.box {
+    width: 600px;
+    margin: 30px;
+    padding: 30px;
+  }
+  .labelClass {
+    display: inline-block;
+    width: 150px;
+    text-align: right;
+    padding-right: 10px;
+  }
+
+  #minBed, #maxBed, #minBath, #homeType, #minSquareFeet,
+  #maxSquareFeet, #minPrice, #maxPrice {
+    margin-right:10px;
+    width:100px;
+  }
+
+  .rowClass{
+    padding: 10px;
+    width: 600px;
+}
+.textLabel {
+  display: inline-block;
+    width: 150px;
+    text-align: left;
+    padding-right: 10px;
+}
+.valueLabel{
+  display: inline-block;
+    width: 100px;
+    text-align: left;
+    padding-right: 10px;
+}
+  .buttonRow{
+    padding: 10px;
+    width: 600px;
+    text-align:right;
+  }
+  
+  button{
+    text-align: center;
+    margin: 30px;
+    padding: 10px;
+    background-color:purple;
+    color:white;
+    float: right;
+    width:100px;
+  }
+
+  .error{
+    color:red;
+    padding-right: 10px;
+    display: inline-block;
+}

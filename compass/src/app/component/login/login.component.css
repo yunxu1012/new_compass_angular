@@ -1,0 +1,36 @@
+.box {
+  margin-left: 60px;
+  padding: 30px;
+  width: 300px;
+  border:1px solid black;
+  }
+
+  .box_no_border {
+    margin-left: 60px;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    padding: 0px;
+    width: 350px;
+  }
+
+  .row {
+    display: table;
+    width: 100%; /*Optional*/
+    table-layout: fixed; /*Optional*/
+    line-height: 200%;
+  }
+  
+
+.button{
+  text-align: center;
+  margin: 30px;
+  padding: 10px;
+  background-color:purple;
+  color:white;
+  float: right;
+  width:100px;
+}
+
+.error{
+  color:red;
+}

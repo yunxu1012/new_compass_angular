@@ -1,0 +1,76 @@
+<div class="box_no_border">
+    <a class="link" routerLink="/login">Login</a>
+</div>
+<div class="box">
+    <div class="title">
+        <h2>Register</h2>
+    </div>
+    <div class="row">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div>
+                <label class="textLabel" for="first-name">First Name: </label>
+                <input id="first-name" type="text" formControlName="firstName" />
+                <label class="error" *ngIf="registerForm.get('firstName')?.hasError('required')
+         && registerForm.get('firstName')?.touched">
+                    &nbsp;&nbsp; First name is required.
+                </label>
+            </div>
+            <div>
+                <label class="textLabel" for="last-name">Last Name: </label>
+                <input id="last-name" type="text" formControlName="lastName" />
+                <label class="error" *ngIf="registerForm.get('lastName')?.hasError('required')
+         && registerForm.get('lastName')?.touched">
+                    &nbsp;&nbsp; Last name is required.
+                </label>
+            </div>
+            <div>
+                <label class="textLabel" for="email">Email: </label>
+                <input id="email" type="text" formControlName="email" />
+                <label class="error" *ngIf="registerForm.get('email')?.hasError('required')
+         && registerForm.get('email')?.touched">
+                    &nbsp;&nbsp; Email is required.
+                </label>
+                <label class="error" *ngIf="registerForm.get('email')?.hasError('email')
+        && registerForm.get('email')?.touched">
+                    &nbsp;&nbsp; Email format not correct.
+                </label>
+            </div>
+            <div>
+                <label class="textLabel" for="phone-number">Phone Number: </label>
+                <input id="phone-number" type="text" formControlName="phoneNumber" />
+                <label class="error" *ngIf="registerForm.get('phoneNumber')?.hasError('required')
+         && registerForm.get('phoneNumber')?.touched">
+                    &nbsp;&nbsp; Phone Number is required.
+                </label>
+            </div>
+            <div>
+                <label class="textLabel" for="password">Password: </label>
+                <input id="password" type="text" formControlName="password" />
+                <label class="error" *ngIf="registerForm.get('password')?.hasError('required')
+         && registerForm.get('password')?.touched">
+                    &nbsp;&nbsp; Password is required.
+                </label>
+            </div>
+            <div>
+                <label class="textLabel" for="confirm-password">Confirm Password: </label>
+                <input id="confirm-password" type="text" formControlName="confirmPassword" />
+                <label class="error" *ngIf="registerForm.get('confirmPassword')?.hasError('required')
+         && registerForm.get('confirmPassword')?.touched">
+                    &nbsp;&nbsp; Confirm Password is required.
+                </label>
+                <label class="error" *ngIf="registerForm.get('confirmPassword')?.hasError('notSame')
+        && registerForm.get('confirmPassword')?.touched">
+                    &nbsp;&nbsp; Password not match.
+                </label>
+            </div>
+            <div>
+                <label class="error" *ngIf="registerForm.invalid && registerForm.touched">
+                    &nbsp;&nbsp; Please fix error before submit.
+                </label>
+            </div>
+            <div>
+                <button class="button" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
