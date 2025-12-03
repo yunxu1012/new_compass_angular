@@ -5,9 +5,10 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Customer } from '../../model/customer.model';
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css'
+    selector: 'app-profile',
+    templateUrl: './profile.component.html',
+    styleUrl: './profile.component.css',
+    standalone: false
 })
 export class ProfileComponent {
   isEditMode: boolean = false;

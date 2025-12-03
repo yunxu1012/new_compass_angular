@@ -10,9 +10,10 @@ import { Router } from '@angular/router';
 import { Customer } from '../../model/customer.model';
 import { CustomerPreference } from '../../model/customer-preference.model';
 @Component({
-  selector: 'app-preference',
-  templateUrl: './preference.component.html',
-  styleUrl: './preference.component.css'
+    selector: 'app-preference',
+    templateUrl: './preference.component.html',
+    styleUrl: './preference.component.css',
+    standalone: false
 })
 export class PreferenceComponent {
   isEditMode: boolean = false;
