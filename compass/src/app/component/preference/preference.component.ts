@@ -2,7 +2,7 @@ import { Component, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormGroup, FormsModule, AbstractControl, ValidationErrors, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { CommonModule } from '@angular/common';
+
 import { HomeType } from '../../enum/home-type';
 import { BedCount } from '../../enum/bed-count';
 import { BathCount } from '../../enum/bath-count';

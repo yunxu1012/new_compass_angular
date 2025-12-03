@@ -1,160 +1,191 @@
 <div class="box">
-    <app-menu></app-menu>
-    <div class="profile-container">
-        <div>
-            <label class="titleRow">
-                <h2>User Preference</h2>
-            </label>
-        </div>
-        <div *ngIf="!isEditMode">
-            <div class="rowClass">
-                <label class="textLabel">Home Type:</label>
-                {{getHomeTypeByKey(customerPreference?.homeType)}}
-            </div>
-            <div class="rowClass">
-                <label class="textLabel">Min Price:</label>
-                <label class="valueLabel">{{ customerPreference?.minPrice }} </label>
-                <label class="textLabel">Max Price:</label>
-                <label class="valueLabel">{{ customerPreference?.maxPrice }}</label>
-            </div>
-            <div class="rowClass">
-                <label class="textLabel">Min Bed:</label>
-                <label class="valueLabel">{{ getBedCountByKey(customerPreference?.minBed) }} </label>
-                <label class="textLabel">Max Bed:</label>
-                <label class="valueLabel">{{ getBedCountByKey(customerPreference?.maxBed) }}</label>
-            </div>
-            <div class="rowClass">
-                <label class="textLabel">Min Bath:</label>
-                <label class="valueLabel">{{ getBathCountByKey(customerPreference?.minBath) }}</label>
-            </div>
-            <div class="rowClass">
-                <label class="textLabel">Min Square Feet:</label>
-                <label class="valueLabel">{{ customerPreference?.minSquareFeet }}</label>
-                <label class="textLabel">Max Square Feet:</label>
-                <label class="valueLabel">{{ customerPreference?.maxSquareFeet }}</label>
-            </div>
-            <div class="buttonRow">
-                <button (click)="toggleEditMode()">Edit</button>
-            </div>
-        </div>
-
-        <form *ngIf="isEditMode" [formGroup]="preferenceForm">
-            <div class="rowClass">
-                <label class="labelClass">Home Type:</label>
-                <select id="minBath" formControlName="homeType">
-                    <option [ngValue]=""></option>
-                    <option *ngFor="let opt of homeTypes" [ngValue]="opt">
-                        {{ getHomeTypeByKey(opt) }}
-                    </option>
-                </select>
-            </div>
-            <div class="rowClass">
-                <div>
-                    <label *ngIf="preferenceForm.get('homeType')?.hasError('required') && 
-                    preferenceForm.get('homeType')?.touched" class="error">
-                        Home Type is required.
-                    </label>
-                </div>
-            </div>
-            <div class="rowClass">
-                <label class="labelClass" for="minPrice">Min Price:</label>
-                <input id="minPrice" type="text" formControlName="minPrice">
-                <label class="labelClass" for="maxPrice">Max Price:</label>
-                <input id="maxPrice" type="text" formControlName="maxPrice">
-            </div>
-            <div class="rowClass">
-                <div>
-                    <label *ngIf="preferenceForm.get('minPrice')?.hasError('required') && 
-                    preferenceForm.get('minPrice')?.touched" class="error">
-                        Min Price is required.
-                    </label>
-                    <label *ngIf="preferenceForm.get('maxPrice')?.hasError('required') && 
-                    preferenceForm.get('maxPrice')?.touched" class="error">
-                        Max Price is required.
-                    </label>
-                    <label class="error" *ngIf="preferenceForm.get('maxPrice')?.hasError('priceError')
-        && preferenceForm.get('maxPrice')?.touched">
-                        &nbsp;&nbsp; Min Price can't be greater than max price.
-                    </label>
-                </div>
-            </div>
-            <div class="rowClass">
-                <label class="labelClass">Min Bed:</label>
-                <select id="minBed" formControlName="minBed">
-                    <option [ngValue]=""></option>
-                    <option *ngFor="let opMinBed of bedCounts" [ngValue]="opMinBed">
-                        {{ getBedCountByKey(opMinBed) }}
-                    </option>
-                </select>
-
-                <label class="labelClass">Max Bed:</label>
-                <select id="maxBed" formControlName="maxBed">
-                    <option [ngValue]=""></option>
-                    <option *ngFor="let opMaxBed of bedCounts" [ngValue]="opMaxBed">
-                        {{ getBedCountByKey(opMaxBed) }}
-                    </option>
-                </select>
-            </div>
-            <div class="rowClass">
-                <div>
-                    <label *ngIf="preferenceForm.get('minBed')?.hasError('required') && 
-                    preferenceForm.get('minBed')?.touched" class="error">
-                        Min Bed is required.
-                    </label>
-                    <label *ngIf="preferenceForm.get('maxBed')?.hasError('required') && 
-                    preferenceForm.get('maxBed')?.touched" class="error">
-                        Max Bed is required.
-                    </label>
-                    <label class="error" *ngIf="preferenceForm.get('maxBed')?.hasError('bedError')
-        && preferenceForm.get('maxBed')?.touched">
-                        &nbsp;&nbsp; Min Bed can't be greater than Max Bed.
-                    </label>
-                </div>
-            </div>
-            <div class="rowClass">
-                <label class="labelClass">Min Bath:</label>
-                <select id="minBath" formControlName="minBath">
-                    <option [ngValue]=""></option>
-                    <option *ngFor="let opMinBath of bathCounts" [ngValue]="opMinBath">
-                        {{ getBathCountByKey(opMinBath) }}
-                    </option>
-                </select>
-            </div>
-            <div class="rowClass">
-                <div>
-                    <label *ngIf="preferenceForm.get('minBath')?.hasError('required') && 
-                    preferenceForm.get('minBath')?.touched" class="error">
-                        Min Bath is required.
-                    </label>
-                </div>
-            </div>
-            <div class="rowClass">
-                <label class="labelClass" for="minSquareFeet">Min Square Feet:</label>
-                <input id="minSquareFeet" type="text" formControlName="minSquareFeet">
-                <label class="labelClass" for="maxSquareFeet">Max Square Feet:</label>
-                <input id="maxSquareFeet" type="text" formControlName="maxSquareFeet">
-            </div>
-            <div class="rowClass">
-                <label *ngIf="preferenceForm.get('minSquareFeet')?.hasError('required')
-                && preferenceForm.get('minSquareFeet')?.touched" class="error">
-                    Min Square Feet is required.
-                </label>
-                <div *ngIf="preferenceForm.get('maxSquareFeet')?.hasError('required')
-            && preferenceForm.get('maxSquareFeet')?.touched" class="error">
-                    Max Square Feet is required.
-                </div>
-                <label class="error" *ngIf="preferenceForm.get('maxSquareFeet')?.hasError('squareFeetError')
-        && preferenceForm.get('maxSquareFeet')?.touched">
-                    &nbsp;&nbsp; Min Squrare Feet can't be greater than Max Square Feet.
-                </label>
-            </div>
-            <div>
-               
-            </div>
-            <div class="buttonRow">
-                <button type="submit" (click)="savePreference()">Save</button>
-                <button type="button" (click)="cancelEdit()">Cancel</button>
-            </div>
-
-        </form>
+  <app-menu></app-menu>
+  <div class="profile-container">
+    <div>
+      <label class="titleRow">
+        <h2>User Preference</h2>
+      </label>
     </div>
+    @if (!isEditMode) {
+      <div>
+        <div class="rowClass">
+          <label class="textLabel">Home Type:</label>
+          {{getHomeTypeByKey(customerPreference?.homeType)}}
+        </div>
+        <div class="rowClass">
+          <label class="textLabel">Min Price:</label>
+          <label class="valueLabel">{{ customerPreference?.minPrice }} </label>
+          <label class="textLabel">Max Price:</label>
+          <label class="valueLabel">{{ customerPreference?.maxPrice }}</label>
+        </div>
+        <div class="rowClass">
+          <label class="textLabel">Min Bed:</label>
+          <label class="valueLabel">{{ getBedCountByKey(customerPreference?.minBed) }} </label>
+          <label class="textLabel">Max Bed:</label>
+          <label class="valueLabel">{{ getBedCountByKey(customerPreference?.maxBed) }}</label>
+        </div>
+        <div class="rowClass">
+          <label class="textLabel">Min Bath:</label>
+          <label class="valueLabel">{{ getBathCountByKey(customerPreference?.minBath) }}</label>
+        </div>
+        <div class="rowClass">
+          <label class="textLabel">Min Square Feet:</label>
+          <label class="valueLabel">{{ customerPreference?.minSquareFeet }}</label>
+          <label class="textLabel">Max Square Feet:</label>
+          <label class="valueLabel">{{ customerPreference?.maxSquareFeet }}</label>
+        </div>
+        <div class="buttonRow">
+          <button (click)="toggleEditMode()">Edit</button>
+        </div>
+      </div>
+    }
+
+    @if (isEditMode) {
+      <form [formGroup]="preferenceForm">
+        <div class="rowClass">
+          <label class="labelClass">Home Type:</label>
+          <select id="minBath" formControlName="homeType">
+            <option [ngValue]=""></option>
+            @for (opt of homeTypes; track opt) {
+              <option [ngValue]="opt">
+                {{ getHomeTypeByKey(opt) }}
+              </option>
+            }
+          </select>
+        </div>
+        <div class="rowClass">
+          <div>
+            @if (preferenceForm.get('homeType')?.hasError('required') &&
+              preferenceForm.get('homeType')?.touched) {
+              <label class="error">
+                Home Type is required.
+              </label>
+            }
+          </div>
+        </div>
+        <div class="rowClass">
+          <label class="labelClass" for="minPrice">Min Price:</label>
+          <input id="minPrice" type="text" formControlName="minPrice">
+          <label class="labelClass" for="maxPrice">Max Price:</label>
+          <input id="maxPrice" type="text" formControlName="maxPrice">
+        </div>
+        <div class="rowClass">
+          <div>
+            @if (preferenceForm.get('minPrice')?.hasError('required') &&
+              preferenceForm.get('minPrice')?.touched) {
+              <label class="error">
+                Min Price is required.
+              </label>
+            }
+            @if (preferenceForm.get('maxPrice')?.hasError('required') &&
+              preferenceForm.get('maxPrice')?.touched) {
+              <label class="error">
+                Max Price is required.
+              </label>
+            }
+            @if (preferenceForm.get('maxPrice')?.hasError('priceError')
+              && preferenceForm.get('maxPrice')?.touched) {
+              <label class="error">
+                &nbsp;&nbsp; Min Price can't be greater than max price.
+              </label>
+            }
+          </div>
+        </div>
+        <div class="rowClass">
+          <label class="labelClass">Min Bed:</label>
+          <select id="minBed" formControlName="minBed">
+            <option [ngValue]=""></option>
+            @for (opMinBed of bedCounts; track opMinBed) {
+              <option [ngValue]="opMinBed">
+                {{ getBedCountByKey(opMinBed) }}
+              </option>
+            }
+          </select>
+          <label class="labelClass">Max Bed:</label>
+          <select id="maxBed" formControlName="maxBed">
+            <option [ngValue]=""></option>
+            @for (opMaxBed of bedCounts; track opMaxBed) {
+              <option [ngValue]="opMaxBed">
+                {{ getBedCountByKey(opMaxBed) }}
+              </option>
+            }
+          </select>
+        </div>
+        <div class="rowClass">
+          <div>
+            @if (preferenceForm.get('minBed')?.hasError('required') &&
+              preferenceForm.get('minBed')?.touched) {
+              <label class="error">
+                Min Bed is required.
+              </label>
+            }
+            @if (preferenceForm.get('maxBed')?.hasError('required') &&
+              preferenceForm.get('maxBed')?.touched) {
+              <label class="error">
+                Max Bed is required.
+              </label>
+            }
+            @if (preferenceForm.get('maxBed')?.hasError('bedError')
+              && preferenceForm.get('maxBed')?.touched) {
+              <label class="error">
+                &nbsp;&nbsp; Min Bed can't be greater than Max Bed.
+              </label>
+            }
+          </div>
+        </div>
+        <div class="rowClass">
+          <label class="labelClass">Min Bath:</label>
+          <select id="minBath" formControlName="minBath">
+            <option [ngValue]=""></option>
+            @for (opMinBath of bathCounts; track opMinBath) {
+              <option [ngValue]="opMinBath">
+                {{ getBathCountByKey(opMinBath) }}
+              </option>
+            }
+          </select>
+        </div>
+        <div class="rowClass">
+          <div>
+            @if (preferenceForm.get('minBath')?.hasError('required') &&
+              preferenceForm.get('minBath')?.touched) {
+              <label class="error">
+                Min Bath is required.
+              </label>
+            }
+          </div>
+        </div>
+        <div class="rowClass">
+          <label class="labelClass" for="minSquareFeet">Min Square Feet:</label>
+          <input id="minSquareFeet" type="text" formControlName="minSquareFeet">
+          <label class="labelClass" for="maxSquareFeet">Max Square Feet:</label>
+          <input id="maxSquareFeet" type="text" formControlName="maxSquareFeet">
+        </div>
+        <div class="rowClass">
+          @if (preferenceForm.get('minSquareFeet')?.hasError('required')
+            && preferenceForm.get('minSquareFeet')?.touched) {
+            <label class="error">
+              Min Square Feet is required.
+            </label>
+          }
+          @if (preferenceForm.get('maxSquareFeet')?.hasError('required')
+            && preferenceForm.get('maxSquareFeet')?.touched) {
+            <div class="error">
+              Max Square Feet is required.
+            </div>
+          }
+          @if (preferenceForm.get('maxSquareFeet')?.hasError('squareFeetError')
+            && preferenceForm.get('maxSquareFeet')?.touched) {
+            <label class="error">
+              &nbsp;&nbsp; Min Squrare Feet can't be greater than Max Square Feet.
+            </label>
+          }
+        </div>
+        <div>
+        </div>
+        <div class="buttonRow">
+          <button type="submit" (click)="savePreference()">Save</button>
+          <button type="button" (click)="cancelEdit()">Cancel</button>
+        </div>
+      </form>
+    }
+  </div>
