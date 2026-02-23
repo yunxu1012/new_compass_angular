@@ -10,6 +10,8 @@ import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/
 import { MenuComponent } from './component/menu/menu.component';
 import { ProfileComponent } from './component/profile/profile.component';
 import { PreferenceComponent } from './component/preference/preference.component';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -19,9 +21,14 @@ import { PreferenceComponent } from './component/preference/preference.component
         ProfileComponent,
         PreferenceComponent,
     ],
-    bootstrap: [AppComponent], imports: [BrowserModule,
+    bootstrap: [AppComponent], 
+    imports: [BrowserModule,
         AppRoutingModule,
-        ReactiveFormsModule], providers: [
+        ReactiveFormsModule,
+        FormsModule,
+        MultiSelectModule,
+        NgSelectModule], 
+        providers: [
         provideClientHydration(),
         provideHttpClient(withInterceptorsFromDi())
     ] })

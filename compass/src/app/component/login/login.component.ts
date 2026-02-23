@@ -39,7 +39,7 @@ export class LoginComponent {
     console.log("email: "+this.email);
     this.login();
   }
-  authUrl =  'http://localhost:8080/api/customers/authenticate';
+  authUrl =  'http://localhost:8080/api/auth/login';
 
   login(): void {
     const data = {

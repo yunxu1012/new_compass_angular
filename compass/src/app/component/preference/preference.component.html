@@ -182,6 +182,33 @@
         </div>
         <div>
         </div>
+        <p>
+          Your Preferred Cities are: {{selectedCityNames | json}}
+         </p>
+        <div>
+          <p>
+            Please select up to 10 preferred cities
+           </p>
+       
+           <ng-select [items]="cities" #selectedItem
+           class="my-custom-select" 
+           bindLabel="name"
+           [searchable]="true"
+           (change)="selected($event)"
+           [multiple]="true"
+           formControlName="selectedCities">
+           <ng-template ng-multi-label-tmp>
+             <span style="display:block" class="ng-placeholder"></span>
+           </ng-template>
+         
+   </ng-select>
+           
+   
+   
+
+        </div>
+
+      
         <div class="buttonRow">
           <button type="submit" (click)="savePreference()">Save</button>
           <button type="button" (click)="cancelEdit()">Cancel</button>

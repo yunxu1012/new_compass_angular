@@ -9,6 +9,9 @@ import { BathCount } from '../../enum/bath-count';
 import { Router } from '@angular/router';
 import { Customer } from '../../model/customer.model';
 import { CustomerPreference } from '../../model/customer-preference.model';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { City } from '../../model/city.model';
+
 @Component({
     selector: 'app-preference',
     templateUrl: './preference.component.html',
@@ -23,11 +26,18 @@ export class PreferenceComponent {
   bedCounts = Object.keys(BedCount);
   bathCounts = Object.keys(BathCount);
   hasPreference: boolean = false;
+  cities:City[] = [];
+  selectedArr: any;
+  selectedCityNames: string[] =[];
+  selectedCityIds:string = "";
 
+  
   constructor(private http: HttpClient, private router: Router) {
 
   }
+  
   ngOnInit(): void {
+
     this.preferenceForm = new FormGroup({
       homeType: new FormControl('', Validators.required),
       minPrice: new FormControl('', Validators.required),
@@ -37,9 +47,11 @@ export class PreferenceComponent {
       minBed: new FormControl('', Validators.required),
       maxBed: new FormControl('', [Validators.required, this.validateBed]),
       minBath: new FormControl('', Validators.required),
+      selectedCities:new FormControl(''),
     });
     //this.preferenceForm.disable();
     this.loadCustomerPreference();
+    this.loadCities();
   }
 
   
@@ -122,6 +134,38 @@ export class PreferenceComponent {
     return this.http.get<CustomerPreference>(url);
   }
 
+  citiesUrl = 'http://localhost:8080/api/cities';
+  loadCities() {
+    console.log("load cities here ");
+    this.getCities(this.citiesUrl).subscribe({
+      next: (data) => {
+        this.cities = data;
+      },
+      error: (e) => {
+        console.error(e);
+        console.log("cities not fouund");
+      }
+    });
+  }
+
+  getCities(url: string): Observable<City[]> {
+    console.log("get cities");
+    return this.http.get<City[]>(url);
+  }
+
+  public selected(value:any):void {
+    console.log('Select here:');
+    this.selectedArr = value;
+   this.selectedCityNames = [];
+    this.selectedCityIds = "";
+    for (const city of this.selectedArr) {
+      console.log('city name:'+city.name);
+      this.selectedCityNames.push(city.name);
+      this.selectedCityIds += city.cityId+",";
+    } 
+  }
+
+
   toggleEditMode(): void {
     this.isEditMode = !this.isEditMode;
     if (this.isEditMode) {
@@ -133,6 +177,7 @@ export class PreferenceComponent {
       this.preferenceForm.controls['maxPrice'].setValue(this.customerPreference?.maxPrice);
       this.preferenceForm.controls['minSquareFeet'].setValue(this.customerPreference?.minSquareFeet);
       this.preferenceForm.controls['maxSquareFeet'].setValue(this.customerPreference?.maxSquareFeet);
+      this.preferenceForm.controls['selectedCities'].setValue(this.customerPreference?.cities);
     } else {
       //this.preferenceForm.disable(); // Disable controls in view mode
     }
@@ -185,6 +230,7 @@ export class PreferenceComponent {
       maxPrice: this.preferenceForm.get('maxPrice')?.value,
       minSquareFeet: this.preferenceForm.get('minSquareFeet')?.value,
       maxSquareFeet: this.preferenceForm.get('maxSquareFeet')?.value,
+      cities: this.selectedArr,
     };
     if (!this.hasPreference) {
       this.createPreference(url, data).subscribe({
