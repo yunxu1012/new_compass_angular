@@ -6,21 +6,21 @@
       box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
       border-radius: 8px;
       min-height: 20px;
-      width: 100px;
+      width: 200px;
     }
 
 
     .ng-placeholder {
       color: #6c757d;
       font-style: italic;
-      width: 100px;
+      width: 200px;
     }
 
 
     .ng-value-label {
       font-weight: bold;
       color: #333;
-      width: 100px;
+      width: 200px;
     }
 
 
@@ -28,13 +28,14 @@
       border: 1px solid #ced4da;
       border-radius: 4px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      width: 100px;
+      width: 200px;
     }
 
     .ng-option {
       padding: 8px 12px;
+      background-color: white;
       &:hover {
-        background-color: #e9ecef;
+        background-color: yellow;
       }
       &.ng-option-selected {
         background-color: #007bff;

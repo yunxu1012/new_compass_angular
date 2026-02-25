@@ -12,4 +12,5 @@ export class CustomerPreference {
     minPrice?:string;
     maxPrice?:string;
     cities?:City[];
+    hometypes?:string[];
 }

@@ -7,39 +7,34 @@ import { HomeType } from '../../enum/home-type';
 import { BedCount } from '../../enum/bed-count';
 import { BathCount } from '../../enum/bath-count';
 import { Router } from '@angular/router';
-import { Customer } from '../../model/customer.model';
 import { CustomerPreference } from '../../model/customer-preference.model';
-import { MultiSelectModule } from 'primeng/multiselect';
 import { City } from '../../model/city.model';
 
 @Component({
-    selector: 'app-preference',
-    templateUrl: './preference.component.html',
-    styleUrl: './preference.component.css',
-    standalone: false
+  selector: 'app-preference',
+  templateUrl: './preference.component.html',
+  styleUrl: './preference.component.css',
+  standalone: false
 })
 export class PreferenceComponent {
   isEditMode: boolean = false;
   preferenceForm!: FormGroup;
   customerPreference?: CustomerPreference;
-  homeTypes = Object.keys(HomeType);
+  hometypes = ["House", "Multi Family", "Townhouse", "Condo", "Mobile", "Co-op", "Land", "Other"];
   bedCounts = Object.keys(BedCount);
   bathCounts = Object.keys(BathCount);
   hasPreference: boolean = false;
-  cities:City[] = [];
-  selectedArr: any;
-  selectedCityNames: string[] =[];
-  selectedCityIds:string = "";
+  cities: City[] = [];
+  selectedCityNames: string[] = [];
 
-  
   constructor(private http: HttpClient, private router: Router) {
 
   }
-  
+
   ngOnInit(): void {
 
     this.preferenceForm = new FormGroup({
-      homeType: new FormControl('', Validators.required),
+      selectedHometypes: new FormControl('', Validators.required),
       minPrice: new FormControl('', Validators.required),
       maxPrice: new FormControl('', [Validators.required, this.validatePrice]),
       minSquareFeet: new FormControl('', Validators.required),
@@ -47,14 +42,14 @@ export class PreferenceComponent {
       minBed: new FormControl('', Validators.required),
       maxBed: new FormControl('', [Validators.required, this.validateBed]),
       minBath: new FormControl('', Validators.required),
-      selectedCities:new FormControl(''),
+      selectedCities: new FormControl(''),
     });
     //this.preferenceForm.disable();
     this.loadCustomerPreference();
     this.loadCities();
   }
 
-  
+
 
   private validatePrice(control: AbstractControl): ValidationErrors | null {
     let minPrice = control.parent?.get('minPrice');
@@ -90,9 +85,7 @@ export class PreferenceComponent {
   }
 
   getBedByKey(keyStr: string): string {
-    console.log("not undefined002");
     for (const [key, value] of Object.entries(BedCount)) {
-      console.log("not undefined003");
       if (key === keyStr) {
         return value
       }
@@ -114,18 +107,16 @@ export class PreferenceComponent {
 
   profileUrl = 'http://localhost:8080/api/customersPreferences/';
   loadCustomerPreference() {
-    console.log("start here ");
     var email = localStorage.getItem('email');
     var url = this.profileUrl + email;
     this.getPreference(url).subscribe({
       next: (data) => {
         this.customerPreference = data;
         this.hasPreference = true;
-        console.log("custPre: " + this.customerPreference?.minPrice);
+        this.displayCustomerCity();
       },
       error: (e) => {
         console.error(e);
-        console.log("preference not fouund");
       }
     });
   }
@@ -136,7 +127,6 @@ export class PreferenceComponent {
 
   citiesUrl = 'http://localhost:8080/api/cities';
   loadCities() {
-    console.log("load cities here ");
     this.getCities(this.citiesUrl).subscribe({
       next: (data) => {
         this.cities = data;
@@ -149,27 +139,21 @@ export class PreferenceComponent {
   }
 
   getCities(url: string): Observable<City[]> {
-    console.log("get cities");
     return this.http.get<City[]>(url);
   }
 
-  public selected(value:any):void {
-    console.log('Select here:');
-    this.selectedArr = value;
-   this.selectedCityNames = [];
-    this.selectedCityIds = "";
-    for (const city of this.selectedArr) {
-      console.log('city name:'+city.name);
+  public selected(value: any): void {
+    this.selectedCityNames = [];
+    for (const city of value) {
       this.selectedCityNames.push(city.name);
-      this.selectedCityIds += city.cityId+",";
-    } 
+    }
   }
 
 
   toggleEditMode(): void {
     this.isEditMode = !this.isEditMode;
     if (this.isEditMode) {
-      this.preferenceForm.controls['homeType'].setValue(this.customerPreference?.homeType);
+      this.preferenceForm.controls['selectedHometypes'].setValue(this.customerPreference?.hometypes);
       this.preferenceForm.controls['minBed'].setValue(this.customerPreference?.minBed);
       this.preferenceForm.controls['maxBed'].setValue(this.customerPreference?.maxBed);
       this.preferenceForm.controls['minBath'].setValue(this.customerPreference?.minBath);
@@ -178,18 +162,21 @@ export class PreferenceComponent {
       this.preferenceForm.controls['minSquareFeet'].setValue(this.customerPreference?.minSquareFeet);
       this.preferenceForm.controls['maxSquareFeet'].setValue(this.customerPreference?.maxSquareFeet);
       this.preferenceForm.controls['selectedCities'].setValue(this.customerPreference?.cities);
+      this.displayCustomerCity();
     } else {
       //this.preferenceForm.disable(); // Disable controls in view mode
     }
   }
 
-  getHomeTypeByKey(keyStr: string | undefined): string | undefined {
-    for (const [key, value] of Object.entries(HomeType)) {
-      if (key === keyStr) {
-        return value
+  displayCustomerCity(){
+    if (this.customerPreference?.cities) {
+      this.selectedCityNames = [];
+      for (const city of this.customerPreference?.cities) {
+        if (city.name) {
+          this.selectedCityNames.push(city.name);
+        }
       }
     }
-    return undefined;
   }
 
   getBedCountByKey(keyStr: string | undefined): string | undefined {
@@ -219,7 +206,6 @@ export class PreferenceComponent {
       return; // Prevent submission if form is invalid
     }
     var email = localStorage.getItem('email');
-    console.log("save: ");
     var url = "http://localhost:8080/api/customersPreferences/" + email;
     const data = {
       homeType: this.preferenceForm.get('homeType')?.value,
@@ -230,7 +216,9 @@ export class PreferenceComponent {
       maxPrice: this.preferenceForm.get('maxPrice')?.value,
       minSquareFeet: this.preferenceForm.get('minSquareFeet')?.value,
       maxSquareFeet: this.preferenceForm.get('maxSquareFeet')?.value,
-      cities: this.selectedArr,
+      //cities: this.selectedArr,
+      cities: this.preferenceForm.get('selectedCities')?.value,
+      hometypes:this.preferenceForm.get('selectedHometypes')?.value,
     };
     if (!this.hasPreference) {
       this.createPreference(url, data).subscribe({

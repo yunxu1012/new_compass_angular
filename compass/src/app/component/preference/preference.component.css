@@ -10,10 +10,22 @@
     padding-right: 10px;
   }
 
+  .titleRow {
+    width: 600;
+    text-align: center;
+  }
+
   #minBed, #maxBed, #minBath, #homeType, #minSquareFeet,
   #maxSquareFeet, #minPrice, #maxPrice {
+    display: inline-block;
     margin-right:10px;
     width:100px;
+  }
+
+   #homeType {
+    display: inline-block;
+    margin-right:10px;
+    width:200px;
   }
 
   .rowClass{
