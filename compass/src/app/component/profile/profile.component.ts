@@ -50,11 +50,7 @@ export class ProfileComponent {
   saveEdit(): void {
     this.toggleEditMode(); // Exit edit mode
   }
-  private validateSamePassword(control: AbstractControl): ValidationErrors | null {
-    const password = control.parent?.get('password');
-    const confirmPassword = control.parent?.get('confirmPassword');
-    return password?.value == confirmPassword?.value ? null : { 'notSame': true };
-  }
+  
   profileUrl = 'http://localhost:8080/api/customers/';
   loadCustomerProfile() {
     var email = localStorage.getItem('email');
@@ -74,14 +70,13 @@ export class ProfileComponent {
   }
 
   saveProfile() {
-    //var email = localStorage.getItem('email');
-    var url = "http://localhost:8080/api/customers";
+    var email = localStorage.getItem('email');
+    var url = "http://localhost:8080/api/customers"+email;
     const data = {
       firstName: this.profileForm.get('firstName')?.value,
       lastName: this.profileForm.get('lastName')?.value,
       email: this.profileForm.get('email')?.value,
       phoneNumber: this.profileForm.get('phoneNumber')?.value,
-      password: this.profileForm.get('password')?.value
     };
     this.updateProfile(url, data).subscribe({
       next: (data) => {

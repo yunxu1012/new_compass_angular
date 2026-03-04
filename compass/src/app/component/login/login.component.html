@@ -1,8 +1,9 @@
 <div class="box_no_border">
-  <a class="link" routerLink="/register">Register</a>
+  <a class="linkLabelLeft" routerLink="/register">Register</a>
+  <a class="linkLabelRight" routerLink="/admin_login">Admin Login</a>
 </div>
 <div class="box">
-  <h2>Login</h2>
+  <h2>Customer Login</h2>
   <div class="row">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <label class="textLabel" for="email">Email: </label>

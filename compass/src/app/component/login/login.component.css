@@ -5,6 +5,19 @@
   border:1px solid black;
   }
 
+  .linkLabelLeft {
+    display: inline-block;
+    width: 150px;
+    text-align: left;
+    padding-right: 10px;
+  }
+
+  .linkLabelRight {
+    display: inline-block;
+    width: 150px;
+    text-align: right;
+    padding-right: 10px;
+  }
   .box_no_border {
     margin-left: 60px;
     margin-top: 60px;
