@@ -1,0 +1,26 @@
+.box {
+    margin: 30px;
+    padding: 30px;
+    width: 600px;
+  }
+.nameTitle{
+    display: inline-block;
+    width: 100px;
+    text-align: left;
+}
+.emailTitle{
+    display: inline-block;
+    width: 200px;
+    text-align: left;
+}
+.nameText{
+    display: inline-block;
+    width: 100px;
+    text-align: left;
+}
+.emailText{
+    display: inline-block;
+    width: 200px;
+    text-align: left;
+}
+

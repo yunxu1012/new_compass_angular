@@ -1,0 +1,66 @@
+<div class="box">
+    <div class="profile-container">
+      <div>
+        <label class="titleRow">
+          <h2>User Profile</h2>
+        </label>
+      </div>
+        <div>
+          <div class="row">
+            <label class="textLabel">First Name:</label>
+           {{ customer?.firstName }} 
+          </div>
+          <div class="row">
+            <label class="textLabel">Last Name: </label>
+            {{ customer?.lastName }}
+          </div>
+          <div class="row">
+            <label class="textLabel">Email: </label>
+            {{ customer?.email }}
+          </div>
+          <div class="row">
+            <label class="textLabel">Phone Number:</label>
+            {{ customer?.phoneNumber }}
+          </div>
+        </div>
+            <div class="profile-container">
+              <div>
+                <label class="titleRow">
+                  <h2>User Preference</h2>
+                </label>
+              </div>
+              <div>
+                <div class="rowClass">
+                  <label class="textLabel">Home Type:</label>
+                  {{customer?.preference?.hometypes|json}}
+                </div>
+                <div class="rowClass">
+                  <label class="textLabel">Min Price:</label>
+                  <label class="valueLabel">{{ customerPreference?.minPrice }} </label>
+                  <label class="textLabel">Max Price:</label>
+                  <label class="valueLabel">{{ customer?.preference?.maxPrice }}</label>
+                </div>
+                <div class="rowClass">
+                  <label class="textLabel">Min Bed:</label>
+                  <label class="valueLabel">{{ getBedCountByKey(customer?.preference?.minBed) }} </label>
+                  <label class="textLabel">Max Bed:</label>
+                  <label class="valueLabel">{{ getBedCountByKey(customer?.preference?.maxBed) }}</label>
+                </div>
+                <div class="rowClass">
+                  <label class="textLabel">Min Bath:</label>
+                  <label class="valueLabel">{{ getBathCountByKey(customer?.preference?.minBath) }}</label>
+                </div>
+                <div class="rowClass">
+                  <label class="textLabel">Min Square Feet:</label>
+                  <label class="valueLabel">{{ customer?.preference?.minSquareFeet }}</label>
+                  <label class="textLabel">Max Square Feet:</label>
+                  <label class="valueLabel">{{ customer?.preference?.maxSquareFeet }}</label>
+                </div>
+              </div>
+              <p>
+                Your Preferred Cities are: {{selectedCityNames | json}}
+              </p>
+              <div><a routerLink="/customer-list">Back</a></div>
+             
+            </div>
+  </div>
