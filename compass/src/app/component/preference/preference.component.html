@@ -20,13 +20,13 @@
       </div>
       <div class="rowClass">
         <label class="textLabel">Min Bed:</label>
-        <label class="valueLabel">{{ getBedCountByKey(customerPreference?.minBed) }} </label>
+        <label class="valueLabel">{{ compassService.getBedCountByKey(customerPreference?.minBed) }} </label>
         <label class="textLabel">Max Bed:</label>
-        <label class="valueLabel">{{ getBedCountByKey(customerPreference?.maxBed) }}</label>
+        <label class="valueLabel">{{ compassService.getBedCountByKey(customerPreference?.maxBed) }}</label>
       </div>
       <div class="rowClass">
         <label class="textLabel">Min Bath:</label>
-        <label class="valueLabel">{{ getBathCountByKey(customerPreference?.minBath) }}</label>
+        <label class="valueLabel">{{ compassService.getBathCountByKey(customerPreference?.minBath) }}</label>
       </div>
       <div class="rowClass">
         <label class="textLabel">Min Square Feet:</label>
@@ -100,7 +100,7 @@
           <option [ngValue]=""></option>
           @for (opMinBed of bedCounts; track opMinBed) {
           <option [ngValue]="opMinBed">
-            {{ getBedCountByKey(opMinBed) }}
+            {{ compassService.getBedCountByKey(opMinBed) }}
           </option>
           }
         </select>
@@ -109,7 +109,7 @@
           <option [ngValue]=""></option>
           @for (opMaxBed of bedCounts; track opMaxBed) {
           <option [ngValue]="opMaxBed">
-            {{ getBedCountByKey(opMaxBed) }}
+            {{ compassService.getBedCountByKey(opMaxBed) }}
           </option>
           }
         </select>
@@ -142,7 +142,7 @@
           <option [ngValue]=""></option>
           @for (opMinBath of bathCounts; track opMinBath) {
           <option [ngValue]="opMinBath">
-            {{ getBathCountByKey(opMinBath) }}
+            {{ compassService.getBathCountByKey(opMinBath) }}
           </option>
           }
         </select>
@@ -193,16 +193,13 @@
           Please select up to 10 preferred cities
         </p>
 
-        <ng-select [items]="cities" #selectedItem class="my-custom-select" bindLabel="name" [searchable]="true"
+        <ng-select [items]="compassService.cities" #selectedItem class="my-custom-select" bindLabel="name" [searchable]="true"
           (change)="selected($event)" [multiple]="true" formControlName="selectedCities">
           <ng-template ng-multi-label-tmp>
             <span style="display:block" class="ng-placeholder"></span>
           </ng-template>
 
         </ng-select>
-
-
-
 
       </div>
 

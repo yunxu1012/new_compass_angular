@@ -3,12 +3,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormGroup, FormsModule, AbstractControl, ValidationErrors, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
-import { HomeType } from '../../enum/home-type';
 import { BedCount } from '../../enum/bed-count';
 import { BathCount } from '../../enum/bath-count';
 import { Router } from '@angular/router';
 import { CustomerPreference } from '../../model/customer-preference.model';
 import { City } from '../../model/city.model';
+import { CompassService } from '../../service/compass.service';
 
 @Component({
   selector: 'app-preference',
@@ -24,10 +24,9 @@ export class PreferenceComponent {
   bedCounts = Object.keys(BedCount);
   bathCounts = Object.keys(BathCount);
   hasPreference: boolean = false;
-  cities: City[] = [];
   selectedCityNames: string[] = [];
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, public compassService: CompassService) {
 
   }
 
@@ -46,7 +45,7 @@ export class PreferenceComponent {
     });
     //this.preferenceForm.disable();
     this.loadCustomerPreference();
-    this.loadCities();
+    this.compassService.loadCities();
   }
 
 
@@ -84,16 +83,6 @@ export class PreferenceComponent {
     return null;
   }
 
-  getBedByKey(keyStr: string): string {
-    for (const [key, value] of Object.entries(BedCount)) {
-      if (key === keyStr) {
-        return value
-      }
-    }
-    return "";
-  }
-
-
   private validateSquare(control: AbstractControl): ValidationErrors | null {
     let minSquareFeet = control.parent?.get('minSquareFeet');
     let maxSquareFeet = control.parent?.get('maxSquareFeet');
@@ -125,22 +114,6 @@ export class PreferenceComponent {
     return this.http.get<CustomerPreference>(url);
   }
 
-  citiesUrl = 'http://localhost:8080/api/cities';
-  loadCities() {
-    this.getCities(this.citiesUrl).subscribe({
-      next: (data) => {
-        this.cities = data;
-      },
-      error: (e) => {
-        console.error(e);
-        console.log("cities not fouund");
-      }
-    });
-  }
-
-  getCities(url: string): Observable<City[]> {
-    return this.http.get<City[]>(url);
-  }
 
   public selected(value: any): void {
     this.selectedCityNames = [];
@@ -179,24 +152,6 @@ export class PreferenceComponent {
     }
   }
 
-  getBedCountByKey(keyStr: string | undefined): string | undefined {
-    for (const [key, value] of Object.entries(BedCount)) {
-      if (key === keyStr) {
-        return value
-      }
-    }
-    return undefined;
-  }
-
-  getBathCountByKey(keyStr: string | undefined): string | undefined {
-    for (const [key, value] of Object.entries(BathCount)) {
-      if (key === keyStr) {
-        return value
-      }
-    }
-    return undefined;
-  }
-
   cancelEdit(): void {
     this.toggleEditMode(); // Exit edit mode
   }
@@ -208,7 +163,6 @@ export class PreferenceComponent {
     var email = localStorage.getItem('email');
     var url = "http://localhost:8080/api/customersPreferences/" + email;
     const data = {
-      homeType: this.preferenceForm.get('homeType')?.value,
       minBed: this.preferenceForm.get('minBed')?.value,
       maxBed: this.preferenceForm.get('maxBed')?.value,
       minBath: this.preferenceForm.get('minBath')?.value,
@@ -216,7 +170,6 @@ export class PreferenceComponent {
       maxPrice: this.preferenceForm.get('maxPrice')?.value,
       minSquareFeet: this.preferenceForm.get('minSquareFeet')?.value,
       maxSquareFeet: this.preferenceForm.get('maxSquareFeet')?.value,
-      //cities: this.selectedArr,
       cities: this.preferenceForm.get('selectedCities')?.value,
       hometypes:this.preferenceForm.get('selectedHometypes')?.value,
     };

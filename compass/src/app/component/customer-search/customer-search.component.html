@@ -1,1 +1,87 @@
-<p>customer-search works!</p>
+<div class="box">
+    <app-admin-menu></app-admin-menu>
+    <div>
+        <form [formGroup]="searchForm">
+            <div class="rowClass">
+                <label class="labelClass">Home Type:</label>
+                <select id="homeType" formControlName="homeType">
+                    <option [ngValue]=""></option>
+                    @for (opHomeType of hometypes; track opHomeType) {
+                    <option [ngValue]="opHomeType">
+                        {{ opHomeType }}
+                    </option>
+                    }
+                </select>
+                @if (searchForm.get('homeType')?.hasError('required') &&
+                searchForm.get('homeType')?.touched) {
+                <label class="error">
+                    Home Type is required.
+                </label>
+                }
+            </div>
+            <div class="rowClass">
+                <label class="labelClass" for="price">Price:</label>
+                <input id="price" type="text" formControlName="price">
+                @if (searchForm.get('price')?.hasError('required') &&
+                searchForm.get('price')?.touched) {
+                <label class="error">
+                    Price is required.
+                </label>
+                }
+            </div>
+            <div class="rowClass">
+                <label class="labelClass">Bed Count:</label>
+                <select id="bedCount" formControlName="bedCount">
+                    <option [ngValue]=""></option>
+                    @for (opMinBed of bedCounts; track opMinBed) {
+                    <option [ngValue]="opMinBed">
+                        {{ compassService.getBedCountByKey(opMinBed) }}
+                    </option>
+                    }
+                </select>
+                @if (searchForm.get('bedCount')?.hasError('required') &&
+                searchForm.get('bedCount')?.touched) {
+                <label class="error">
+                    Bed Count is required.
+                </label>
+                }
+            </div>
+            <div class="rowClass">
+                <label class="labelClass">Bath Count:</label>
+                <select id="bathCount" formControlName="bathCount">
+                    <option [ngValue]=""></option>
+                    @for (opMinBath of bathCounts; track opMinBath) {
+                    <option [ngValue]="opMinBath">
+                        {{ compassService.getBathCountByKey(opMinBath) }}
+                    </option>
+                    }
+                </select>
+                @if (searchForm.get('bathCount')?.hasError('required') &&
+                searchForm.get('bathCount')?.touched) {
+                <label class="error">
+                    Bath Count is required.
+                </label>
+                }
+            </div>
+            <div class="rowClass">
+                <label class="labelClass" for="squareFeet">Square Feet:</label>
+                <input id="squareFeet" type="text" formControlName="squareFeet">
+                @if (searchForm.get('squareFeet')?.hasError('required')
+                && searchForm.get('squareFeet')?.touched) {
+                <label class="error">
+                    Square Feet is required.
+                </label>
+                }
+            </div>
+            <div class="rowClass">
+                <label class="labelClass" for="preferCity">Prefered City:</label>
+                <ng-select id="city" [items]="compassService.cities" #selectedItem class="my-custom-select"
+                    bindLabel="name" [searchable]="true" (change)="selected($event)" formControlName="city">
+                </ng-select>
+            </div>
+            <div class="buttonRow">
+                <a [routerLink]="['/customer-list']" (click)="search()">Search</a>
+            </div>
+        </form>
+    </div>
+</div>

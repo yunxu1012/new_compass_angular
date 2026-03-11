@@ -21,9 +21,14 @@ customerPreference?: CustomerPreference;
 selectedCityNames: string[] = [];
 bedCounts = Object.keys(BedCount);
 bathCounts = Object.keys(BathCount);
+search: boolean = false;
 
 ngOnInit(): void {
 let cEmail = this.route.snapshot.paramMap.get('email');
+let search = this.route.snapshot.paramMap.get('search');
+if(search!=null && search=="true"){
+  this.search = true;
+}
 console.log("email: "+cEmail);
 if(cEmail){
   this.email = cEmail;

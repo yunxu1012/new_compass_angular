@@ -1,5 +1,6 @@
 <div class="box_no_border">
-  <a class="link" routerLink="/login">Login</a>
+  <a class="linkLabelLeft" routerLink="/login">Customer Login</a>
+  <a class="linkLabelRight" routerLink="/admin_login">Admin Login</a>
 </div>
 <div class="box">
   <div class="title">
@@ -8,18 +9,24 @@
   <div class="row">
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div>
+        <div class="rowClass">
         <label class="textLabel" for="first-name">First Name: </label>
         <input id="first-name" type="text" formControlName="firstName" />
+        </div>
+        <div class="rowClass">
         @if (registerForm.get('firstName')?.hasError('required')
           && registerForm.get('firstName')?.touched) {
           <label class="error">
             &nbsp;&nbsp; First name is required.
           </label>
         }
+        </div>
       </div>
-      <div>
+      <div class="rowClass">
         <label class="textLabel" for="last-name">Last Name: </label>
         <input id="last-name" type="text" formControlName="lastName" />
+        </div>
+        <div class="rowClass">
         @if (registerForm.get('lastName')?.hasError('required')
           && registerForm.get('lastName')?.touched) {
           <label class="error">
@@ -27,9 +34,11 @@
           </label>
         }
       </div>
-      <div>
+      <div class="rowClass">
         <label class="textLabel" for="email">Email: </label>
         <input id="email" type="text" formControlName="email" />
+        </div>
+        <div class="rowClass">
         @if (registerForm.get('email')?.hasError('required')
           && registerForm.get('email')?.touched) {
           <label class="error">
@@ -43,9 +52,11 @@
           </label>
         }
       </div>
-      <div>
+      <div class="rowClass">
         <label class="textLabel" for="phone-number">Phone Number: </label>
         <input id="phone-number" type="text" formControlName="phoneNumber" />
+        </div>
+        <div class="rowClass">
         @if (registerForm.get('phoneNumber')?.hasError('required')
           && registerForm.get('phoneNumber')?.touched) {
           <label class="error">
@@ -53,9 +64,11 @@
           </label>
         }
       </div>
-      <div>
+      <div class="rowClass">
         <label class="textLabel" for="password">Password: </label>
         <input id="password" type="text" formControlName="password" />
+        </div>
+        <div class="rowClass">
         @if (registerForm.get('password')?.hasError('required')
           && registerForm.get('password')?.touched) {
           <label class="error">
@@ -63,9 +76,11 @@
           </label>
         }
       </div>
-      <div>
+      <div class="rowClass">
         <label class="textLabel" for="confirm-password">Confirm Password: </label>
         <input id="confirm-password" type="text" formControlName="confirmPassword" />
+        </div>
+        <div class="rowClass">
         @if (registerForm.get('confirmPassword')?.hasError('required')
           && registerForm.get('confirmPassword')?.touched) {
           <label class="error">
