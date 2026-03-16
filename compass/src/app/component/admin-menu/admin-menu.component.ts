@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { CompassService } from '../../service/compass.service';
 @Component({
   selector: 'app-admin-menu',
   templateUrl: './admin-menu.component.html',
@@ -7,5 +7,8 @@ import { Component } from '@angular/core';
   standalone: false
 })
 export class AdminMenuComponent {
+  constructor(public compassService: CompassService) {
+
+  }
 
 }

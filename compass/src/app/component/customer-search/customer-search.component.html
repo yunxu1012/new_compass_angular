@@ -1,6 +1,6 @@
+<app-admin-menu></app-admin-menu>
 <div class="box">
-    <app-admin-menu></app-admin-menu>
-    <div>
+    <div class="rowClass">
         <form [formGroup]="searchForm">
             <div class="rowClass">
                 <label class="labelClass">Home Type:</label>
@@ -76,7 +76,7 @@
             <div class="rowClass">
                 <label class="labelClass" for="preferCity">Prefered City:</label>
                 <ng-select id="city" [items]="compassService.cities" #selectedItem class="my-custom-select"
-                    bindLabel="name" [searchable]="true" (change)="selected($event)" formControlName="city">
+                  bindLabel="cityId"  bindLabel="name" [searchable]="true" (change)="selected($event)" formControlName="city">
                 </ng-select>
             </div>
             <div class="buttonRow">

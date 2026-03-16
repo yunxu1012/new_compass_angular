@@ -15,28 +15,13 @@ export class CustomerListComponent {
   }
 
   ngOnInit(): void {
-    console.log("search: "+this.compassService.search);
-    if(!this.compassService.search){
-    this.listRecord();
-    }
+   // this.compassService.clearFilter();
+   if(!this.compassService.search){
+    this.compassService.listCustomers();
+   }
+    
   }
 
-  listRecord(): void {
-    console.log("list customer");
-    var url = "http://localhost:8080/api/customers";
-    this.getRecords(url).subscribe({
-      next: (data) => {
-        this.compassService.customers = data;
-      },
-      error: (e) => console.error(e)
-    });
-  }
-
-  getRecords(baseUrl: string): Observable<Customer[]> {
-    return this.http.get<Customer[]>(baseUrl);
-  }
-  clearFilter(){
-    this.compassService.search = false;
-  }
-
+  
+  
 }

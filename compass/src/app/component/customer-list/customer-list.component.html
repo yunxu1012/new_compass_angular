@@ -1,19 +1,19 @@
+<app-admin-menu></app-admin-menu>
 <div class="box">
-    <app-admin-menu></app-admin-menu>
     <div class="rowClass">
-    <label class="nameTitle">First Name</label>
-    <label class="nameTitle">Last Name</label>
-    <label class="emailTitle">email</label>
-    <label class="nameTitle">Details</label>
-    @for (customer of compassService.customers; track customer) {
+        <label class="nameTitle">First Name</label>
+        <label class="nameTitle">Last Name</label>
+        <label class="emailTitle">email</label>
+        <label class="nameTitle">Details</label>
+        @for (customer of compassService.customers; track customer) {
         <p>
-        <label class="nameText">{{customer.firstName}}</label>
-        <label class="nameText">{{customer.lastName}}</label>
-        <label class="emailText">{{customer.email}}</label>
-        <label class="nameText">
-            <a [routerLink]="['/customer-detail', customer.email]">Detail</a>
+            <label class="nameText">{{customer.firstName}}</label>
+            <label class="nameText">{{customer.lastName}}</label>
+            <label class="emailText">{{customer.email}}</label>
+            <label class="nameText">
+                <a [routerLink]="['/customer-detail', customer.email]">Detail</a>
             </label>
         </p>
-    }
+        }
     </div>
-    </div>
+</div>

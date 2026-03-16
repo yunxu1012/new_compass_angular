@@ -33,7 +33,7 @@ export class CustomerSearchComponent {
       squareFeet: new FormControl('', Validators.required),
       bedCount: new FormControl('', Validators.required),
       bathCount: new FormControl('', Validators.required),
-      city: new FormControl(''),
+      city: new FormControl('', Validators.required),
     });
     this.compassService.loadCities();
   }
@@ -46,28 +46,26 @@ export class CustomerSearchComponent {
   }
 
   search(): void {
-    console.log("list customer");
+    this.compassService.search = true;
     var url = "http://localhost:8080/api/admin/search";
     const data = {
-      //homeType: this.searchForm.get('homeType')?.value,
+      homeType: this.searchForm.get('homeType')?.value,
       bedCount: this.searchForm.get('bedCount')?.value,
       bathCount: this.searchForm.get('bathCount')?.value,
       price: this.searchForm.get('price')?.value,
       squareFeet: this.searchForm.get('squareFeet')?.value,
-      //city: this.searchForm.get('city')?.value,
+      cityId: this.searchForm.get('city')?.value.cityId,
     };
-    console.log("data: "+data);
-    this.getRecords(url, data).subscribe({
+    this.getFilteredCustomers(url, data).subscribe({
       next: (data) => {
         this.compassService.customers = data;
-        this.compassService.search = true;
         console.log("search001: "+this.compassService.search);
       },
       error: (e) => console.error(e)
     });
   }
 
-  getRecords(url: string, data: any): Observable<Customer[]> {
+  getFilteredCustomers(url: string, data: any): Observable<Customer[]> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'

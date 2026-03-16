@@ -58,5 +58,24 @@ export class CompassService {
     return undefined;
   }
 
+  clearFilter(){
+    this.search = false;
+    this.listCustomers();
+  }
+
+  listCustomers(): void {
+    console.log("list customer");
+    var url = "http://localhost:8080/api/customers";
+    this.getCustomers(url).subscribe({
+      next: (data) => {
+        this.customers = data;
+      },
+      error: (e) => console.error(e)
+    });
+  }
+
+  getCustomers(baseUrl: string): Observable<Customer[]> {
+    return this.http.get<Customer[]>(baseUrl);
+  }
 
 }
