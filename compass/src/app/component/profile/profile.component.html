@@ -8,74 +8,81 @@
     </div>
 
     @if (!isEditMode) {
-      <div>
-        <div class="row">
-          <label class="textLabel">First Name:</label>
-          {{ customer?.firstName }}
-        </div>
-        <div class="row">
-          <label class="textLabel">Last Name: </label>
-          {{ customer?.lastName }}
-        </div>
-        <div class="row">
-          <label class="textLabel">Email: </label>
-          {{ customer?.email }}
-        </div>
-        <div class="row">
-          <label class="textLabel">Phone Number:</label>
-          {{ customer?.phoneNumber }}
-        </div>
-        <div class="buttonRow">
-          <button (click)="toggleEditMode()">Edit</button>
-        </div>
+    <div>
+      <div class="row">
+        <label class="textLabel">First Name:</label>
+        {{ customer?.firstName }}
       </div>
+      <div class="row">
+        <label class="textLabel">Last Name: </label>
+        {{ customer?.lastName }}
+      </div>
+      <div class="row">
+        <label class="textLabel">Email: </label>
+        {{ customer?.email }}
+      </div>
+      <div class="row">
+        <label class="textLabel">Phone Number:</label>
+        {{ customer?.phoneNumber }}
+      </div>
+      <div class="buttonRow">
+        <button (click)="toggleEditMode()">Edit</button>
+      </div>
+    </div>
     }
 
     @if (isEditMode) {
-      <form [formGroup]="profileForm">
-        <div class="row">
-          <label class="textLabel" for="firstName">First Name:</label>
-          <input id="firstName" type="text" formControlName="firstName">
-          @if (profileForm.get('firstName')?.invalid && profileForm.get('firstName')?.touched) {
-            <div
-              class="error-message">
-              First Name is required.
-            </div>
-          }
-        </div>
-        <div class="row">
-          <label class="textLabel" for="lastName">Last Name:</label>
-          <input id="lastName" type="text" formControlName="lastName">
-          @if (profileForm.get('lastName')?.invalid && profileForm.get('lastName')?.touched) {
-            <div class="error-message">
-              Last Name is required.
-            </div>
-          }
-        </div>
-        <div class="row">
-          <label class="textLabel" for="email">Email:</label>
-          <input id="email" type="email" formControlName="email">
-          @if (profileForm.get('email')?.invalid && profileForm.get('email')?.touched) {
-            <div class="error-message">
-              Valid email is required.
-            </div>
-          }
-        </div>
-        <div class="row">
-          <label class="textLabel" for="phoneNumber">Phone Number:</label>
-          <input id="phoneNumber" type="phoneNumber" formControlName="phoneNumber">
-          @if (profileForm.get('phoneNumber')?.invalid && profileForm.get('phoneNumber')?.touched) {
-            <div
-              class="error-message">
-              Valid phoneNumber is required.
-            </div>
-          }
-        </div>
-        <div class="buttonRow">
-          <button type="submit" [disabled]="profileForm.invalid" (click)="saveProfile()">Save</button>
-          <button type="button" (click)="cancelEdit()">Cancel</button>
-        </div>
-      </form>
+    <form [formGroup]="profileForm">
+      <div class="row">
+        <label class="textLabel" for="firstName">First Name:</label>
+        <input id="firstName" type="text" formControlName="firstName">
+        @if (profileForm.get('firstName')?.hasError('required') && profileForm.get('firstName')?.touched) {
+        <label class="error">
+          First Name is required.
+        </label>
+        }
+        @if (profileForm.get('firstName')?.hasError('maxlength')
+        && profileForm.get('firstName')?.touched) {
+        <label class="error">
+          &nbsp;&nbsp; Max length of first name is 20 characters.
+        </label>
+        }
+      </div>
+      <div class="row">
+        <label class="textLabel" for="lastName">Last Name:</label>
+        <input id="lastName" type="text" formControlName="lastName">
+        @if (profileForm.get('lastName')?.hasError('required')&& profileForm.get('lastName')?.touched) {
+        <label class="error">
+          Last Name is required.
+        </label>
+        }
+        @if (profileForm.get('lastName')?.hasError('maxlength')
+        && profileForm.get('lastName')?.touched) {
+        <label class="error">
+          &nbsp;&nbsp; Max length of last name is 20 characters.
+        </label>
+        }
+      </div>
+      <div class="row">
+        <label class="textLabel" for="phoneNumber">Phone Number:</label>
+        <input id="phoneNumber" type="phoneNumber" formControlName="phoneNumber">
+        @if (profileForm.get('phoneNumber')?.hasError('required') && profileForm.get('phoneNumber')?.touched) {
+        <label class="error">
+          Phone Number is required.
+        </label>
+        }
+        @if (profileForm.get('phoneNumber')?.hasError('pattern')
+        && profileForm.get('phoneNumber')?.touched) {
+        <label class="error">
+          &nbsp;&nbsp; Phone Number must be exactly 9 digits long.
+        </label>
+        }
+      </div>
+      <div class="buttonRow">
+        <button type="submit" [disabled]="profileForm.invalid" (click)="saveProfile()">Save</button>
+        <button type="button" (click)="cancelEdit()">Cancel</button>
+      </div>
+    </form>
     }
   </div>
 </div>

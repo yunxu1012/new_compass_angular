@@ -5,10 +5,10 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Customer } from '../../model/customer.model';
 @Component({
-    selector: 'app-profile',
-    templateUrl: './profile.component.html',
-    styleUrl: './profile.component.css',
-    standalone: false
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrl: './profile.component.css',
+  standalone: false
 })
 export class ProfileComponent {
   isEditMode: boolean = false;
@@ -19,14 +19,10 @@ export class ProfileComponent {
   }
   ngOnInit(): void {
     this.loadCustomerProfile();
-    console.log("Customer first name002: " + this.customer?.firstName);
-    ; this.profileForm = new FormGroup({
-      firstName: new FormControl(this.customer?.firstName, Validators.required),
-      lastName: new FormControl(this.customer?.lastName, Validators.required),
-      email: new FormControl(this.customer?.email, [Validators.required, Validators.email]),
-      phoneNumber: new FormControl(this.customer?.phoneNumber, Validators.required),
-      // password: new FormControl('',  Validators.required),
-      // confirmPassword: new FormControl('',  [Validators.required, this.validateSamePassword]),
+    this.profileForm = new FormGroup({
+      firstName: new FormControl(this.customer?.firstName, [Validators.required, Validators.maxLength(20)]),
+      lastName: new FormControl(this.customer?.lastName, [Validators.required, Validators.maxLength(20)]),
+      phoneNumber: new FormControl(this.customer?.phoneNumber, [Validators.required, Validators.pattern('^[0-9]{9}$')]),
     });
     this.profileForm.disable();
   }
@@ -35,7 +31,6 @@ export class ProfileComponent {
     if (this.isEditMode) {
       this.profileForm.controls['firstName'].setValue(this.customer?.firstName);
       this.profileForm.controls['lastName'].setValue(this.customer?.lastName);
-      this.profileForm.controls['email'].setValue(this.customer?.email);
       this.profileForm.controls['phoneNumber'].setValue(this.customer?.phoneNumber);
       this.profileForm.enable(); // Enable controls in edit mode
     } else {
@@ -50,7 +45,7 @@ export class ProfileComponent {
   saveEdit(): void {
     this.toggleEditMode(); // Exit edit mode
   }
-  
+
   profileUrl = 'http://localhost:8080/api/customers/';
   loadCustomerProfile() {
     var email = localStorage.getItem('email');
@@ -58,7 +53,6 @@ export class ProfileComponent {
     this.getProfile(url).subscribe({
       next: (data) => {
         this.customer = data;
-        console.log("Customer first name001: " + this.customer?.firstName);
       },
       error: (e) => console.error(e)
     });
@@ -71,11 +65,11 @@ export class ProfileComponent {
 
   saveProfile() {
     var email = localStorage.getItem('email');
-    var url = "http://localhost:8080/api/customers"+email;
+    var url = "http://localhost:8080/api/customers/" + email;
     const data = {
       firstName: this.profileForm.get('firstName')?.value,
       lastName: this.profileForm.get('lastName')?.value,
-      email: this.profileForm.get('email')?.value,
+      email: localStorage.getItem('email'),
       phoneNumber: this.profileForm.get('phoneNumber')?.value,
     };
     this.updateProfile(url, data).subscribe({

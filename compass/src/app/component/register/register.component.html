@@ -10,94 +10,94 @@
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div>
         <div class="rowClass">
-        <label class="textLabel" for="first-name">First Name: </label>
-        <input id="first-name" type="text" formControlName="firstName" />
+          <label class="textLabel" for="first-name">First Name: </label>
+          <input id="first-name" type="text" formControlName="firstName" />
         </div>
         <div class="rowClass">
-        @if (registerForm.get('firstName')?.hasError('required')
+          @if (registerForm.get('firstName')?.hasError('required')
           && registerForm.get('firstName')?.touched) {
           <label class="error">
             &nbsp;&nbsp; First name is required.
           </label>
-        }
-        @if (registerForm.get('firstName')?.hasError('maxlength')
-        && registerForm.get('firstName')?.touched) {
-        <label class="error">
-          &nbsp;&nbsp; Max length of first name is 20 characters.
-        </label>
-      }
+          }
+          @if (registerForm.get('firstName')?.hasError('maxlength')
+          && registerForm.get('firstName')?.touched) {
+          <label class="error">
+            &nbsp;&nbsp; Max length of first name is 20 characters.
+          </label>
+          }
         </div>
       </div>
       <div class="rowClass">
         <label class="textLabel" for="last-name">Last Name: </label>
         <input id="last-name" type="text" formControlName="lastName" />
-        </div>
-        <div class="rowClass">
+      </div>
+      <div class="rowClass">
         @if (registerForm.get('lastName')?.hasError('required')
-          && registerForm.get('lastName')?.touched) {
-          <label class="error">
-            &nbsp;&nbsp; Last name is required.
-          </label>
+        && registerForm.get('lastName')?.touched) {
+        <label class="error">
+          &nbsp;&nbsp; Last name is required.
+        </label>
         }
         @if (registerForm.get('lastName')?.hasError('maxlength')
         && registerForm.get('lastName')?.touched) {
         <label class="error">
           &nbsp;&nbsp; Max length of last name is 20 characters.
         </label>
-      }
+        }
       </div>
       <div class="rowClass">
         <label class="textLabel" for="email">Email: </label>
         <input id="email" type="text" formControlName="email" />
-        </div>
-        <div class="rowClass">
+      </div>
+      <div class="rowClass">
         @if (registerForm.get('email')?.hasError('required')
-          && registerForm.get('email')?.touched) {
-          <label class="error">
-            &nbsp;&nbsp; Email is required.
-          </label>
+        && registerForm.get('email')?.touched) {
+        <label class="error">
+          &nbsp;&nbsp; Email is required.
+        </label>
         }
         @if (registerForm.get('email')?.hasError('email')
-          && registerForm.get('email')?.touched) {
-          <label class="error">
-            &nbsp;&nbsp; Email format not correct.
-          </label>
+        && registerForm.get('email')?.touched) {
+        <label class="error">
+          &nbsp;&nbsp; Email format not correct.
+        </label>
         }
         @if (registerForm.get('email')?.hasError('maxlength')
         && registerForm.get('email')?.touched) {
         <label class="error">
           &nbsp;&nbsp; Max length of email is 40 characters.
         </label>
-      }
+        }
       </div>
       <div class="rowClass">
         <label class="textLabel" for="phone-number">Phone Number: </label>
         <input id="phone-number" type="text" formControlName="phoneNumber" />
-        </div>
-        <div class="rowClass">
+      </div>
+      <div class="rowClass">
         @if (registerForm.get('phoneNumber')?.hasError('required')
-          && registerForm.get('phoneNumber')?.touched) {
-          <label class="error">
-            &nbsp;&nbsp; Phone Number is required.
-          </label>
+        && registerForm.get('phoneNumber')?.touched) {
+        <label class="error">
+          &nbsp;&nbsp; Phone Number is required.
+        </label>
         }
         @if (registerForm.get('phoneNumber')?.hasError('pattern')
         && registerForm.get('phoneNumber')?.touched) {
         <label class="error">
           &nbsp;&nbsp; Phone Number must be exactly 9 digits long.
         </label>
-      }
+        }
       </div>
       <div class="rowClass">
         <label class="textLabel" for="password">Password: </label>
         <input id="password" type="text" formControlName="password" />
-        </div>
-        <div class="rowClass">
+      </div>
+      <div class="rowClass">
         @if (registerForm.get('password')?.hasError('required')
-          && registerForm.get('password')?.touched) {
-          <label class="error">
-            &nbsp;&nbsp; Password is required.
-          </label>
+        && registerForm.get('password')?.touched) {
+        <label class="error">
+          &nbsp;&nbsp; Password is required.
+        </label>
         }
         @if ((registerForm.get('password')?.hasError('minlength')
         || registerForm.get('password')?.hasError('maxlength'))
@@ -105,36 +105,35 @@
         <label class="error">
           &nbsp;&nbsp; Password length must between 5 to 20.
         </label>
-      }
+        }
       </div>
       <div class="rowClass">
         <label class="textLabel" for="confirm-password">Confirm Password: </label>
         <input id="confirm-password" type="text" formControlName="confirmPassword" />
-        </div>
-        <div class="rowClass">
+      </div>
+      <div class="rowClass">
         @if (registerForm.get('confirmPassword')?.hasError('required')
-          && registerForm.get('confirmPassword')?.touched) {
-          <label class="error">
-            &nbsp;&nbsp; Confirm Password is required.
-          </label>
+        && registerForm.get('confirmPassword')?.touched) {
+        <label class="error">
+          &nbsp;&nbsp; Confirm Password is required.
+        </label>
         }
-        @if (registerForm.get('confirmPassword')?.hasError('notSame')
-          && registerForm.get('confirmPassword')?.touched) {
-          <label class="error">
-            &nbsp;&nbsp; Password not match.
-          </label>
+        @if (registerForm.hasError('notSame')) {
+        <label class="error">
+          &nbsp;&nbsp; Password not match.
+        </label>
         }
       </div>
       <div>
         @if (registerForm.invalid && registerForm.touched) {
-          <label class="error">
-            &nbsp;&nbsp; Please fix error before submit.
-          </label>
+        <label class="error">
+          &nbsp;&nbsp; Please fix error before submit.
+        </label>
         }
       </div>
       <div class="error">
         {{errorMsg()}}
-    </div>
+      </div>
       <div>
         <button class="button" type="submit">Submit</button>
       </div>

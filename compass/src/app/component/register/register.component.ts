@@ -19,10 +19,17 @@ export class RegisterComponent {
     email: new FormControl('',  [Validators.required, Validators.email, Validators.maxLength(40)]),
     phoneNumber: new FormControl('',  [Validators.required,  Validators.pattern('^[0-9]{9}$')]),
     password: new FormControl('',  [Validators.required, Validators.minLength(5),Validators.maxLength(20)]),
-    confirmPassword: new FormControl('',  [Validators.required, this.validateSamePassword]),
-  });
+    confirmPassword: new FormControl('',  [Validators.required]),
+  }, { validators: this.matchValidator });
 
+ private matchValidator(control: AbstractControl): ValidationErrors | null {
+  const password = control?.get('password');
+  const confirmPassword = control?.get('confirmPassword');
+  return password?.value == confirmPassword?.value ? null : { 'notSame': true };
+  }
   
+
+
   private validateSamePassword(control: AbstractControl): ValidationErrors | null {
     const password = control.parent?.get('password');
     const confirmPassword = control.parent?.get('confirmPassword');
