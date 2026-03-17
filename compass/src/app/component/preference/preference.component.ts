@@ -1,4 +1,4 @@
-import { Component, EventEmitter } from '@angular/core';
+import { Component, EventEmitter , signal} from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormGroup, FormsModule, AbstractControl, ValidationErrors, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -25,6 +25,8 @@ export class PreferenceComponent {
   bathCounts = Object.keys(BathCount);
   hasPreference: boolean = false;
   selectedCityNames: string[] = [];
+  cityError: boolean = false;
+  readonly cityErrMsg = signal<string>('');
 
   constructor(private http: HttpClient, private router: Router, public compassService: CompassService) {
 
@@ -34,12 +36,12 @@ export class PreferenceComponent {
 
     this.preferenceForm = new FormGroup({
       selectedHometypes: new FormControl('', Validators.required),
-      minPrice: new FormControl('', Validators.required),
-      maxPrice: new FormControl('', [Validators.required, this.validatePrice]),
-      minSquareFeet: new FormControl('', Validators.required),
-      maxSquareFeet: new FormControl('', [Validators.required, this.validateSquare]),
+      minPrice: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{0,8}$')]),
+      maxPrice: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{0,8}$')]),
+      minSquareFeet: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{0,8}$')]),
+      maxSquareFeet: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{0,8}$')]),
       minBed: new FormControl('', Validators.required),
-      maxBed: new FormControl('', [Validators.required, this.validateBed]),
+      maxBed: new FormControl('', Validators.required),
       minBath: new FormControl('', Validators.required),
       selectedCities: new FormControl(''),
     },  { validators: [this.validatePrice, this.validateBed, this.validateSquare]});
@@ -54,6 +56,9 @@ export class PreferenceComponent {
     let minPrice = control.get('minPrice');
     let maxPrice = control.get('maxPrice');
     if (minPrice?.value != undefined && maxPrice?.value != undefined) {
+      if(isNaN(minPrice.value)||isNaN(maxPrice.value)){
+        return null;
+      }
       let min: number = +minPrice.value;
       let max: number = +maxPrice.value;
       return min <= max ? null : { 'priceError': true };
@@ -87,6 +92,9 @@ export class PreferenceComponent {
     let minSquareFeet = control.get('minSquareFeet');
     let maxSquareFeet = control.get('maxSquareFeet');
     if (minSquareFeet?.value != undefined && maxSquareFeet?.value != undefined) {
+      if(isNaN(minSquareFeet.value)||isNaN(maxSquareFeet.value)){
+        return null;
+      }
       let min: number = +minSquareFeet.value;
       let max: number = +maxSquareFeet.value;
       return min <= max ? null : { 'squareFeetError': true };
@@ -119,6 +127,13 @@ export class PreferenceComponent {
     this.selectedCityNames = [];
     for (const city of value) {
       this.selectedCityNames.push(city.name);
+    }
+    if(this.selectedCityNames.length>10){
+       this.cityError = true;
+       this.cityErrMsg.set("Selected more than 10 cities.");
+    }else{
+      this.cityError = false;
+       this.cityErrMsg.set("");
     }
   }
 
@@ -159,6 +174,9 @@ export class PreferenceComponent {
     if (this.preferenceForm.invalid) {
       this.preferenceForm.markAllAsTouched(); // Mark all controls as touched
       return; // Prevent submission if form is invalid
+    }
+    if(this.cityError){
+      return;
     }
     var email = localStorage.getItem('email');
     var url = "http://localhost:8080/api/customersPreferences/" + email;

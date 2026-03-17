@@ -50,9 +50,28 @@
     text-align:right;
   }
   
-  button{
+  .buttonLeft{
     text-align: center;
-    margin: 30px;
+    margin-left: 100px;
+    padding: 10px;
+    background-color:purple;
+    color:white;
+    float: left;
+    width:100px;
+  }
+
+  .buttonCenter{
+    text-align: center;
+    margin-left: 200px;
+    padding: 10px;
+    background-color:purple;
+    color:white;
+    float: left;
+    width:100px;
+  }
+  .buttonRight{
+    text-align: center;
+    margin-right: 200px;
     padding: 10px;
     background-color:purple;
     color:white;

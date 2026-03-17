@@ -40,7 +40,7 @@
     </p>
     <div>
       <div class="buttonRow">
-        <button (click)="toggleEditMode()">Edit</button>
+        <button class="buttonCenter" (click)="toggleEditMode()">Edit</button>
       </div>
     </div>
     }
@@ -80,10 +80,22 @@
             Min Price is required.
           </label>
           }
+          @if (preferenceForm.get('minPrice')?.hasError('pattern') &&
+          preferenceForm.get('minPrice')?.touched) {
+          <label class="error">
+            Min Price value must be integer between 0 to 99999999.
+          </label>
+          }
           @if (preferenceForm.get('maxPrice')?.hasError('required') &&
           preferenceForm.get('maxPrice')?.touched) {
           <label class="error">
             Max Price is required.
+          </label>
+          }
+          @if (preferenceForm.get('maxPrice')?.hasError('pattern') &&
+          preferenceForm.get('maxPrice')?.touched) {
+          <label class="error">
+            Max Price value must be integer between 0 to 99999999.
           </label>
           }
           @if (preferenceForm.hasError('priceError')) {
@@ -168,10 +180,22 @@
           Min Square Feet is required.
         </label>
         }
+        @if (preferenceForm.get('minSquareFeet')?.hasError('pattern')
+        && preferenceForm.get('minSquareFeet')?.touched) {
+        <label class="error">
+          Min Square Feet value must be integer between 0 to 99999999.
+        </label>
+        }
         @if (preferenceForm.get('maxSquareFeet')?.hasError('required')
         && preferenceForm.get('maxSquareFeet')?.touched) {
         <div class="error">
           Max Square Feet is required.
+        </div>
+        }
+        @if (preferenceForm.get('maxSquareFeet')?.hasError('pattern')
+        && preferenceForm.get('maxSquareFeet')?.touched) {
+        <div class="error">
+          Max Square Feet value must be integer between 0 to 99999999.
         </div>
         }
         @if (preferenceForm.hasError('squareFeetError')) {
@@ -183,7 +207,7 @@
       <div>
       </div>
       <p>
-        Your Preferred Cities are: {{selectedCityNames | json}}
+        Preferred Cities are: {{selectedCityNames | json}}
       </p>
       <div>
         <p>
@@ -199,11 +223,14 @@
         </ng-select>
 
       </div>
-
+      <p></p>
+      <div class="error">
+        {{cityErrMsg()}}
+    </div>
 
       <div class="buttonRow">
-        <button type="submit" (click)="savePreference()">Save</button>
-        <button type="button" (click)="cancelEdit()">Cancel</button>
+        <button class="buttonLeft" type="button" (click)="cancelEdit()">Cancel</button>
+        <button class="buttonRight" type="submit" (click)="savePreference()">Save</button>
       </div>
     </form>
     }
