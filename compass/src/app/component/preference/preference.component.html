@@ -86,8 +86,7 @@
             Max Price is required.
           </label>
           }
-          @if (preferenceForm.get('maxPrice')?.hasError('priceError')
-          && preferenceForm.get('maxPrice')?.touched) {
+          @if (preferenceForm.hasError('priceError')) {
           <label class="error">
             &nbsp;&nbsp; Min Price can't be greater than max price.
           </label>
@@ -128,8 +127,7 @@
             Max Bed is required.
           </label>
           }
-          @if (preferenceForm.get('maxBed')?.hasError('bedError')
-          && preferenceForm.get('maxBed')?.touched) {
+          @if (preferenceForm.hasError('bedError')) {
           <label class="error">
             &nbsp;&nbsp; Min Bed can't be greater than Max Bed.
           </label>
@@ -176,8 +174,7 @@
           Max Square Feet is required.
         </div>
         }
-        @if (preferenceForm.get('maxSquareFeet')?.hasError('squareFeetError')
-        && preferenceForm.get('maxSquareFeet')?.touched) {
+        @if (preferenceForm.hasError('squareFeetError')) {
         <label class="error">
           &nbsp;&nbsp; Min Squrare Feet can't be greater than Max Square Feet.
         </label>

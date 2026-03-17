@@ -42,7 +42,7 @@ export class PreferenceComponent {
       maxBed: new FormControl('', [Validators.required, this.validateBed]),
       minBath: new FormControl('', Validators.required),
       selectedCities: new FormControl(''),
-    });
+    },  { validators: [this.validatePrice, this.validateBed, this.validateSquare]});
     //this.preferenceForm.disable();
     this.loadCustomerPreference();
     this.compassService.loadCities();
@@ -51,8 +51,8 @@ export class PreferenceComponent {
 
 
   private validatePrice(control: AbstractControl): ValidationErrors | null {
-    let minPrice = control.parent?.get('minPrice');
-    let maxPrice = control.parent?.get('maxPrice');
+    let minPrice = control.get('minPrice');
+    let maxPrice = control.get('maxPrice');
     if (minPrice?.value != undefined && maxPrice?.value != undefined) {
       let min: number = +minPrice.value;
       let max: number = +maxPrice.value;
@@ -61,10 +61,10 @@ export class PreferenceComponent {
     return null;
   }
   private validateBed(control: AbstractControl): ValidationErrors | null {
-    const minBed = control.parent?.get('minBed')?.value;
+    const minBed = control.get('minBed')?.value;
     console.log(minBed);
 
-    const maxBed = control.parent?.get('maxBed')?.value;
+    const maxBed = control.get('maxBed')?.value;
     let minValue = "";
     let maxValue = "";
     for (const [key, value] of Object.entries(BedCount)) {
@@ -84,8 +84,8 @@ export class PreferenceComponent {
   }
 
   private validateSquare(control: AbstractControl): ValidationErrors | null {
-    let minSquareFeet = control.parent?.get('minSquareFeet');
-    let maxSquareFeet = control.parent?.get('maxSquareFeet');
+    let minSquareFeet = control.get('minSquareFeet');
+    let maxSquareFeet = control.get('maxSquareFeet');
     if (minSquareFeet?.value != undefined && maxSquareFeet?.value != undefined) {
       let min: number = +minSquareFeet.value;
       let max: number = +maxSquareFeet.value;
