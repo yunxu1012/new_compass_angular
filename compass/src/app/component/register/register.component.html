@@ -20,6 +20,12 @@
             &nbsp;&nbsp; First name is required.
           </label>
         }
+        @if (registerForm.get('firstName')?.hasError('maxlength')
+        && registerForm.get('firstName')?.touched) {
+        <label class="error">
+          &nbsp;&nbsp; Max length of first name is 20 characters.
+        </label>
+      }
         </div>
       </div>
       <div class="rowClass">
@@ -33,6 +39,12 @@
             &nbsp;&nbsp; Last name is required.
           </label>
         }
+        @if (registerForm.get('lastName')?.hasError('maxlength')
+        && registerForm.get('lastName')?.touched) {
+        <label class="error">
+          &nbsp;&nbsp; Max length of last name is 20 characters.
+        </label>
+      }
       </div>
       <div class="rowClass">
         <label class="textLabel" for="email">Email: </label>
@@ -51,6 +63,12 @@
             &nbsp;&nbsp; Email format not correct.
           </label>
         }
+        @if (registerForm.get('email')?.hasError('maxlength')
+        && registerForm.get('email')?.touched) {
+        <label class="error">
+          &nbsp;&nbsp; Max length of email is 40 characters.
+        </label>
+      }
       </div>
       <div class="rowClass">
         <label class="textLabel" for="phone-number">Phone Number: </label>
@@ -63,6 +81,12 @@
             &nbsp;&nbsp; Phone Number is required.
           </label>
         }
+        @if (registerForm.get('phoneNumber')?.hasError('pattern')
+        && registerForm.get('phoneNumber')?.touched) {
+        <label class="error">
+          &nbsp;&nbsp; Phone Number must be exactly 9 digits long.
+        </label>
+      }
       </div>
       <div class="rowClass">
         <label class="textLabel" for="password">Password: </label>
@@ -75,6 +99,13 @@
             &nbsp;&nbsp; Password is required.
           </label>
         }
+        @if ((registerForm.get('password')?.hasError('minlength')
+        || registerForm.get('password')?.hasError('maxlength'))
+        && registerForm.get('password')?.touched) {
+        <label class="error">
+          &nbsp;&nbsp; Password length must between 5 to 20.
+        </label>
+      }
       </div>
       <div class="rowClass">
         <label class="textLabel" for="confirm-password">Confirm Password: </label>
@@ -101,6 +132,9 @@
           </label>
         }
       </div>
+      <div class="error">
+        {{errorMsg()}}
+    </div>
       <div>
         <button class="button" type="submit">Submit</button>
       </div>

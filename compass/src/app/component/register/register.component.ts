@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {FormGroup, AbstractControl,ValidationErrors, FormControl, ReactiveFormsModule,  Validators} from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -11,17 +11,18 @@ import {Router } from '@angular/router';
     standalone: false
 })
 export class RegisterComponent {
-
+  readonly errorMsg = signal<string>('');
   constructor(private http: HttpClient, private router: Router) { }
   registerForm = new FormGroup({
-    firstName: new FormControl('',  Validators.required),
-    lastName: new FormControl('',  Validators.required),
-    email: new FormControl('',  [Validators.required, Validators.email]),
-    phoneNumber: new FormControl('',  Validators.required),
-    password: new FormControl('',  Validators.required),
+    firstName: new FormControl('',  [Validators.required, Validators.maxLength(20)]),
+    lastName: new FormControl('',  [Validators.required, Validators.maxLength(20)]),
+    email: new FormControl('',  [Validators.required, Validators.email, Validators.maxLength(40)]),
+    phoneNumber: new FormControl('',  [Validators.required,  Validators.pattern('^[0-9]{9}$')]),
+    password: new FormControl('',  [Validators.required, Validators.minLength(5),Validators.maxLength(20)]),
     confirmPassword: new FormControl('',  [Validators.required, this.validateSamePassword]),
   });
 
+  
   private validateSamePassword(control: AbstractControl): ValidationErrors | null {
     const password = control.parent?.get('password');
     const confirmPassword = control.parent?.get('confirmPassword');
@@ -43,7 +44,7 @@ export class RegisterComponent {
     }
     this.register();
   }
-  authUrl =  'http://localhost:8080/api/customers';
+  authUrl =  'http://localhost:8080/api/auth/customer/signup';
 
   register(): void {
     const data = {
@@ -59,6 +60,7 @@ export class RegisterComponent {
       },
       error: (e) => {
       console.error(e);
+      this.errorMsg.set(e.error); 
       }
     });
   }

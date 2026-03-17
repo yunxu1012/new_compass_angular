@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, signal} from '@angular/core';
 import {FormGroup, AbstractControl,ValidationErrors, FormControl, ReactiveFormsModule,  Validators} from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -13,6 +13,7 @@ import {Router } from '@angular/router';
 export class LoginComponent {
   email:string ='';
   password:string = '';
+  readonly errorMsg = signal<string>('');
   loginForm = new FormGroup({
     email: new FormControl('',  [Validators.required, Validators.email]),
     password: new FormControl('',  Validators.required),
@@ -39,7 +40,7 @@ export class LoginComponent {
     console.log("email: "+this.email);
     this.login();
   }
-  authUrl =  'http://localhost:8080/api/auth/login';
+  authUrl =  'http://localhost:8080/api/auth/customer/login';
 
   login(): void {
     const data = {
@@ -54,6 +55,7 @@ export class LoginComponent {
       },
       error: (e) => {
       console.error(e);
+      this.errorMsg.set(e.error); 
       }
     });
   }

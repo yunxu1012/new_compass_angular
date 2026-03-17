@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, signal } from '@angular/core';
 import {FormGroup, AbstractControl,ValidationErrors, FormControl, ReactiveFormsModule,  Validators} from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -13,6 +13,8 @@ import {Router } from '@angular/router';
 export class AdminLoginComponent {
   email:string ='';
   password:string = '';
+  readonly errorMsg = signal<string>('');
+  
   adminLoginForm = new FormGroup({
     email: new FormControl('',  [Validators.required, Validators.email]),
     password: new FormControl('',  Validators.required),
@@ -21,7 +23,7 @@ export class AdminLoginComponent {
   constructor(private http: HttpClient, private router: Router){
     console.log('MyComponent initialized!');
   }
-
+  
   onSubmit(){ 
     console.log("submit: ");
     if (this.adminLoginForm.invalid) {
@@ -39,7 +41,7 @@ export class AdminLoginComponent {
     console.log("email: "+this.email);
     this.login();
   }
-  authUrl =  'http://localhost:8080/api/auth/login';
+  authUrl =  'http://localhost:8080/api/auth/admin/login';
 
   login(): void {
     const data = {
@@ -54,6 +56,7 @@ export class AdminLoginComponent {
       },
       error: (e) => {
       console.error(e);
+      this.errorMsg.set(e.error); 
       }
     });
   }
