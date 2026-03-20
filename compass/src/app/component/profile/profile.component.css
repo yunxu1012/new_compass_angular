@@ -25,15 +25,46 @@
     color:red;
 }
 
+
 .buttonRow{
   padding: 10px;
-  width: 400px;
+  width: 600px;
   text-align:right;
 }
 
 button{
   text-align: center;
   margin: 30px;
+  padding: 10px;
+  background-color:purple;
+  color:white;
+  float: right;
+  width:100px;
+}
+
+.buttonLeft{
+  text-align: center;
+  margin-left: 100px;
+  padding: 10px;
+  background-color:purple;
+  color:white;
+  float: left;
+  width:100px;
+}
+
+.buttonCenter{
+  text-align: center;
+  margin-left: 200px;
+  padding: 10px;
+  background-color:purple;
+  color:white;
+  float: left;
+  width:100px;
+}
+
+.buttonRight{
+  text-align: center;
+  margin-right: 200px;
   padding: 10px;
   background-color:purple;
   color:white;

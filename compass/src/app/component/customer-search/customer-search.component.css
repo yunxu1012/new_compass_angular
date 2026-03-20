@@ -60,6 +60,27 @@ box {
 
   }
 
+  .buttonLeft{
+    text-align: center;
+    margin-left: 100px;
+    padding: 10px;
+    background-color:purple;
+    color:white;
+    float: left;
+    width:100px;
+  }
+  
+  
+  .buttonRight{
+    text-align: center;
+    margin-right: 200px;
+    padding: 10px;
+    background-color:purple;
+    color:white;
+    float: right;
+    width:100px;
+  }
+
   .error{
     color:red;
     padding-right: 10px;

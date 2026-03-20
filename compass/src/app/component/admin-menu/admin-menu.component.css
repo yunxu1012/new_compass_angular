@@ -11,6 +11,8 @@ ul {
   }
 
   li a {
+    margin-top:20px;
+    margin-bottom:20px;
     display: block;
     color: black;
     text-align: center;

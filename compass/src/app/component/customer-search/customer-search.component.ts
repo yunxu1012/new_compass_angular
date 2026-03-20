@@ -75,6 +75,11 @@ export class CustomerSearchComponent {
     });
   }
 
+  cancel(){
+    this.compassService.search = false;
+    this.router.navigate(['/customer-list']);
+  }
+
   getFilteredCustomers(url: string, data: any): Observable<Customer[]> {
     console.log("search here002");
     const httpOptions = {
