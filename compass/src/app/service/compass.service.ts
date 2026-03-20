@@ -12,9 +12,13 @@ import { Customer } from '../model/customer.model';
 export class CompassService {
   cities: City[] = [];
   customers: Customer[] = [];
+  pagedCustomers?: Customer[];
   search:boolean = false;
   constructor(private http: HttpClient) { }
   citiesUrl = 'http://localhost:8080/api/cities';
+  pageSize :number= 10;
+  currentPage:number = 1;
+  totalPages: number =1;
   loadCities() {
     this.getCities(this.citiesUrl).subscribe({
       next: (data) => {
@@ -65,10 +69,13 @@ export class CompassService {
 
   listCustomers(): void {
     console.log("list customer");
-    var url = "http://localhost:8080/api/customers";
+    var url = "http://localhost:8080/api/admin/customers";
     this.getCustomers(url).subscribe({
       next: (data) => {
         this.customers = data;
+        this.pagedCustomers = data;
+        this.totalPages = Math.ceil(this.customers.length / this.pageSize);
+        this.updatePagedData();
       },
       error: (e) => console.error(e)
     });
@@ -78,4 +85,20 @@ export class CompassService {
     return this.http.get<Customer[]>(baseUrl);
   }
 
+  updatePagedData() {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.pagedCustomers = this.customers.slice(startIndex, endIndex);
+  }
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.updatePagedData();
+    }
+  }
+
+  getPages(): number[] {
+      return Array(this.totalPages).fill(0).map((_, index) => index + 1);
+  }
 }

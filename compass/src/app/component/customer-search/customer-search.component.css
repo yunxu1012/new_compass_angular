@@ -50,12 +50,14 @@ box {
   
   button{
     text-align: center;
-    margin: 30px;
+    margin-left: 150px;
+    margin-top: 30px;
     padding: 10px;
     background-color:purple;
     color:white;
     float: right;
     width:100px;
+
   }
 
   .error{

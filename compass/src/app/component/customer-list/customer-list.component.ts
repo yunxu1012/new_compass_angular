@@ -19,9 +19,11 @@ export class CustomerListComponent {
    if(!this.compassService.search){
     this.compassService.listCustomers();
    }
-    
   }
 
   
-  
+  clearFilter(){
+    this.compassService.clearFilter();
+    window.location.reload();
+  }
 }

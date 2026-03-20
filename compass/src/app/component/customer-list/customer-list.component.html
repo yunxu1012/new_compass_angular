@@ -1,19 +1,32 @@
 <app-admin-menu></app-admin-menu>
 <div class="box">
-    <div class="rowClass">
+    <div class="listBox">
         <label class="nameTitle">First Name</label>
         <label class="nameTitle">Last Name</label>
-        <label class="emailTitle">email</label>
-        <label class="nameTitle">Details</label>
-        @for (customer of compassService.customers; track customer) {
+        <label class="emailTitle">Email</label>
+        <label class="detailTitle">Details</label>
+        @for (customer of compassService.pagedCustomers; track customer) {
         <p>
             <label class="nameText">{{customer.firstName}}</label>
             <label class="nameText">{{customer.lastName}}</label>
             <label class="emailText">{{customer.email}}</label>
-            <label class="nameText">
-                <a [routerLink]="['/customer-detail', customer.email]">Detail</a>
+            <label class="detailText">
+                <a [routerLink]="['/customer-detail', customer.email]">Details</a>
             </label>
         </p>
         }
     </div>
+        <div class="buttonRow">
+            <button class="buttonLeft" type="button" (click)="clearFilter()">Clear Filter</button>
+            <button class="buttonRight" type="button" routerLink="/customer-search">Filter</button>
+          </div>
+    <div class="footer">
+        <button (click)="this.compassService.goToPage(this.compassService.currentPage - 1)" 
+        [disabled]="this.compassService.currentPage === 1">Previous</button>
+        <button *ngFor="let page of this.compassService.getPages()" 
+        (click)="this.compassService.goToPage(page)" 
+        [class.active]="this.compassService.currentPage === page">{{page}}</button>
+        <button (click)="this.compassService.goToPage(this.compassService.currentPage + 1)" 
+           [disabled]="this.compassService.currentPage === this.compassService.totalPages">Next</button>
+     </div>
 </div>

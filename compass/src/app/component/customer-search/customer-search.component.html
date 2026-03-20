@@ -28,6 +28,12 @@
                     Price is required.
                 </label>
                 }
+                @if (searchForm.get('price')?.hasError('pattern') &&
+                searchForm.get('price')?.touched) {
+                <label class="error">
+                  Price value must be integer between 0 to 99999999.
+                </label>
+                }
             </div>
             <div class="rowClass">
                 <label class="labelClass">Bed Count:</label>
@@ -72,15 +78,28 @@
                     Square Feet is required.
                 </label>
                 }
+                @if (searchForm.get('squareFeet')?.hasError('pattern') &&
+                searchForm.get('squareFeet')?.touched) {
+                <label class="error">
+                  Square feet value must be integer between 0 to 99999999.
+                </label>
+                }
             </div>
             <div class="rowClass">
                 <label class="labelClass" for="preferCity">Prefered City:</label>
                 <ng-select id="city" [items]="compassService.cities" #selectedItem class="my-custom-select"
                   bindLabel="cityId"  bindLabel="name" [searchable]="true" (change)="selected($event)" formControlName="city">
                 </ng-select>
+                <p></p>
+                @if (searchForm.get('city')?.hasError('required')
+                && searchForm.get('city')?.touched) {
+                <label class="error">
+                    Prefered city is required.
+                </label>
+                }
             </div>
             <div class="buttonRow">
-                <a [routerLink]="['/customer-list']" (click)="search()">Search</a>
+                <button (click)="search()">Search</button>
             </div>
         </form>
     </div>

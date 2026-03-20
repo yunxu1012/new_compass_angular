@@ -3,6 +3,7 @@ import {FormGroup, AbstractControl,ValidationErrors, FormControl, ReactiveFormsM
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {Router } from '@angular/router';
+import { CompassService } from '../../service/compass.service';
 
 @Component({
     selector: 'app-admin-login',
@@ -20,7 +21,7 @@ export class AdminLoginComponent {
     password: new FormControl('',  Validators.required),
   });
 
-  constructor(private http: HttpClient, private router: Router){
+  constructor(private http: HttpClient, private router: Router, private compassService: CompassService){
     console.log('MyComponent initialized!');
   }
   
@@ -39,6 +40,7 @@ export class AdminLoginComponent {
       this.password = password;
     }
     console.log("email: "+this.email);
+    //this.compassService.search = false;
     this.login();
   }
   authUrl =  'http://localhost:8080/api/auth/admin/login';

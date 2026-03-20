@@ -29,8 +29,8 @@ export class CustomerSearchComponent {
 
     this.searchForm = new FormGroup({
       homeType: new FormControl('', Validators.required),
-      price: new FormControl('', Validators.required),
-      squareFeet: new FormControl('', Validators.required),
+      price: new FormControl('', [Validators.required,  Validators.pattern('^[0-9]{0,8}$')]),
+      squareFeet: new FormControl('', [Validators.required,  Validators.pattern('^[0-9]{0,8}$')]),
       bedCount: new FormControl('', Validators.required),
       bathCount: new FormControl('', Validators.required),
       city: new FormControl('', Validators.required),
@@ -46,6 +46,11 @@ export class CustomerSearchComponent {
   }
 
   search(): void {
+    console.log("search here");
+    if (this.searchForm.invalid) {
+      this.searchForm.markAllAsTouched(); // Mark all controls as touched
+      return; // Prevent submission if form is invalid
+    }
     this.compassService.search = true;
     var url = "http://localhost:8080/api/admin/search";
     const data = {
@@ -59,13 +64,19 @@ export class CustomerSearchComponent {
     this.getFilteredCustomers(url, data).subscribe({
       next: (data) => {
         this.compassService.customers = data;
-        console.log("search001: "+this.compassService.search);
+        console.log("data size: "+this.compassService.customers.length);
+        this.compassService.pagedCustomers = data;
+        this.compassService.totalPages = Math.ceil(this.compassService.customers.length 
+               / this.compassService.pageSize);
+        this.compassService.updatePagedData();
+        this.router.navigate(['/customer-list']);
       },
       error: (e) => console.error(e)
     });
   }
 
   getFilteredCustomers(url: string, data: any): Observable<Customer[]> {
+    console.log("search here002");
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
