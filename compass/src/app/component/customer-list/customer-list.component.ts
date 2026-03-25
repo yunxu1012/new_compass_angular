@@ -17,7 +17,12 @@ export class CustomerListComponent {
   ngOnInit(): void {
    // this.compassService.clearFilter();
    if(!this.compassService.search){
-    this.compassService.listCustomers();
+    var token = localStorage.getItem('token');
+    var authHeader = "Bearer ";
+    if(token){
+      authHeader +=token;
+    }
+    this.compassService.listCustomers(authHeader);
    }
   }
 

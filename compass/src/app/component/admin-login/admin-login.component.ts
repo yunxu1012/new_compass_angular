@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {Router } from '@angular/router';
 import { CompassService } from '../../service/compass.service';
+import { JwtInfo } from '../../model/jwt-info.model';
 
 @Component({
     selector: 'app-admin-login',
@@ -15,6 +16,7 @@ export class AdminLoginComponent {
   email:string ='';
   password:string = '';
   readonly errorMsg = signal<string>('');
+  jwtInfo? :JwtInfo; 
   
   adminLoginForm = new FormGroup({
     email: new FormControl('',  [Validators.required, Validators.email]),
@@ -54,6 +56,11 @@ export class AdminLoginComponent {
     this.createToken(this.authUrl,data).subscribe({
       next: (res) => {
         localStorage.setItem('email',this.email);
+        this.jwtInfo = res;
+        if(this.jwtInfo?.token){
+            localStorage.setItem('token',this.jwtInfo?.token);
+        }
+        console.log("token: "+this.jwtInfo?.token);
         this.router.navigate(['/customer-list']);
       },
       error: (e) => {
@@ -66,8 +73,7 @@ export class AdminLoginComponent {
   createToken(baseUrl: string, data: any): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(baseUrl, data, {
-      headers: headers,
-      responseType: 'text' as const // Specify responseType as 'text'
+      headers: headers
     });
   }
 

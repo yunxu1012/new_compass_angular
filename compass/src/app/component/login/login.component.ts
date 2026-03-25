@@ -3,6 +3,7 @@ import {FormGroup, AbstractControl,ValidationErrors, FormControl, ReactiveFormsM
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {Router } from '@angular/router';
+import { JwtInfo } from '../../model/jwt-info.model';
 
 @Component({
     selector: 'app-login',
@@ -14,6 +15,7 @@ export class LoginComponent {
   email:string ='';
   password:string = '';
   readonly errorMsg = signal<string>('');
+  jwtInfo?:JwtInfo;
   loginForm = new FormGroup({
     email: new FormControl('',  [Validators.required, Validators.email]),
     password: new FormControl('',  Validators.required),
@@ -51,6 +53,11 @@ export class LoginComponent {
     this.createToken(this.authUrl,data).subscribe({
       next: (res) => {
         localStorage.setItem('email',this.email);
+        this.jwtInfo = res;
+        if(this.jwtInfo?.token){
+            localStorage.setItem('token',this.jwtInfo?.token);
+        }
+        console.log("token here: "+this.jwtInfo?.token);
         this.router.navigate(['/profile']);
       },
       error: (e) => {
@@ -63,8 +70,7 @@ export class LoginComponent {
   createToken(baseUrl: string, data: any): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(baseUrl, data, {
-      headers: headers,
-      responseType: 'text' as const // Specify responseType as 'text'
+      headers: headers
     });
   }
 

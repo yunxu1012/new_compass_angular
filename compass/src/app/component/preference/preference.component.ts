@@ -119,7 +119,18 @@ export class PreferenceComponent {
   }
 
   getPreference(url: string): Observable<CustomerPreference> {
-    return this.http.get<CustomerPreference>(url);
+    var token = localStorage.getItem('token')!;
+    var authHeader = "Bearer ";
+    if(token){
+      authHeader +=token;
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': authHeader
+      })
+    };
+    return this.http.get<CustomerPreference>(url, httpOptions);
   }
 
 
@@ -211,17 +222,29 @@ export class PreferenceComponent {
     }
   }
   createPreference(url: string, data: any): Observable<CustomerPreference> {
+    var token = localStorage.getItem('token')!;
+    var authHeader = "Bearer ";
+    if(token){
+      authHeader +=token;
+    }
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': authHeader
       })
     };
     return this.http.post<CustomerPreference>(url, data, httpOptions);
   }
   updatePreference(url: string, data: any): Observable<CustomerPreference> {
+    var token = localStorage.getItem('token')!;
+    var authHeader = "Bearer ";
+    if(token){
+      authHeader +=token;
+    }
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': authHeader
       })
     };
     return this.http.put<CustomerPreference>(url, data, httpOptions);

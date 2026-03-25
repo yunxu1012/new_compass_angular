@@ -82,9 +82,15 @@ export class CustomerSearchComponent {
 
   getFilteredCustomers(url: string, data: any): Observable<Customer[]> {
     console.log("search here002");
+    var token = localStorage.getItem('token');
+    var authHeader = "Bearer ";
+    if(token){
+      authHeader +=token;
+    }
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': authHeader
       })
     };
     return this.http.post<Customer[]>(url, data, httpOptions);

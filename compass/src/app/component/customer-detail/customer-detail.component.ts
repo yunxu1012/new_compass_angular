@@ -49,7 +49,18 @@ loadCustomer() {
 
 }
 getProfile(url: string): Observable<Customer> {
-  return this.http.get<Customer>(url);
+  var token = localStorage.getItem('token');
+    var authHeader = "Bearer ";
+    if(token){
+      authHeader +=token;
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': authHeader
+      })
+    };
+  return this.http.get<Customer>(url, httpOptions);
 }
 
 preferenceUrl = 'http://localhost:8080/api/customersPreferences/';
@@ -70,7 +81,18 @@ preferenceUrl = 'http://localhost:8080/api/customersPreferences/';
   }
 
   getPreference(url: string): Observable<CustomerPreference> {
-    return this.http.get<CustomerPreference>(url);
+    var token = localStorage.getItem('token');
+    var authHeader = "Bearer ";
+    if(token){
+      authHeader +=token;
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': authHeader
+      })
+    };
+    return this.http.get<CustomerPreference>(url, httpOptions);
   }
 
   displayCustomerCity(){

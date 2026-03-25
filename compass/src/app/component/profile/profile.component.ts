@@ -4,6 +4,7 @@ import { FormGroup, AbstractControl, ValidationErrors, FormControl, ReactiveForm
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Customer } from '../../model/customer.model';
+import { CompassService } from '../../service/compass.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -14,7 +15,7 @@ export class ProfileComponent {
   isEditMode: boolean = false;
   profileForm!: FormGroup;
   customer?: Customer;
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private compassService: CompassService) {
 
   }
   ngOnInit(): void {
@@ -60,16 +61,31 @@ export class ProfileComponent {
   }
 
   getProfile(url: string): Observable<Customer> {
-    return this.http.get<Customer>(url);
+    var token = localStorage.getItem('token')!;
+    var authHeader = "Bearer ";
+    if(token){
+      authHeader +=token;
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': authHeader
+      })
+    };
+    return this.http.get<Customer>(url, httpOptions);
   }
 
   saveProfile() {
+    if (this.profileForm.invalid) {
+      this.profileForm.markAllAsTouched(); // Mark all controls as touched
+      return; // Prevent submission if form is invalid
+    }
     var email = localStorage.getItem('email');
     var url = "http://localhost:8080/api/customers/" + email;
     const data = {
       firstName: this.profileForm.get('firstName')?.value,
       lastName: this.profileForm.get('lastName')?.value,
-      email: localStorage.getItem('email'),
+      email: email,
       phoneNumber: this.profileForm.get('phoneNumber')?.value,
     };
     this.updateProfile(url, data).subscribe({
@@ -77,14 +93,22 @@ export class ProfileComponent {
         this.toggleEditMode();
         this.customer = data;
       },
-      error: (e) => console.error(e)
+      error: (e) => {
+      console.error(e);
+      }
     });
   }
 
   updateProfile(url: string, data: any): Observable<Customer> {
+    var token = localStorage.getItem('token')!;
+    var authHeader = "Bearer ";
+    if(token){
+      authHeader +=token;
+    }
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': authHeader
       })
     };
     return this.http.put<Customer>(url, data, httpOptions);

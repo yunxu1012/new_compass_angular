@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { City } from '../model/city.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { BedCount } from '../enum/bed-count';
 import { BathCount } from '../enum/bath-count';
 import { Customer } from '../model/customer.model';
@@ -64,13 +64,18 @@ export class CompassService {
 
   clearFilter(){
     this.search = false;
-    this.listCustomers();
+    var token = localStorage.getItem('token');
+    var authHeader = "Bearer ";
+    if(token){
+      authHeader +=token;
+    }
+    this.listCustomers(authHeader);
   }
 
-  listCustomers(): void {
-    console.log("list customer");
+  listCustomers(authHeader:string): void {
+    console.log("list customer: "+ authHeader);
     var url = "http://localhost:8080/api/admin/customers";
-    this.getCustomers(url).subscribe({
+    this.getCustomers(url, authHeader).subscribe({
       next: (data) => {
         this.customers = data;
         this.pagedCustomers = data;
@@ -81,8 +86,14 @@ export class CompassService {
     });
   }
 
-  getCustomers(baseUrl: string): Observable<Customer[]> {
-    return this.http.get<Customer[]>(baseUrl);
+  getCustomers(baseUrl: string, authHeader:string): Observable<Customer[]> {
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': authHeader
+    };
+    return this.http.get<Customer[]>(baseUrl, {
+      headers: headers
+    });
   }
 
   updatePagedData() {
@@ -101,4 +112,10 @@ export class CompassService {
   getPages(): number[] {
       return Array(this.totalPages).fill(0).map((_, index) => index + 1);
   }
+ 
+  logout(){
+    localStorage.removeItem('email');
+    localStorage.removeItem('token');
+  }
+
 }
