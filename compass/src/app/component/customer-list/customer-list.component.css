@@ -1,84 +1,91 @@
 .box {
     margin-left: 30px;
     width: 600px;
-  }
-.nameTitle{
-    display: inline-block;
-    width: 100px;
-    text-align: left;
-    margin-right:20px;
-    color:blue;
-}
-.emailTitle{
-    display: inline-block;
-    width: 200px;
-    text-align: left;
-    margin-right:20px;
-    color:blue;
-}
-.detailTitle{
-    display: inline-block;
-    width: 50px;
-    text-align: left;
-    margin-right:20px;
-    color:blue;
-}
-.nameText{
-    display: inline-block;
-    width: 100px;
-    text-align: left;
-    margin-right:20px;
-    overflow-y: hidden;
-}
-.emailText{
-    display: inline-block;
-    width: 200px;
-    text-align: left;
-    margin-right:20px;
-    overflow-y: hidden;
-}
-.detailText{
-    display: inline-block;
-    width: 50px;
-    text-align: left;
-    margin-right:20px;
-    overflow-y: hidden;
-}
-.listBox{
-    padding: 10px;
-    width: 600px;
-    height:420px;
 }
 
-.footer{
+.nameTitle {
+    display: inline-block;
+    width: 100px;
+    text-align: left;
+    margin-right: 20px;
+    color: blue;
+}
+
+.emailTitle {
+    display: inline-block;
+    width: 200px;
+    text-align: left;
+    margin-right: 20px;
+    color: blue;
+}
+
+.detailTitle {
+    display: inline-block;
+    width: 50px;
+    text-align: left;
+    margin-right: 20px;
+    color: blue;
+}
+
+.nameText {
+    display: inline-block;
+    width: 100px;
+    text-align: left;
+    margin-right: 20px;
+    overflow-y: hidden;
+}
+
+.emailText {
+    display: inline-block;
+    width: 200px;
+    text-align: left;
+    margin-right: 20px;
+    overflow-y: hidden;
+}
+
+.detailText {
+    display: inline-block;
+    width: 50px;
+    text-align: left;
+    margin-right: 20px;
+    overflow-y: hidden;
+}
+
+.listBox {
+    padding: 10px;
+    width: 600px;
+    height: 420px;
+}
+
+.footer {
     padding: 50px;
     float: right;
-    margin-right:200px;
+    margin-right: 200px;
 }
 
-.buttonRow{
+.buttonRow {
     padding: 10px;
     width: 600px;
-    text-align:right;
-  }
-  
-  .buttonLeft{
+    text-align: right;
+}
+
+.buttonLeft {
     text-align: center;
     margin-left: 100px;
     padding: 10px;
-    background-color:purple;
-    color:white;
+    background-color: purple;
+    color: white;
     float: left;
-    width:100px;
-  }
+    width: 100px;
+}
 
 
-  .buttonRight{
+.buttonRight {
     text-align: center;
     margin-right: 200px;
     padding: 10px;
-    background-color:purple;
-    color:white;
+    background-color: purple;
+    color: white;
     float: right;
-    width:100px;
-  }
+    width: 100px;
+}

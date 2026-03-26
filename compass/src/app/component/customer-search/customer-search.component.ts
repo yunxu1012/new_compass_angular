@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CompassService } from '../../service/compass.service';
-import { FormGroup, FormControl, Validators} from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BedCount } from '../../enum/bed-count';
 import { BathCount } from '../../enum/bath-count';
 import { Customer } from '../../model/customer.model';
@@ -29,8 +29,8 @@ export class CustomerSearchComponent {
 
     this.searchForm = new FormGroup({
       homeType: new FormControl('', Validators.required),
-      price: new FormControl('', [Validators.required,  Validators.pattern('^[0-9]{0,8}$')]),
-      squareFeet: new FormControl('', [Validators.required,  Validators.pattern('^[0-9]{0,8}$')]),
+      price: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{0,8}$')]),
+      squareFeet: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{0,8}$')]),
       bedCount: new FormControl('', Validators.required),
       bathCount: new FormControl('', Validators.required),
       city: new FormControl('', Validators.required),
@@ -46,7 +46,6 @@ export class CustomerSearchComponent {
   }
 
   search(): void {
-    console.log("search here");
     if (this.searchForm.invalid) {
       this.searchForm.markAllAsTouched(); // Mark all controls as touched
       return; // Prevent submission if form is invalid
@@ -64,28 +63,33 @@ export class CustomerSearchComponent {
     this.getFilteredCustomers(url, data).subscribe({
       next: (data) => {
         this.compassService.customers = data;
-        console.log("data size: "+this.compassService.customers.length);
         this.compassService.pagedCustomers = data;
-        this.compassService.totalPages = Math.ceil(this.compassService.customers.length 
-               / this.compassService.pageSize);
+        this.compassService.totalPages = Math.ceil(this.compassService.customers.length
+          / this.compassService.pageSize);
         this.compassService.updatePagedData();
         this.router.navigate(['/customer-list']);
       },
-      error: (e) => console.error(e)
+      error: (e) => {
+        console.error(e);
+        var msg = e.error.message;
+        if (msg === "JWT token expired") {
+          this.compassService.logout();
+          this.router.navigate(['/admin_login']);
+        }
+      }
     });
   }
 
-  cancel(){
+  cancel() {
     this.compassService.search = false;
     this.router.navigate(['/customer-list']);
   }
 
   getFilteredCustomers(url: string, data: any): Observable<Customer[]> {
-    console.log("search here002");
     var token = localStorage.getItem('token');
     var authHeader = "Bearer ";
-    if(token){
-      authHeader +=token;
+    if (token) {
+      authHeader += token;
     }
     const httpOptions = {
       headers: new HttpHeaders({

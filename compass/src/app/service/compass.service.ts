@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { BedCount } from '../enum/bed-count';
 import { BathCount } from '../enum/bath-count';
 import { Customer } from '../model/customer.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class CompassService {
   customers: Customer[] = [];
   pagedCustomers?: Customer[];
   search:boolean = false;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
   citiesUrl = 'http://localhost:8080/api/cities';
   pageSize :number= 10;
   currentPage:number = 1;
@@ -82,7 +83,14 @@ export class CompassService {
         this.totalPages = Math.ceil(this.customers.length / this.pageSize);
         this.updatePagedData();
       },
-      error: (e) => console.error(e)
+      error: (e) => {
+      console.error(e);
+      var msg = e.error.message;
+          if(msg==="JWT token expired"){
+           this.logout();
+           this.router.navigate(['/admin_login']);
+          }
+      }
     });
   }
 

@@ -16,17 +16,16 @@
         </p>
         }
     </div>
-        <div class="buttonRow">
-            <button class="buttonLeft" type="button" (click)="clearFilter()">Clear Filter</button>
-            <button class="buttonRight" type="button" routerLink="/customer-search">Filter</button>
-          </div>
+    <div class="buttonRow">
+        <button class="buttonLeft" type="button" (click)="clearFilter()">Clear Filter</button>
+        <button class="buttonRight" type="button" routerLink="/customer-search">Filter</button>
+    </div>
     <div class="footer">
-        <button (click)="this.compassService.goToPage(this.compassService.currentPage - 1)" 
-        [disabled]="this.compassService.currentPage === 1">Previous</button>
-        <button *ngFor="let page of this.compassService.getPages()" 
-        (click)="this.compassService.goToPage(page)" 
-        [class.active]="this.compassService.currentPage === page">{{page}}</button>
-        <button (click)="this.compassService.goToPage(this.compassService.currentPage + 1)" 
-           [disabled]="this.compassService.currentPage === this.compassService.totalPages">Next</button>
-     </div>
+        <button (click)="this.compassService.goToPage(this.compassService.currentPage - 1)"
+            [disabled]="this.compassService.currentPage === 1">Previous</button>
+        <button *ngFor="let page of this.compassService.getPages()" (click)="this.compassService.goToPage(page)"
+            [class.active]="this.compassService.currentPage === page">{{page}}</button>
+        <button (click)="this.compassService.goToPage(this.compassService.currentPage + 1)"
+            [disabled]="this.compassService.currentPage === this.compassService.totalPages">Next</button>
+    </div>
 </div>

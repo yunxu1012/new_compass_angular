@@ -1,19 +1,19 @@
 .box {
-    margin: 30px;
-    padding: 30px;
-    width: 600px;
-  }
+  margin: 30px;
+  padding: 30px;
+  width: 600px;
+}
 
-  .row{
-    padding: 10px;
-    width: 600px;
+.row {
+  padding: 10px;
+  width: 600px;
 }
 
 .textLabel {
   display: inline-block;
-    width: 150px;
-    text-align: right;
-    padding-right: 10px;
+  width: 150px;
+  text-align: right;
+  padding-right: 10px;
 }
 
 .titleRow {
@@ -21,22 +21,22 @@
   text-align: center;
 }
 
-.error{
-    color:red;
+.error {
+  color: red;
 }
 
-.buttonRow{
+.buttonRow {
   padding: 10px;
   width: 400px;
-  text-align:right;
+  text-align: right;
 }
 
-button{
+button {
   text-align: center;
   margin: 30px;
   padding: 10px;
-  background-color:purple;
-  color:white;
+  background-color: purple;
+  color: white;
   float: right;
-  width:100px;
+  width: 100px;
 }

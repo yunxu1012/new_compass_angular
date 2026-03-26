@@ -55,7 +55,14 @@ export class ProfileComponent {
       next: (data) => {
         this.customer = data;
       },
-      error: (e) => console.error(e)
+      error: (e) =>{
+        var msg = e.error.message;
+        if(msg==="JWT token expired"){
+         this.compassService.logout();
+         this.router.navigate(['/login']);
+        }
+        console.error(e);
+      }
     });
 
   }
@@ -94,6 +101,11 @@ export class ProfileComponent {
         this.customer = data;
       },
       error: (e) => {
+       var msg = e.error.message;
+       if(msg==="JWT token expired"){
+        this.compassService.logout();
+        this.router.navigate(['/login']);
+       }
       console.error(e);
       }
     });

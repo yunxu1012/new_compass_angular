@@ -113,6 +113,11 @@ export class PreferenceComponent {
         this.displayCustomerCity();
       },
       error: (e) => {
+        var msg = e.error.message;
+        if(msg==="JWT token expired"){
+         this.compassService.logout();
+         this.router.navigate(['/login']);
+        }
         console.error(e);
       }
     });
@@ -209,7 +214,14 @@ export class PreferenceComponent {
           this.customerPreference = data;
           this.hasPreference = true;
         },
-        error: (e) => console.error(e)
+        error: (e) => {
+          var msg = e.error.message;
+          if(msg==="JWT token expired"){
+           this.compassService.logout();
+           this.router.navigate(['/login']);
+          }
+        console.error(e);
+        }
       });
     } else {
       this.updatePreference(url, data).subscribe({
@@ -217,7 +229,14 @@ export class PreferenceComponent {
           this.toggleEditMode();
           this.customerPreference = data;
         },
-        error: (e) => console.error(e)
+        error: (e) => {
+          console.error(e);
+          var msg = e.error.message;
+          if(msg==="JWT token expired"){
+           this.compassService.logout();
+           this.router.navigate(['/login']);
+          }
+        }
       });
     }
   }
