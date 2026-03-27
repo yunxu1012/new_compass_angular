@@ -23,12 +23,13 @@ export class AdminLoginComponent {
     password: new FormControl('', Validators.required),
   });
 
-  constructor(private http: HttpClient, private router: Router, private compassService: CompassService) {
+  constructor(private http: HttpClient, private router: Router, public compassService: CompassService) {
     console.log('MyComponent initialized!');
   }
 
   onSubmit() {
     console.log("submit: ");
+    this.compassService.clearTimeout();
     if (this.adminLoginForm.invalid) {
       this.adminLoginForm.markAllAsTouched(); // Mark all controls as touched
       return; // Prevent submission if form is invalid
@@ -48,6 +49,7 @@ export class AdminLoginComponent {
   authUrl = 'http://localhost:8080/api/auth/admin/login';
 
   login(): void {
+    
     const data = {
       email: this.email,
       password: this.password,

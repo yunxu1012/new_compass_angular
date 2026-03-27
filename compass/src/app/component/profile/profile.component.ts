@@ -56,12 +56,12 @@ export class ProfileComponent {
         this.customer = data;
       },
       error: (e) =>{
+        console.error(e);
         var msg = e.error.message;
         if(msg==="JWT token expired"){
-         this.compassService.logout();
+         this.compassService.customerLoginAgain();
          this.router.navigate(['/login']);
         }
-        console.error(e);
       }
     });
 
@@ -103,7 +103,7 @@ export class ProfileComponent {
       error: (e) => {
        var msg = e.error.message;
        if(msg==="JWT token expired"){
-        this.compassService.logout();
+        this.compassService.customerLoginAgain();
         this.router.navigate(['/login']);
        }
       console.error(e);

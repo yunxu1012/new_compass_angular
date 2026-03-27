@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {Router } from '@angular/router';
 import { JwtInfo } from '../../model/jwt-info.model';
+import { CompassService } from '../../service/compass.service';
 
 @Component({
     selector: 'app-login',
@@ -21,12 +22,13 @@ export class LoginComponent {
     password: new FormControl('',  Validators.required),
   });
 
-  constructor(private http: HttpClient, private router: Router){
+  constructor(private http: HttpClient, private router: Router, public compassService: CompassService){
     console.log('MyComponent initialized!');
   }
 
   onSubmit(){ 
     console.log("submit: ");
+    this.compassService.clearTimeout();
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched(); // Mark all controls as touched
       return; // Prevent submission if form is invalid

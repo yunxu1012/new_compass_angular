@@ -115,7 +115,7 @@ export class PreferenceComponent {
       error: (e) => {
         var msg = e.error.message;
         if(msg==="JWT token expired"){
-         this.compassService.logout();
+         this.compassService.customerLoginAgain();
          this.router.navigate(['/login']);
         }
         console.error(e);
@@ -217,7 +217,7 @@ export class PreferenceComponent {
         error: (e) => {
           var msg = e.error.message;
           if(msg==="JWT token expired"){
-           this.compassService.logout();
+           this.compassService.customerLoginAgain();
            this.router.navigate(['/login']);
           }
         console.error(e);
@@ -233,7 +233,7 @@ export class PreferenceComponent {
           console.error(e);
           var msg = e.error.message;
           if(msg==="JWT token expired"){
-           this.compassService.logout();
+           this.compassService.customerLoginAgain();
            this.router.navigate(['/login']);
           }
         }

@@ -49,7 +49,7 @@ export class CustomerDetailComponent {
         console.error(e);
         var msg = e.error.message;
         if (msg === "JWT token expired") {
-          this.compassService.logout();
+          this.compassService.adminLoginAgain();
           this.router.navigate(['/admin_login']);
         }
       }
@@ -85,7 +85,7 @@ export class CustomerDetailComponent {
         console.error(e);
         var msg = e.error.message;
         if (msg === "JWT token expired") {
-          this.compassService.logout();
+          this.compassService.adminLoginAgain();
           this.router.navigate(['/admin_login']);
         }
       }

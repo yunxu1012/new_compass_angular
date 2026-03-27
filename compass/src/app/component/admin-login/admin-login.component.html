@@ -1,6 +1,6 @@
 <div class="box_no_border">
-  <a class="linkLabelLeft" routerLink="/register">Register</a>
-  <a class="linkLabelRight" routerLink="/login">Customer Login</a>
+  <a class="linkLabelLeft" routerLink="/register" (click)="compassService.clearTimeout()">Register</a>
+  <a class="linkLabelRight" routerLink="/login" (click)="compassService.clearTimeout()">Customer Login</a>
 </div>
 <div class="box">
   <h2>Admin Login</h2>
@@ -34,7 +34,9 @@
       <div class="error">
         {{errorMsg()}}
       </div>
-
+      <div class="error">
+        {{compassService.adminTimeOut()}}
+      </div>
       <div>
         <button class="button" type="submit">Submit</button>
       </div>

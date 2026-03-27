@@ -6,6 +6,7 @@ import { BedCount } from '../enum/bed-count';
 import { BathCount } from '../enum/bath-count';
 import { Customer } from '../model/customer.model';
 import { Router } from '@angular/router';
+import { signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,8 @@ export class CompassService {
   customers: Customer[] = [];
   pagedCustomers?: Customer[];
   search:boolean = false;
+  readonly adminTimeOut = signal<string>('');
+  readonly customerTimeOut = signal<string>('');
   constructor(private http: HttpClient, private router: Router) { }
   citiesUrl = 'http://localhost:8080/api/cities';
   pageSize :number= 10;
@@ -87,7 +90,7 @@ export class CompassService {
       console.error(e);
       var msg = e.error.message;
           if(msg==="JWT token expired"){
-           this.logout();
+           this.adminLoginAgain();
            this.router.navigate(['/admin_login']);
           }
       }
@@ -124,6 +127,23 @@ export class CompassService {
   logout(){
     localStorage.removeItem('email');
     localStorage.removeItem('token');
+  }
+
+  adminLoginAgain(){
+    console.log("Admin login again");
+    this.logout();
+    this.adminTimeOut.set("Your session is end. Please login again");
+    console.log("message: "+this.adminTimeOut());
+  }
+
+  customerLoginAgain(){
+    this.logout();
+    this.customerTimeOut.set("Your session is end. Please login again");
+  }
+
+  clearTimeout(){
+    this.adminTimeOut.set("");
+    this.customerTimeOut.set("");
   }
 
 }
