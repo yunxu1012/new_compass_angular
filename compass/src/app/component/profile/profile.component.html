@@ -11,23 +11,30 @@
     <div>
       <div class="row">
         <label class="textLabel">First Name:</label>
-        {{ customer?.firstName }}
+        <label class="blue">{{ customer?.firstName }} </label>
       </div>
       <div class="row">
         <label class="textLabel">Last Name: </label>
-        {{ customer?.lastName }}
+        <label class="blue">{{ customer?.lastName }} </label>
       </div>
       <div class="row">
         <label class="textLabel">Email: </label>
-        {{ customer?.email }}
+        <label class="blue">{{ customer?.email }} </label>
       </div>
       <div class="row">
         <label class="textLabel">Phone Number:</label>
-        {{ customer?.phoneNumber }}
+        <label class="blue"> {{ customer?.phoneNumber }} </label>
       </div>
       <div class="buttonRow">
-        <button class="buttonCenter" (click)="toggleEditMode()">Edit</button>
+        <button class="buttonCenter" (click)="toggleEditMode()" [disabled]=customer?.demo>Edit</button>
       </div>
+      <div class="row">
+        @if (customer?.demo) {
+          <label class="error">
+            Demo customer profile can't be edited.
+          </label>
+          }
+        </div>
     </div>
     }
 
@@ -65,7 +72,7 @@
       </div>
       <div class="row">
         <label class="textLabel" for="phoneNumber">Phone Number:</label>
-        <input id="phoneNumber" type="phoneNumber" formControlName="phoneNumber">
+        <input id="phoneNumber" type="phoneNumber"  formControlName="phoneNumber">
         @if (profileForm.get('phoneNumber')?.hasError('required') && profileForm.get('phoneNumber')?.touched) {
         <label class="error">
           Phone Number is required.
@@ -74,7 +81,7 @@
         @if (profileForm.get('phoneNumber')?.hasError('pattern')
         && profileForm.get('phoneNumber')?.touched) {
         <label class="error">
-          &nbsp;&nbsp; Phone Number must be exactly 9 digits long.
+          &nbsp;&nbsp; Phone Number must be exactly 10 digits long.
         </label>
         }
       </div>

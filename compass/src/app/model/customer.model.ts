@@ -6,5 +6,7 @@ export class Customer {
     phoneNumber?:string;
     password?:string;
     confirmPassword?:string;
+    realEmail?:string;
+    demo?:boolean;
     preference?: CustomerPreference;
 }

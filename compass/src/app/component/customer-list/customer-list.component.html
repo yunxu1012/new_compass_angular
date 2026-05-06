@@ -11,7 +11,7 @@
             <label class="nameText">{{customer.lastName}}</label>
             <label class="emailText">{{customer.email}}</label>
             <label class="detailText">
-                <a [routerLink]="['/customer-detail', customer.email]">Details</a>
+                <a [routerLink]="['/customer-detail', customer.realEmail]">Details</a>
             </label>
         </p>
         }

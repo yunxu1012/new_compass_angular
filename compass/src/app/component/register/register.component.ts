@@ -17,7 +17,7 @@ export class RegisterComponent {
     firstName: new FormControl('',  [Validators.required, Validators.maxLength(20)]),
     lastName: new FormControl('',  [Validators.required, Validators.maxLength(20)]),
     email: new FormControl('',  [Validators.required, Validators.email, Validators.maxLength(40)]),
-    phoneNumber: new FormControl('',  [Validators.required,  Validators.pattern('^[0-9]{9}$')]),
+    phoneNumber: new FormControl('',  [Validators.required,  Validators.pattern('^[0-9]{10}$')]),
     password: new FormControl('',  [Validators.required, Validators.minLength(5),Validators.maxLength(20)]),
     confirmPassword: new FormControl('',  [Validators.required]),
   }, { validators: this.matchValidator });
@@ -30,7 +30,6 @@ export class RegisterComponent {
 
   onSubmit(){
     console.log("submit on register");
-    let name = this.registerForm.controls.firstName.value;
     if (this.registerForm.invalid) {
       this.registerForm.markAllAsTouched(); // Mark all controls as touched
       /*Object.keys(this.registerForm.controls).forEach(key => {

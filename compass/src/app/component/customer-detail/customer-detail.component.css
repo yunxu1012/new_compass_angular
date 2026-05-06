@@ -16,9 +16,20 @@
   padding-right: 10px;
 }
 
+.valueLabel {
+  display: inline-block;
+  width: 50px;
+  text-align: left;
+  padding-right: 10px;
+  color:blue;
+}
+
 .titleRow {
   width: 600;
   text-align: center;
+}
+.blue{
+  color: blue;
 }
 
 .error {

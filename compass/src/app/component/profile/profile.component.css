@@ -42,6 +42,9 @@ button{
   width:100px;
 }
 
+.blue{
+  color:blue;
+}
 .buttonLeft{
   text-align: center;
   margin-left: 100px;

@@ -10,7 +10,7 @@
     <div>
       <div class="rowClass">
         <label class="textLabel">Home Type:</label>
-        {{customerPreference?.hometypes|json}}
+        <label class="blue">{{customerPreference?.hometypes|json}} </label>
       </div>
       <div class="rowClass">
         <label class="textLabel">Min Price:</label>
@@ -35,9 +35,10 @@
         <label class="valueLabel">{{ customerPreference?.maxSquareFeet }}</label>
       </div>
     </div>
-    <p>
-      Your Preferred Cities are: {{selectedCityNames | json}}
-    </p>
+    <div class="rowClass">
+      <label class="textLabel">Preferred Cities are: </label>
+       <label class="blue"> {{selectedCityNames | json}} </label>
+    </div>
     <div>
       <div class="buttonRow">
         <button class="buttonCenter" (click)="toggleEditMode()">Edit</button>

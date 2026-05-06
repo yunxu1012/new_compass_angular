@@ -21,9 +21,9 @@ export class ProfileComponent {
   ngOnInit(): void {
     this.loadCustomerProfile();
     this.profileForm = new FormGroup({
-      firstName: new FormControl(this.customer?.firstName, [Validators.required, Validators.maxLength(20)]),
+      firstName: new FormControl(this.customer?.firstName,[Validators.required, Validators.maxLength(20)]),
       lastName: new FormControl(this.customer?.lastName, [Validators.required, Validators.maxLength(20)]),
-      phoneNumber: new FormControl(this.customer?.phoneNumber, [Validators.required, Validators.pattern('^[0-9]{9}$')]),
+      phoneNumber: new FormControl(this.customer?.phoneNumber, [Validators.required, Validators.pattern('^[0-9]{10}$')]),
     });
     this.profileForm.disable();
   }
@@ -33,6 +33,7 @@ export class ProfileComponent {
       this.profileForm.controls['firstName'].setValue(this.customer?.firstName);
       this.profileForm.controls['lastName'].setValue(this.customer?.lastName);
       this.profileForm.controls['phoneNumber'].setValue(this.customer?.phoneNumber);
+
       this.profileForm.enable(); // Enable controls in edit mode
     } else {
       this.profileForm.disable(); // Disable controls in view mode

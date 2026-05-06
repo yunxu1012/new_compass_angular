@@ -35,7 +35,7 @@
 .textLabel {
   display: inline-block;
     width: 150px;
-    text-align: left;
+    text-align: right;
     padding-right: 10px;
 }
 .valueLabel{
@@ -43,6 +43,10 @@
     width: 100px;
     text-align: left;
     padding-right: 10px;
+    color:blue;
+}
+.blue{
+  color:blue;
 }
   .buttonRow{
     padding: 10px;
