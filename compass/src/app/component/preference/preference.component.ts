@@ -102,7 +102,7 @@ export class PreferenceComponent {
     return null;
   }
 
-  profileUrl = 'http://localhost:8080/api/customersPreferences/';
+  profileUrl = this.compassService.basicUrl+'customersPreferences/';
   loadCustomerPreference() {
     var email = localStorage.getItem('email');
     var url = this.profileUrl + email;
@@ -195,7 +195,7 @@ export class PreferenceComponent {
       return;
     }
     var email = localStorage.getItem('email');
-    var url = "http://localhost:8080/api/customersPreferences/" + email;
+    var url = this.compassService.basicUrl+"customersPreferences/" + email;
     const data = {
       minBed: this.preferenceForm.get('minBed')?.value,
       maxBed: this.preferenceForm.get('maxBed')?.value,

@@ -51,7 +51,7 @@ export class CustomerSearchComponent {
       return; // Prevent submission if form is invalid
     }
     this.compassService.search = true;
-    var url = "http://localhost:8080/api/admin/search";
+    var url = this.compassService.basicUrl+'admin/search';
     const data = {
       homeType: this.searchForm.get('homeType')?.value,
       bedCount: this.searchForm.get('bedCount')?.value,

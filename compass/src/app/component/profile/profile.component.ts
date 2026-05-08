@@ -48,7 +48,7 @@ export class ProfileComponent {
     this.toggleEditMode(); // Exit edit mode
   }
 
-  profileUrl = 'http://localhost:8080/api/customers/';
+  profileUrl = this.compassService.basicUrl+'customers/';
   loadCustomerProfile() {
     var email = localStorage.getItem('email');
     var url = this.profileUrl + email;
@@ -89,7 +89,7 @@ export class ProfileComponent {
       return; // Prevent submission if form is invalid
     }
     var email = localStorage.getItem('email');
-    var url = "http://localhost:8080/api/customers/" + email;
+    var url = this.compassService.basicUrl+"customers/" + email;
     const data = {
       firstName: this.profileForm.get('firstName')?.value,
       lastName: this.profileForm.get('lastName')?.value,

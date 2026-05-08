@@ -12,6 +12,7 @@ import { signal } from '@angular/core';
   providedIn: 'root'
 })
 export class CompassService {
+  basicUrl: string = "http://100.54.246.90:8080/api/"
   cities: City[] = [];
   customers: Customer[] = [];
   pagedCustomers?: Customer[];
@@ -19,7 +20,7 @@ export class CompassService {
   readonly adminTimeOut = signal<string>('');
   readonly customerTimeOut = signal<string>('');
   constructor(private http: HttpClient, private router: Router) { }
-  citiesUrl = 'http://localhost:8080/api/cities';
+  citiesUrl = this.basicUrl+'cities';
   pageSize :number= 10;
   currentPage:number = 1;
   totalPages: number =1;
@@ -30,7 +31,6 @@ export class CompassService {
       },
       error: (e) => {
         console.error(e);
-        console.log("cities not fouund");
       }
     });
   }
@@ -77,8 +77,7 @@ export class CompassService {
   }
 
   listCustomers(authHeader:string): void {
-    console.log("list customer: "+ authHeader);
-    var url = "http://localhost:8080/api/admin/customers";
+    var url = this.basicUrl+"admin/customers";
     this.getCustomers(url, authHeader).subscribe({
       next: (data) => {
         this.customers = data;
@@ -130,10 +129,8 @@ export class CompassService {
   }
 
   adminLoginAgain(){
-    console.log("Admin login again");
     this.logout();
     this.adminTimeOut.set("Your session is end. Please login again");
-    console.log("message: "+this.adminTimeOut());
   }
 
   customerLoginAgain(){

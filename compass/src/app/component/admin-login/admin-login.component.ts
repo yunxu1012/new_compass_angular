@@ -28,7 +28,6 @@ export class AdminLoginComponent {
   }
 
   onSubmit() {
-    console.log("submit: ");
     this.compassService.clearTimeout();
     if (this.adminLoginForm.invalid) {
       this.adminLoginForm.markAllAsTouched(); // Mark all controls as touched
@@ -42,11 +41,9 @@ export class AdminLoginComponent {
     if (password != null) {
       this.password = password;
     }
-    console.log("email: " + this.email);
-    //this.compassService.search = false;
     this.login();
   }
-  authUrl = 'http://localhost:8080/api/auth/admin/login';
+  authUrl = this.compassService.basicUrl+'auth/admin/login';
 
   login(): void {
     
@@ -62,7 +59,6 @@ export class AdminLoginComponent {
         if (this.jwtInfo?.token) {
           localStorage.setItem('token', this.jwtInfo?.token);
         }
-        console.log("token: " + this.jwtInfo?.token);
         this.router.navigate(['/customer-list']);
       },
       error: (e) => {

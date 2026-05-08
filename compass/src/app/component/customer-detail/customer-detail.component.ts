@@ -17,7 +17,7 @@ export class CustomerDetailComponent {
   constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient,
     private compassService: CompassService) { }
   email?: string;
-  profileUrl = 'http://localhost:8080/api/admin/customers/';
+  profileUrl = this.compassService.basicUrl+'admin/customers/';
   customer?: Customer;
   selectedCityNames: string[] = [];
   bedCounts = Object.keys(BedCount);
@@ -30,7 +30,6 @@ export class CustomerDetailComponent {
     if (search != null && search == "true") {
       this.search = true;
     }
-    console.log("email: " + cEmail);
     if (cEmail) {
       this.email = cEmail;
       this.loadCustomer();
@@ -71,12 +70,9 @@ export class CustomerDetailComponent {
   }
 
   displayCustomerCity() {
-    console.log("city name001: ");
     if (this.customer?.preference?.cities) {
-      console.log("city name002: ");
       this.selectedCityNames = [];
       for (const city of this.customer?.preference.cities) {
-        console.log("city name: "+city.name);
         if (city.name) {
           this.selectedCityNames.push(city.name);
         }

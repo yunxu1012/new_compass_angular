@@ -27,7 +27,6 @@ export class LoginComponent {
   }
 
   onSubmit(){ 
-    console.log("submit: ");
     this.compassService.clearTimeout();
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched(); // Mark all controls as touched
@@ -41,10 +40,9 @@ export class LoginComponent {
     if(password!=null){
       this.password = password;
     }
-    console.log("email: "+this.email);
     this.login();
   }
-  authUrl =  'http://localhost:8080/api/auth/customer/login';
+  authUrl =  this.compassService.basicUrl+'auth/customer/login';
 
   login(): void {
     const data = {
@@ -59,7 +57,6 @@ export class LoginComponent {
         if(this.jwtInfo?.token){
             localStorage.setItem('token',this.jwtInfo?.token);
         }
-        console.log("token here: "+this.jwtInfo?.token);
         this.router.navigate(['/profile']);
       },
       error: (e) => {

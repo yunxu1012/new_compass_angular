@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import {FormGroup, AbstractControl,ValidationErrors, FormControl, ReactiveFormsModule,  Validators} from '@angular/forms';
 import { Observable } from 'rxjs';
 import {Router } from '@angular/router';
+import { CompassService } from '../../service/compass.service';
 
 @Component({
     selector: 'app-register',
@@ -12,8 +13,13 @@ import {Router } from '@angular/router';
 })
 export class RegisterComponent {
   readonly errorMsg = signal<string>('');
-  constructor(private http: HttpClient, private router: Router) { }
-  registerForm = new FormGroup({
+  registerForm!: FormGroup;
+  constructor(private http: HttpClient, private router: Router, 
+    public compassService: CompassService) {
+      console.log('MyComponent initialized!');
+     }
+     ngOnInit(): void {
+  this.registerForm = new FormGroup({
     firstName: new FormControl('',  [Validators.required, Validators.maxLength(20)]),
     lastName: new FormControl('',  [Validators.required, Validators.maxLength(20)]),
     email: new FormControl('',  [Validators.required, Validators.email, Validators.maxLength(40)]),
@@ -21,7 +27,7 @@ export class RegisterComponent {
     password: new FormControl('',  [Validators.required, Validators.minLength(5),Validators.maxLength(20)]),
     confirmPassword: new FormControl('',  [Validators.required]),
   }, { validators: this.matchValidator });
-
+     }
  private matchValidator(control: AbstractControl): ValidationErrors | null {
   const password = control?.get('password');
   const confirmPassword = control?.get('confirmPassword');
@@ -29,7 +35,6 @@ export class RegisterComponent {
   }
 
   onSubmit(){
-    console.log("submit on register");
     if (this.registerForm.invalid) {
       this.registerForm.markAllAsTouched(); // Mark all controls as touched
       /*Object.keys(this.registerForm.controls).forEach(key => {
@@ -42,9 +47,12 @@ export class RegisterComponent {
     }
     this.register();
   }
-  authUrl =  'http://localhost:8080/api/auth/customer/signup';
+  
+  
 
   register(): void {
+    //var authUrl =  this.compassService.basicUrl+'auth/customer/signup';
+    var authUrl = "http://100.54.246.90:8080/api/auth/customer/signup";
     const data = {
       firstName: this.registerForm.get('firstName')?.value,
       lastName: this.registerForm.get('lastName')?.value,
@@ -52,7 +60,7 @@ export class RegisterComponent {
       phoneNumber: this.registerForm.get('phoneNumber')?.value, 
       password: this.registerForm.get('password')?.value
     };
-    this.registerCustomer(this.authUrl,data).subscribe({
+    this.registerCustomer(authUrl,data).subscribe({
       next: (res) => {
         this.router.navigate(['/login']);
       },
