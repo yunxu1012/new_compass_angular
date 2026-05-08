@@ -24,7 +24,10 @@
       <br />
       <label class="textLabel" for="password">Password: </label>
       <br />
-      <input id="password" type="text" formControlName="password" />
+      <input id="password" [type]="hidePassword ? 'password' : 'text'" formControlName="password" />
+        <button type="button" (click)="togglePasswordVisibility()">
+          {{ hidePassword ? 'Show' : 'Hide' }}
+        </button>
       @if (loginForm.get('password')?.hasError('required')
         && loginForm.get('password')?.touched) {
         <label class="error">

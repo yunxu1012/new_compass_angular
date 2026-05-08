@@ -75,4 +75,14 @@ export class RegisterComponent {
     return this.http.post(baseUrl, data);
   }
 
+  hidePassword = true; // Initially hide the password
+
+  togglePasswordVisibility() {
+    this.hidePassword = !this.hidePassword;
+  }
+
+  hideConfirmPassword = true; // Initially hide the password
+  toggleConfirmPasswordVisibility() {
+    this.hideConfirmPassword = !this.hideConfirmPassword;
+  }
 }

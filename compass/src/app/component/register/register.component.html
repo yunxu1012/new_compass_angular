@@ -90,7 +90,10 @@
       </div>
       <div class="rowClass">
         <label class="textLabel" for="password">Password: </label>
-        <input id="password" type="text" formControlName="password" />
+        <input id="password" [type]="hidePassword ? 'password' : 'text'" formControlName="password" />
+        <button type="button" (click)="togglePasswordVisibility()">
+          {{ hidePassword ? 'Show' : 'Hide' }}
+        </button>
       </div>
       <div class="rowClass">
         @if (registerForm.get('password')?.hasError('required')
@@ -109,7 +112,10 @@
       </div>
       <div class="rowClass">
         <label class="textLabel" for="confirm-password">Confirm Password: </label>
-        <input id="confirm-password" type="text" formControlName="confirmPassword" />
+        <input id="confirm-password" [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword" />
+        <button type="button" (click)="toggleConfirmPasswordVisibility()">
+          {{ hideConfirmPassword ? 'Show' : 'Hide' }}
+        </button>
       </div>
       <div class="rowClass">
         @if (registerForm.get('confirmPassword')?.hasError('required')
