@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './component/login/login.component';
 import { RegisterComponent } from './component/register/register.component';
+import { RegisterValidationComponent } from './component/register-validation/register-validation.component';
 import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { MenuComponent } from './component/menu/menu.component';
 import { AdminMenuComponent } from './component/admin-menu/admin-menu.component';
@@ -17,6 +18,8 @@ import { AdminLoginComponent } from './component/admin-login/admin-login.compone
 import { CustomerDetailComponent } from './component/customer-detail/customer-detail.component';
 import { CustomerListComponent } from './component/customer-list/customer-list.component';
 import { CustomerSearchComponent } from './component/customer-search/customer-search.component';
+import { ForgotPasswordEmailComponent } from './component/forgot-password-email/forgot-password-email.component';
+import { ForgotPasswordCodeComponent } from './component/forgot-password-code/forgot-password-code.component';
 import { RouterLink, ActivatedRoute } from '@angular/router';
 
 @NgModule({ declarations: [
@@ -24,13 +27,16 @@ import { RouterLink, ActivatedRoute } from '@angular/router';
         LoginComponent,
         AdminLoginComponent,
         RegisterComponent,
+        RegisterValidationComponent,
         MenuComponent,
         AdminMenuComponent,
         ProfileComponent,
         PreferenceComponent,
         CustomerListComponent,
         CustomerSearchComponent,
-        CustomerDetailComponent
+        CustomerDetailComponent,
+        ForgotPasswordEmailComponent,
+        ForgotPasswordCodeComponent
     ],
     bootstrap: [AppComponent], 
     imports: [BrowserModule,

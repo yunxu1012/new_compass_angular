@@ -78,5 +78,9 @@ export class LoginComponent {
   togglePasswordVisibility() {
     this.hidePassword = !this.hidePassword;
   }
+
+  forgotPassowrd(){
+    this.router.navigate(['/forgot-password-email']);
+  }
   
 }

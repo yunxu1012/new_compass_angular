@@ -1,62 +1,68 @@
 .box {
-    margin-left: 60px;
-    padding: 30px;
-    width: 400px;
-    border:1px solid black;
-    }
-  
-    .box_no_border {
-      margin-left: 60px;
-      margin-top: 60px;
-      margin-bottom: 60px;
-      padding: 0px;
-      width: 650px;
-    }
-    .linkLabelLeft {
-        display: inline-block;
-        width: 150px;
-        text-align: left;
-        padding-right: 10px;
-      }
-    
-      .linkLabelRight {
-        display: inline-block;
-        width: 150px;
-        text-align: right;
-        padding-right: 10px;
-      }
+  margin-left: 60px;
+  padding: 30px;
+  width: 400px;
+  border: 1px solid black;
+}
 
-    .row {
-        display: table;
-        width: 100%; /*Optional*/
-        table-layout: fixed; /*Optional*/
-        line-height: 100%;
-      }
+.box_no_border {
+  margin-left: 60px;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  padding: 0px;
+  width: 650px;
+}
+
+.linkLabelLeft {
+  display: inline-block;
+  width: 150px;
+  text-align: left;
+  padding-right: 10px;
+}
+
+.linkLabelRight {
+  display: inline-block;
+  width: 150px;
+  text-align: right;
+  padding-right: 10px;
+}
+
+.row {
+  display: table;
+  width: 100%;
+  /*Optional*/
+  table-layout: fixed;
+  /*Optional*/
+  line-height: 100%;
+}
+
 .title {
-    text-align: center;
+  text-align: center;
 }
+
 .textLabel {
-    display: inline-block;
-    width: 150px;
-    padding-right: 30px;
-    text-align: right;
+  display: inline-block;
+  width: 150px;
+  padding-right: 30px;
+  text-align: right;
 }
 
-.error{
-    color:red;
-    width: 150px;
+.error {
+  color: red;
+  width: 150px;
 }
 
-.button{
-    text-align: center;
-    margin: 30px;
-    padding: 10px;
-    background-color:purple;
-    color:white;
-    float: right;
-    width:100px;
-  }
-  .rowClass{
-    padding: 10px;
-    width: 600px;
+.button {
+  text-align: center;
+  margin: 30px;
+  padding: 10px;
+  background-color: purple;
+  color: white;
+  float: right;
+  width: 100px;
+}
+
+.rowClass {
+  padding: 10px;
+  width: 600px;
 }

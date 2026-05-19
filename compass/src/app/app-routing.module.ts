@@ -8,17 +8,23 @@ import { PreferenceComponent } from './component/preference/preference.component
 import { CustomerListComponent } from './component/customer-list/customer-list.component';
 import { CustomerDetailComponent } from './component/customer-detail/customer-detail.component';
 import { CustomerSearchComponent } from './component/customer-search/customer-search.component';
+import { RegisterValidationComponent } from './component/register-validation/register-validation.component';
+import { ForgotPasswordCodeComponent } from './component/forgot-password-code/forgot-password-code.component';
+import { ForgotPasswordEmailComponent } from './component/forgot-password-email/forgot-password-email.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: "full"},
   { path: 'login', component: LoginComponent },
   { path: 'admin_login', component: AdminLoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'register-validation', component: RegisterValidationComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'preference', component: PreferenceComponent },
   { path: 'customer-list', component: CustomerListComponent },
   { path: 'customer-search', component: CustomerSearchComponent },
  { path: 'customer-detail/:email', component: CustomerDetailComponent },
+ { path: 'forgot-password-email', component: ForgotPasswordEmailComponent },
+ { path: 'forgot-password-code', component: ForgotPasswordCodeComponent },
 ];
 
 @NgModule({
