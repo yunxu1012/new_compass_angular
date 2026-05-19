@@ -1,0 +1,16 @@
+<div class="box_no_border">
+    <form [formGroup]="validationForm">
+        <p>We send a text to your email. Please check both your inbox and spam folder.</p>
+        <p><button class="buttonResend" (click)="sendAgain()">Send code again</button></p>
+        <p>Enter your code here:</p>
+        <p><input id="code" type="text" formControlName="code" /> 
+        </p>
+        <div class="error">
+            {{errorMsg()}}
+          </div>
+          <div class="buttonRow">
+            <button class="buttonLeft" (click)="back()">Back</button>
+            <button class="buttonRight" (click)="submit()">Submit</button>
+        </div>
+    </form>
+</div>
