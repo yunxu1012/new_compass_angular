@@ -53,7 +53,7 @@ export class RegisterComponent {
   send_code(): void {
     //var authUrl =  this.compassService.basicUrl+'auth/customer/signup';
     var email = this.registerForm.get('email')?.value;
-    var authUrl = "http://localhost:8080/api/auth/registerCode?email="+email+"&firstTime=true";
+    var authUrl = "http://100.54.246.90:8080/api/auth/registerCode?email="+email+"&firstTime=true";
     console.log("authUrl: "+authUrl);
       
     localStorage.setItem('firstName', this.registerForm.get('firstName')?.value);

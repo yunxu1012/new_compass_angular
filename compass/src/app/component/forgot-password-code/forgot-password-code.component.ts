@@ -35,7 +35,7 @@ export class ForgotPasswordCodeComponent {
   }
   sendAgain(){
     var email = localStorage.getItem('email');
-    var authUrl = "http://localhost:8080/api/auth/sendCode?email="+email+"&firstTime=false";
+    var authUrl = "http://100.54.246.90:8080/api/auth/sendCode?email="+email+"&firstTime=false";
     console.log("authUrl: "+authUrl);
       
     this.sendCode(authUrl).subscribe({
@@ -64,7 +64,7 @@ export class ForgotPasswordCodeComponent {
       return; // Prevent submission if form is invalid
     }
     var email = localStorage.getItem('email');
-    var authUrl = "http://localhost:8080/api/auth/customer/resetPassword";
+    var authUrl = "http://100.54.246.90:8080/api/auth/customer/resetPassword";
     const data = {
       email: localStorage.getItem('email'),
       password: this.validationForm.get('password')?.value,

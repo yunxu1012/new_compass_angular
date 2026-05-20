@@ -25,7 +25,7 @@ export class RegisterValidationComponent {
   }
   sendAgain(){
     var email = localStorage.getItem('email');
-    var authUrl = "http://localhost:8080/api/auth/sendCode?email="+email+"&firstTime=false";
+    var authUrl = "http://100.54.246.90:8080/api/auth/sendCode?email="+email+"&firstTime=false";
     console.log("authUrl: "+authUrl);
       
     this.sendCode(authUrl).subscribe({
@@ -55,7 +55,7 @@ export class RegisterValidationComponent {
     }
     var code = this.validationForm.get('code')?.value;
     var email = localStorage.getItem('email');
-    var authUrl = "http://localhost:8080/api/auth/customer/signup";
+    var authUrl = "http://100.54.246.90:8080/api/auth/customer/signup";
     const data = {
       firstName: localStorage.getItem('firstName'),
       lastName: localStorage.getItem('lastName'),
