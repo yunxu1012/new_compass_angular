@@ -86,7 +86,7 @@
                 }
             </div>
             <div class="rowClass">
-                <label class="labelClass" for="preferCity">Prefered City:</label>
+                <label class="labelClass" for="preferCity">City:</label>
                 <ng-select id="city" [items]="compassService.cities" #selectedItem class="my-custom-select"
                     bindLabel="cityId" bindLabel="name" [searchable]="true" (change)="selected($event)"
                     formControlName="city">
@@ -95,7 +95,7 @@
                 @if (searchForm.get('city')?.hasError('required')
                 && searchForm.get('city')?.touched) {
                 <label class="error">
-                    Prefered city is required.
+                    City is required.
                 </label>
                 }
             </div>

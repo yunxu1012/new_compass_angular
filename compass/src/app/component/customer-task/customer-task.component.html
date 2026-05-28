@@ -1,0 +1,78 @@
+<div class="box">
+    <app-menu></app-menu>
+
+    <form [formGroup]="taskForm">
+        <div class="listBox">
+            <label class="nameTitle">Date</label>
+            <label class="nameTitle">Time</label>
+            <label class="nameTitle">Status</label>
+            <label class="detailTitle">Details</label>
+            <label class="nameTitle">Action</label>
+           
+            @for (task of tasks(); track task) {
+            <p>
+                <label class="nameText">{{task.taskDate}}</label>
+                <label class="nameText">{{task.startTime}}</label>
+                <label class="nameText">{{task.status}}</label>
+                <label class="detailText"> <a [routerLink]="['/customer-task-detail', task.id]">Details</a>
+                </label>
+                <button type="submit" (click)="cancelTask(task.id)">Cancel</button>
+            </p>
+            }
+        
+        </div>
+        <div class="rowClass">
+            <label class="title">Schedule A New Appointment:</label>
+        </div>
+        <div class="rowClass">
+            <label class="labelClass">Date:</label>
+            <select id="schedule" formControlName="selectedSchedule" (change)="changeSchedule()">
+                @for (schedule of schedules(); track schedule) {
+                <option [ngValue]="schedule">{{schedule.taskDate}}</option>
+                }
+            </select>
+        </div>
+        <div class="rowClass">
+            <label class="labelClass">Time:</label>
+            <select id="timeList" formControlName="taskTime">
+                @for (taskTime of timeList(); track taskTime) {
+                <option [ngValue]="taskTime">{{taskTime}}</option>
+                }
+            </select>
+        </div>
+        <div class="rowClass">
+            <label class="labelClass">Address:</label>
+            <input id="address" type="text" formControlName="address">
+        </div>
+        <div class="rowClass">
+            <label class="labelClass" for="city">City:</label>
+            <ng-select id="city" [items]="compassService.cities" #selectedItem class="my-custom-select"
+                bindLabel="cityId" bindLabel="name" [searchable]="true" formControlName="city">
+            </ng-select>
+            <p></p>
+            @if (taskForm.get('city')?.hasError('required')
+            && taskForm.get('city')?.touched) {
+            <label class="error">
+                Prefered city is required.
+            </label>
+            }
+        </div>
+        <div class="rowClass">
+            <label class="labelClass">State:</label>
+            <label class="labelTxt">Ma</label>
+        </div>
+        <div class="rowClass">
+            <label class="labelClass">Zip Code:</label>
+            <input id="zipcode" type="text" formControlName="zipcode">
+        </div>
+        <div class="rowClass">
+            <label class="labelClass">Comment:</label>
+            <input id="minPrice" type="text" formControlName="comment">
+        </div>
+
+        <div class="buttonRow">
+            <button class="buttonCenter" (click)="saveTask()">Submit</button>
+        </div>
+
+    </form>
+</div>

@@ -31,7 +31,7 @@ export class ForgotPasswordEmailComponent {
     }
     //var authUrl =  this.compassService.basicUrl+'auth/customer/signup';
     var email = this.emailForm.get('email')?.value;
-    var authUrl = "http://100.54.246.90:8080/api/auth/sendCode?email="+email+"&firstTime=true";
+    var authUrl = "http://localhost:8080/api/auth/sendCode?email="+email+"&firstTime=true";
     console.log("authUrl: "+authUrl);
     localStorage.setItem('email', email);
     this.sendCode(authUrl).subscribe({

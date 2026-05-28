@@ -69,7 +69,7 @@ export class ProfileComponent {
   }
 
   getProfile(url: string): Observable<Customer> {
-    var token = localStorage.getItem('token')!;
+    var token = localStorage.getItem('token');
     var authHeader = "Bearer ";
     if(token){
       authHeader +=token;
@@ -113,7 +113,7 @@ export class ProfileComponent {
   }
 
   updateProfile(url: string, data: any): Observable<Customer> {
-    var token = localStorage.getItem('token')!;
+    var token = localStorage.getItem('token');
     var authHeader = "Bearer ";
     if(token){
       authHeader +=token;
