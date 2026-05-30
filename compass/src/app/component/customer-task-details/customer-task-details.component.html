@@ -1,0 +1,43 @@
+<div class="box">
+  <div class="profile-container">
+    <div>
+      <label class="titleRow">
+        <h2>Appointment Details</h2>
+      </label>
+    </div>
+    <div>
+      <div class="row">
+        <label class="textLabel">Date:</label>
+        <label class="blue"> {{ task?.taskDate }}</label>
+      </div>
+      <div class="row">
+        <label class="textLabel">Time: </label>
+        <label class="blue">{{ task?.startTime}} </label>
+      </div>
+      <div class="row">
+        <label class="textLabel">Status: </label>
+        <label class="blue">{{ task?.status}} </label>
+      </div>
+      <div class="row">
+        <label class="textLabel">address </label>
+        <label class="blue">{{ task?.address }} </label> 
+      </div>
+      <div class="row">
+        <label class="textLabel">City:</label>
+        <label class="blue"> {{ task?.city }} </label> 
+      </div>
+      <div class="row">
+        <label class="textLabel">State</label>
+        <label class="blue"> {{ task?.state }} </label> 
+      </div>
+      <div class="row">
+        <label class="textLabel">Zipcode</label>
+        <label class="blue"> {{ task?.zipcode }} </label> 
+      </div>
+      <div class="row">
+        <label class="textLabel">Comment</label>
+        <label class="blue"> {{ task?.comment }} </label> 
+      </div>
+    </div>
+    <div><a [routerLink]="['/customer-task']">Back</a></div>
+  </div>

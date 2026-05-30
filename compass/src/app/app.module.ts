@@ -19,6 +19,7 @@ import { CustomerDetailComponent } from './component/customer-detail/customer-de
 import { CustomerListComponent } from './component/customer-list/customer-list.component';
 import { CustomerSearchComponent } from './component/customer-search/customer-search.component';
 import { CustomerTaskComponent } from './component/customer-task/customer-task.component';
+import { CustomerTaskDetailsComponent } from './component/customer-task-details/customer-task-details.component';
 import { ForgotPasswordEmailComponent } from './component/forgot-password-email/forgot-password-email.component';
 import { ForgotPasswordCodeComponent } from './component/forgot-password-code/forgot-password-code.component';
 import { RouterLink, ActivatedRoute } from '@angular/router';
@@ -37,6 +38,7 @@ import { RouterLink, ActivatedRoute } from '@angular/router';
         CustomerSearchComponent,
         CustomerDetailComponent,
         CustomerTaskComponent,
+        CustomerTaskDetailsComponent,
         ForgotPasswordEmailComponent,
         ForgotPasswordCodeComponent
     ],

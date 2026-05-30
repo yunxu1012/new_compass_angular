@@ -38,6 +38,14 @@ export class CustomerTaskComponent {
 
   }
 
+  noTasks(): boolean {
+    return this.tasks().length == 0;
+  }
+
+  fullTasks(): boolean {
+    return this.tasks().length >= 3;
+  }
+
   changeSchedule() {
     const value = this.taskForm.get('selectedSchedule')?.value;
     console.log("value: " + value.taskDate);

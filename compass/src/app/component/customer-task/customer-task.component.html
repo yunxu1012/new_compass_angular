@@ -8,13 +8,15 @@
             <label class="nameTitle">Status</label>
             <label class="detailTitle">Details</label>
             <label class="nameTitle">Action</label>
-           
+            @if(noTasks()){
+                <p>No appointments to display.</p>
+            }
             @for (task of tasks(); track task) {
             <p>
                 <label class="nameText">{{task.taskDate}}</label>
                 <label class="nameText">{{task.startTime}}</label>
                 <label class="nameText">{{task.status}}</label>
-                <label class="detailText"> <a [routerLink]="['/customer-task-detail', task.id]">Details</a>
+                <label class="detailText"> <a [routerLink]="['/customer-task-details', task.id]">Details</a>
                 </label>
                 <button type="submit" (click)="cancelTask(task.id)">Cancel</button>
             </p>
@@ -24,6 +26,11 @@
         <div class="rowClass">
             <label class="title">Schedule A New Appointment:</label>
         </div>
+        @if(fullTasks()){
+            <p>Customer can only schedule up to 3 tasks. Please cancel or 
+                remove appointments before schedule new one. </p>
+        }
+        @if(!fullTasks()){
         <div class="rowClass">
             <label class="labelClass">Date:</label>
             <select id="schedule" formControlName="selectedSchedule" (change)="changeSchedule()">
@@ -73,6 +80,7 @@
         <div class="buttonRow">
             <button class="buttonCenter" (click)="saveTask()">Submit</button>
         </div>
+    }
 
     </form>
 </div>

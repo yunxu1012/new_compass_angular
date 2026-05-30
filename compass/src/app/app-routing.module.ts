@@ -9,6 +9,7 @@ import { CustomerListComponent } from './component/customer-list/customer-list.c
 import { CustomerDetailComponent } from './component/customer-detail/customer-detail.component';
 import { CustomerSearchComponent } from './component/customer-search/customer-search.component';
 import { CustomerTaskComponent } from './component/customer-task/customer-task.component';
+import { CustomerTaskDetailsComponent } from './component/customer-task-details/customer-task-details.component';
 import { RegisterValidationComponent } from './component/register-validation/register-validation.component';
 import { ForgotPasswordCodeComponent } from './component/forgot-password-code/forgot-password-code.component';
 import { ForgotPasswordEmailComponent } from './component/forgot-password-email/forgot-password-email.component';
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'customer-search', component: CustomerSearchComponent },
  { path: 'customer-detail/:email', component: CustomerDetailComponent },
  { path: 'customer-task', component: CustomerTaskComponent },
+ { path: 'customer-task-details/:taskId', component: CustomerTaskDetailsComponent },
  { path: 'forgot-password-email', component: ForgotPasswordEmailComponent },
  { path: 'forgot-password-code', component: ForgotPasswordCodeComponent },
 ];
