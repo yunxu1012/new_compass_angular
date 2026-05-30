@@ -38,6 +38,12 @@
                 <option [ngValue]="schedule">{{schedule.taskDate}}</option>
                 }
             </select>
+                @if (taskForm.get('selectedSchedule')?.hasError('required')
+                && taskForm.get('selectedSchedule')?.touched) {
+                <label class="error">
+                  &nbsp;&nbsp; Task Date is required.
+                </label>
+                }
         </div>
         <div class="rowClass">
             <label class="labelClass">Time:</label>
@@ -46,11 +52,31 @@
                 <option [ngValue]="taskTime">{{taskTime}}</option>
                 }
             </select>
+            @if (taskForm.get('taskTime')?.hasError('required')
+                && taskForm.get('taskTime')?.touched) {
+                <label class="error">
+                  &nbsp;&nbsp; Task Time is required.
+                </label>
+                }
         </div>
         <div class="rowClass">
             <label class="labelClass">Address:</label>
-            <input id="address" type="text" formControlName="address">
+            <input id="address" type="text" formControlName="address" length="40">
         </div>
+        <div class="rowClass">
+            @if (taskForm.get('address')?.hasError('required')
+            && taskForm.get('address')?.touched) {
+            <label class="error">
+              &nbsp;&nbsp; Address is required.
+            </label>
+            }
+            @if (taskForm.get('address')?.hasError('maxlength')
+            && taskForm.get('address')?.touched) {
+            <label class="error">
+              &nbsp;&nbsp; Max length of address is 40 characters.
+            </label>
+            }
+          </div>
         <div class="rowClass">
             <label class="labelClass" for="city">City:</label>
             <ng-select id="city" [items]="compassService.cities" #selectedItem class="my-custom-select"
@@ -60,7 +86,7 @@
             @if (taskForm.get('city')?.hasError('required')
             && taskForm.get('city')?.touched) {
             <label class="error">
-                Prefered city is required.
+                City is required.
             </label>
             }
         </div>
@@ -73,10 +99,33 @@
             <input id="zipcode" type="text" formControlName="zipcode">
         </div>
         <div class="rowClass">
-            <label class="labelClass">Comment:</label>
-            <input id="minPrice" type="text" formControlName="comment">
-        </div>
+            @if (taskForm.get('zipcode')?.hasError('required')
+            && taskForm.get('zipcode')?.touched) {
+            <label class="error">
+              &nbsp;&nbsp; Zipcode is required.
+            </label>
+            }
+            @if (taskForm.get('zipcode')?.hasError('pattern')
+            && taskForm.get('zipcode')?.touched) {
+            <label class="error">
+              &nbsp;&nbsp; Zipcode must be exactly 5 digits long.
+            </label>
+            }
+          </div>
 
+        <div class="rowClass">
+            <label class="labelClass">Comment:</label>
+            <input id="comment" type="text" formControlName="comment">
+        </div>
+        <div class="rowClass">
+            @if (taskForm.get('comment')?.hasError('maxlength')
+            && taskForm.get('comment')?.touched) {
+            <label class="error">
+              &nbsp;&nbsp; Max length of comment is 40 characters.
+            </label>
+            }
+          </div>
+        
         <div class="buttonRow">
             <button class="buttonCenter" (click)="saveTask()">Submit</button>
         </div>

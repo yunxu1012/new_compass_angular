@@ -7,6 +7,7 @@ import { Schedule } from '../../model/schedule.model';
 import { Observable } from 'rxjs';
 import { signal } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Validators } from '@angular/forms';
 @Component({
   selector: 'app-customer-task',
   templateUrl: './customer-task.component.html',
@@ -27,12 +28,12 @@ export class CustomerTaskComponent {
     this.loadCustomerTasks();
     this.loadCustomerSchedules();
     this.taskForm = new FormGroup({
-      selectedSchedule: new FormControl(this.schedules()[0]),
-      taskTime: new FormControl(""),
-      address: new FormControl(""),
-      city:new FormControl(""),
-      zipcode:new FormControl(""),
-      comment: new FormControl(""),
+      selectedSchedule: new FormControl(this.schedules()[0], Validators.required),
+      taskTime: new FormControl("", Validators.required,),
+      address: new FormControl("", [Validators.required, Validators.maxLength(40)]),
+      city:new FormControl("", Validators.required,),
+      zipcode:new FormControl("", [Validators.required, Validators.pattern('^[0-9]{5}$')]),
+      comment: new FormControl("", Validators.maxLength(40)),
     });
     this.compassService.loadCities();
 

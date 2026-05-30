@@ -66,6 +66,15 @@
     width: 100px;
   }
 
+#address, #comment{
+    width:300px;
+}
+
+.error {
+    color: red;
+  }
+  
+
   .buttonCenter{
     text-align: center;
     margin-left: 200px;
