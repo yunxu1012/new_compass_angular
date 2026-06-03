@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes, ActivatedRoute } from '@angular/router';
 import { LoginComponent } from './component/login/login.component';
 import { AdminLoginComponent } from './component/admin-login/admin-login.component';
+import { AdminTaskComponent } from './component/admin-task/admin-task.component';
+import { AdminTaskDetailsComponent } from './component/admin-task-details/admin-task-details.component';
 import { RegisterComponent } from './component/register/register.component';
 import { ProfileComponent } from './component/profile/profile.component';
 import { PreferenceComponent } from './component/preference/preference.component';
@@ -18,6 +20,8 @@ const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: "full"},
   { path: 'login', component: LoginComponent },
   { path: 'admin_login', component: AdminLoginComponent },
+  { path: 'admin-task', component: AdminTaskComponent },
+  { path: 'admin-task-details/:taskId', component: AdminTaskDetailsComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'register-validation', component: RegisterValidationComponent },
   { path: 'profile', component: ProfileComponent },

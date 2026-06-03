@@ -19,6 +19,7 @@ export class CustomerTaskComponent {
   readonly schedules = signal<Schedule[] | []>([]);
   readonly currentSchedule = signal<Schedule | null>(null);
   readonly timeList = signal<String[] | undefined>(undefined);
+  readonly errorMsg = signal<string>('');
   taskForm!: FormGroup;
   constructor(private http: HttpClient, private router: Router, public compassService: CompassService) {
 
@@ -158,6 +159,8 @@ export class CustomerTaskComponent {
         if (msg === "JWT token expired") {
           this.compassService.customerLoginAgain();
           this.router.navigate(['/login']);
+        }else{
+          this.errorMsg.set(e.error);
         }
         console.error(msg);
       }

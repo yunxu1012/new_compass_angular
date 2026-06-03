@@ -1,0 +1,23 @@
+
+<div class="box">
+    <app-admin-menu></app-admin-menu>
+    <div class="listBox">
+        <label class="nameTitle">Date</label>
+        <label class="nameTitle">Time</label>
+        <label class="nameTitle">Status</label>
+        <label class="detailTitle">Details</label>
+        @if(noTasks()){
+        <p>No appointments to display.</p>
+        }
+        @for (task of tasks(); track task) {
+        <p>
+            <label class="nameText">{{task.taskDate}}</label>
+            <label class="nameText">{{task.startTime}}</label>
+            <label class="nameText">{{task.status}}</label>
+            <label class="detailText"> <a [routerLink]="['/admin-task-details', task.id]">Details</a>
+            </label>
+        </p>
+        }
+
+    </div>
+</div>

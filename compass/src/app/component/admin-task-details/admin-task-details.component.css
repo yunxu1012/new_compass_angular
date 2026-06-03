@@ -1,0 +1,84 @@
+.box {
+    margin: 30px;
+    padding: 30px;
+    width: 600px;
+  }
+  
+  .row {
+    padding: 10px;
+    width: 600px;
+  }
+  
+  .textLabel {
+    display: inline-block;
+    width: 150px;
+    text-align: right;
+    padding-right: 10px;
+  }
+  
+  .valueLabel {
+    display: inline-block;
+    width: 50px;
+    text-align: left;
+    padding-right: 10px;
+    color:blue;
+  }
+  
+  .titleRow {
+    width: 600;
+    text-align: center;
+  }
+  .blue{
+    color: blue;
+  }
+  
+  .error {
+    color: red;
+  }
+  
+  .buttonRow {
+    padding: 10px;
+    width: 400px;
+    text-align: right;
+  }
+  
+
+  .buttonLeft {
+    text-align: left;
+    margin-left: 20px;
+    padding: 10px;
+    background-color: purple;
+    color: white;
+    float: left;
+    width: 100px;
+  }
+  
+  .linkLeft {
+    text-align: left;
+    margin-left: 20px;
+    padding: 10px;
+    float: left;
+    width: 100px;
+  }
+
+  .buttonCenter {
+    text-align: center;
+    margin-left: 20px;
+    margin-right: 40px;
+    padding: 10px;
+    background-color: purple;
+    color: white;
+    float: left;
+    width: 80px;
+  }
+
+  .buttonRight {
+    text-align: center;
+    margin-right: 40px;
+    padding: 10px;
+    background-color: purple;
+    color: white;
+    float: right;
+    width: 80px;
+  }
+  

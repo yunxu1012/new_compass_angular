@@ -1,9 +1,9 @@
-ul {
+  ul {
     list-style-type: none;
     margin-right: 40px;
     padding: 0px;
     overflow: hidden;
-    background-color:white;
+    background-color: white;
   }
 
   li {
@@ -11,11 +11,9 @@ ul {
   }
 
   li a {
-    margin-top:20px;
-    margin-bottom:20px;
     display: block;
     color: black;
     text-align: center;
     padding: 14px 16px;
-    width:150px;
+    width:100px;
   }

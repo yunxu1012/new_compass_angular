@@ -1,5 +1,7 @@
 export class ScheduledTask {
     id?:string;
+    customerName?:string;
+    customerEmail?:string;
     taskDate?:string;
     startTime?:string;
     address?:string;
@@ -8,4 +10,7 @@ export class ScheduledTask {
     zipcode?:string;
     status?:string;
     comment?:string;
+    note?:string;
+    agent?:string;
+    agentList:string[] =[];
 }

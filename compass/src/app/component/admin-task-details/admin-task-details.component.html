@@ -1,0 +1,86 @@
+<div class="box">
+    <div class="profile-container">
+        <div>
+            <label class="titleRow">
+                <h2>Appointment Details</h2>
+            </label>
+        </div>
+        <form [formGroup]="taskForm">
+            <div>
+                <div class="row">
+                    <label class="textLabel">Customer Name:</label>
+                    <label class="blue"> {{ task?.customerName }}</label>
+                </div>
+                <div class="row">
+                    <label class="textLabel">Customer Email:</label>
+                    <label class="blue"> {{ task?.customerEmail }}</label>
+                </div>
+                <div class="row">
+                    <label class="textLabel">Date:</label>
+                    <label class="blue"> {{ task?.taskDate }}</label>
+                </div>
+                <div class="row">
+                    <label class="textLabel">Time: </label>
+                    <label class="blue">{{ task?.startTime}} </label>
+                </div>
+                <div class="row">
+                    <label class="textLabel">Status: </label>
+                    <label class="blue">{{ task?.status}} </label>
+                </div>
+                <div class="row">
+                    <label class="textLabel">address </label>
+                    <label class="blue">{{ task?.address }} </label>
+                </div>
+                <div class="row">
+                    <label class="textLabel">City:</label>
+                    <label class="blue"> {{ task?.city }} </label>
+                </div>
+                <div class="row">
+                    <label class="textLabel">State:</label>
+                    <label class="blue"> {{ task?.state }} </label>
+                </div>
+                <div class="row">
+                    <label class="textLabel">Zipcode:</label>
+                    <label class="blue"> {{ task?.zipcode }} </label>
+                </div>
+                <div class="row">
+                    <label class="textLabel">Comment:</label>
+                    <label class="blue"> {{ task?.comment }} </label>
+                </div>
+                @if(!isPending()){
+                    <div class="row">
+                        <label class="textLabel">Note: </label>
+                        <label class="blue"> {{ task?.note }} </label>
+                    </div>
+                    <div class="row">
+                        <label class="textLabel">Agent: </label>
+                        <label class="blue"> {{ task?.agent }} </label>
+                    </div>
+                }
+                @if(isPending()){
+                    <div class="row">
+                        <label class="textLabel">Note</label>
+                        <input id="note" type="text" formControlName="note">
+                    </div>
+                    <div class="row">
+                        <label class="textLabel">Agent:</label>
+                        <select id="bathCount" formControlName="agent">
+                            <option [ngValue]=""></option>
+                            @for (agent of task?.agentList; track agent) {
+                            <option [ngValue]="agent">
+                                {{ agent }}
+                            </option>
+                            }
+                        </select>
+                    </div>
+                }
+            </div>
+            <div class="buttonRow">
+                <div><a class="linkLeft" [routerLink]="['/admin-task']">Back</a></div>
+                @if(isPending()){
+                <button class="buttonCenter" (click)="approve()">Approve</button>
+                <button class="buttonRight" (click)="reject()">Reject</button>
+                }
+            </div>
+        </form>
+    </div>

@@ -15,6 +15,8 @@ import { PreferenceComponent } from './component/preference/preference.component
 import { MultiSelectModule } from 'primeng/multiselect';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AdminLoginComponent } from './component/admin-login/admin-login.component';
+import { AdminTaskComponent } from './component/admin-task/admin-task.component';
+import { AdminTaskDetailsComponent } from './component/admin-task-details/admin-task-details.component';
 import { CustomerDetailComponent } from './component/customer-detail/customer-detail.component';
 import { CustomerListComponent } from './component/customer-list/customer-list.component';
 import { CustomerSearchComponent } from './component/customer-search/customer-search.component';
@@ -28,6 +30,8 @@ import { RouterLink, ActivatedRoute } from '@angular/router';
         AppComponent,
         LoginComponent,
         AdminLoginComponent,
+        AdminTaskComponent,
+        AdminTaskDetailsComponent,
         RegisterComponent,
         RegisterValidationComponent,
         MenuComponent,
