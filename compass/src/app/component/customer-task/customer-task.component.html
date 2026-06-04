@@ -9,8 +9,9 @@
             <label class="detailTitle">Details</label>
             <label class="nameTitle">Action</label>
             @if(noTasks()){
-                <p>No appointments to display.</p>
+            <p>No appointments to display.</p>
             }
+            @if(!noTasks()){
             @for (task of tasks(); track task) {
             <p>
                 <label class="nameText">{{task.taskDate}}</label>
@@ -18,17 +19,26 @@
                 <label class="nameText">{{task.status}}</label>
                 <label class="detailText"> <a [routerLink]="['/customer-task-details', task.id]">Details</a>
                 </label>
+                @if(taskIsRejected(task)){
+                <button type="submit" (click)="removeTask(task.id)">Remove</button>
+                }
+                @if(!taskIsRejected(task)){
                 <button type="submit" (click)="cancelTask(task.id)">Cancel</button>
+                }
             </p>
+
             }
-        
+            <div> <button type="submit" (click)="loadCustomerTasks()">Refresh Appointments</button></div>
+            }
+
         </div>
+
         <div class="rowClass">
             <label class="title">Schedule A New Appointment:</label>
         </div>
         @if(fullTasks()){
-            <p>Customer can only schedule up to 3 tasks. Please cancel or 
-                remove appointments before schedule new one. </p>
+        <p>Customer can only schedule up to 3 tasks. Please cancel or
+            remove appointments before schedule new one. </p>
         }
         @if(!fullTasks()){
         <div class="rowClass">
@@ -38,12 +48,12 @@
                 <option [ngValue]="schedule">{{schedule.taskDate}}</option>
                 }
             </select>
-                @if (taskForm.get('selectedSchedule')?.hasError('required')
-                && taskForm.get('selectedSchedule')?.touched) {
-                <label class="error">
-                  &nbsp;&nbsp; Task Date is required.
-                </label>
-                }
+            @if (taskForm.get('selectedSchedule')?.hasError('required')
+            && taskForm.get('selectedSchedule')?.touched) {
+            <label class="error">
+                &nbsp;&nbsp; Task Date is required.
+            </label>
+            }
         </div>
         <div class="rowClass">
             <label class="labelClass">Time:</label>
@@ -53,11 +63,11 @@
                 }
             </select>
             @if (taskForm.get('taskTime')?.hasError('required')
-                && taskForm.get('taskTime')?.touched) {
-                <label class="error">
-                  &nbsp;&nbsp; Task Time is required.
-                </label>
-                }
+            && taskForm.get('taskTime')?.touched) {
+            <label class="error">
+                &nbsp;&nbsp; Task Time is required.
+            </label>
+            }
         </div>
         <div class="rowClass">
             <label class="labelClass">Address:</label>
@@ -67,16 +77,16 @@
             @if (taskForm.get('address')?.hasError('required')
             && taskForm.get('address')?.touched) {
             <label class="error">
-              &nbsp;&nbsp; Address is required.
+                &nbsp;&nbsp; Address is required.
             </label>
             }
             @if (taskForm.get('address')?.hasError('maxlength')
             && taskForm.get('address')?.touched) {
             <label class="error">
-              &nbsp;&nbsp; Max length of address is 40 characters.
+                &nbsp;&nbsp; Max length of address is 40 characters.
             </label>
             }
-          </div>
+        </div>
         <div class="rowClass">
             <label class="labelClass" for="city">City:</label>
             <ng-select id="city" [items]="compassService.cities" #selectedItem class="my-custom-select"
@@ -102,16 +112,16 @@
             @if (taskForm.get('zipcode')?.hasError('required')
             && taskForm.get('zipcode')?.touched) {
             <label class="error">
-              &nbsp;&nbsp; Zipcode is required.
+                &nbsp;&nbsp; Zipcode is required.
             </label>
             }
             @if (taskForm.get('zipcode')?.hasError('pattern')
             && taskForm.get('zipcode')?.touched) {
             <label class="error">
-              &nbsp;&nbsp; Zipcode must be exactly 5 digits long.
+                &nbsp;&nbsp; Zipcode must be exactly 5 digits long.
             </label>
             }
-          </div>
+        </div>
 
         <div class="rowClass">
             <label class="labelClass">Comment:</label>
@@ -121,17 +131,17 @@
             @if (taskForm.get('comment')?.hasError('maxlength')
             && taskForm.get('comment')?.touched) {
             <label class="error">
-              &nbsp;&nbsp; Max length of comment is 40 characters.
+                &nbsp;&nbsp; Max length of comment is 40 characters.
             </label>
             }
-          </div>
-          <div class="error">
+        </div>
+        <div class="error">
             {{errorMsg()}}
-          </div>
+        </div>
         <div class="buttonRow">
             <button class="buttonCenter" (click)="saveTask()">Submit</button>
         </div>
-    }
+        }
 
     </form>
 </div>

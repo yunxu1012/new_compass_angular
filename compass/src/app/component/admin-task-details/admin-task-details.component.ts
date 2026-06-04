@@ -7,6 +7,7 @@ import { ScheduledTask } from '../../model/scheduled-task.model';
 import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { signal } from '@angular/core';
 
 @Component({
   selector: 'app-admin-task-details',
@@ -18,6 +19,7 @@ export class AdminTaskDetailsComponent {
   taskForm!: FormGroup;
   taskUrl = this.compassService.basicUrl+'admin/tasks/';
   task?:ScheduledTask;
+  readonly errorMsg = signal<string>('');
   constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient,
     private compassService: CompassService) { }
     ngOnInit(): void {
@@ -72,9 +74,14 @@ export class AdminTaskDetailsComponent {
     }
 
     approve(){
+      var agent =  this.taskForm.get('agent')?.value;
+      console.log("agent :"+agent+"!");
+      if(agent == null || agent == ""){
+        this.errorMsg.set("Agent can't be empty for appoving appointments.");
+        return;
+      }
       if(this.task){
        this.task.status = "APPROVED";
-       this.task.agent='ADMIN A';
       }
       console.log("appove task");
       this.saveTask();
@@ -82,7 +89,6 @@ export class AdminTaskDetailsComponent {
     reject(){
       if(this.task){
         this.task.status = "REJECTED";
-        this.task.agent='ADMIN A';
        }
        this.saveTask();
     }

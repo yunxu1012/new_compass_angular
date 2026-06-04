@@ -47,7 +47,13 @@ export class CustomerTaskComponent {
   fullTasks(): boolean {
     return this.tasks().length >= 3;
   }
-
+  
+  taskIsRejected(task: ScheduledTask):boolean{
+    if(task){
+      return task.status == 'REJECTED';
+    }
+    return false;
+  }
   changeSchedule() {
     const value = this.taskForm.get('selectedSchedule')?.value;
     console.log("value: " + value.taskDate);
@@ -181,9 +187,19 @@ export class CustomerTaskComponent {
     return this.http.post<ScheduledTask>(url, data, httpOptions);
   }
 
-  cancelTask(taskId:string|undefined) {
+  removeTask(taskId:string|undefined){
+    console.log("remove task: "+taskId);
+    var email = localStorage.getItem('email');
+    var url = this.compassService.basicUrl + "customers/" + email + "/tasks/"+taskId+"/done";
+    this.changeTask(taskId, url);
+  }
+  cancelTask(taskId:string|undefined){
     var email = localStorage.getItem('email');
     var url = this.compassService.basicUrl + "customers/" + email + "/tasks/"+taskId+"/cancel";
+    this.changeTask(taskId, url);
+  }
+  changeTask(taskId:string|undefined, url:string) {
+    
     this.updateTask(url).subscribe({
       next: (data) => {
         this.loadCustomerTasks();

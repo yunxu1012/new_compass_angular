@@ -75,6 +75,9 @@
                     </div>
                 }
             </div>
+            <div class="error">
+                {{errorMsg()}}
+              </div>
             <div class="buttonRow">
                 <div><a class="linkLeft" [routerLink]="['/admin-task']">Back</a></div>
                 @if(isPending()){
