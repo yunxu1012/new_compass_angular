@@ -9,7 +9,7 @@
         @if(noTasks()){
         <p>No appointments to display.</p>
         }
-        @for (task of tasks(); track task) {
+        @for (task of pagedTasksToDisplay(); track task) {
         <p>
             <label class="nameText">{{task.taskDate}}</label>
             <label class="nameText">{{task.startTime}}</label>
@@ -20,5 +20,13 @@
         }
 
     </div>
-    <div> <button type="submit" (click)="loadTasks()">Refresh Appointments</button></div>
+    <div> <button type="submit" class="buttonCenter" (click)="loadTasks()">Refresh Appointments</button></div>
+    <div class="footer">
+        <button (click)="goToPage(this.currentPage - 1)"
+            [disabled]="currentPage === 1">Previous</button>
+        <button *ngFor="let page of getPages()" (click)="goToPage(page)"
+            [class.active]="currentPage === page">{{page}}</button>
+        <button (click)="goToPage(currentPage + 1)"
+            [disabled]="currentPage === totalPages">Next</button>
+    </div>
 </div>

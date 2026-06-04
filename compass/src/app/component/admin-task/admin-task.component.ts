@@ -16,7 +16,12 @@ import { Validators } from '@angular/forms';
   standalone: false
 })
 export class AdminTaskComponent {
-  readonly tasks = signal<ScheduledTask[] | []>([]);
+  tasks: ScheduledTask[]=[];
+  pagedTasks: ScheduledTask[]=[];
+  readonly pagedTasksToDisplay = signal<ScheduledTask[] | []>([]);
+  pageSize :number= 10;
+  currentPage:number = 1;
+  totalPages: number =1;
   constructor(private http: HttpClient, private router: Router, public compassService: CompassService) {
 
   }
@@ -26,15 +31,18 @@ export class AdminTaskComponent {
   }
 
   noTasks(): boolean {
-    return this.tasks().length == 0;
+    return this.tasks.length == 0;
   }
 
   taskUrl = this.compassService.basicUrl + 'admin/tasks';
   loadTasks() {
     this.getTasks(this.taskUrl).subscribe({
       next: (data) => {
-        this.tasks.set(data);
-        console.log("task size: "+this.tasks().length);
+        //this.tasks.set(data);
+        this.tasks = data;
+        this.pagedTasks = data;
+        this.totalPages = Math.ceil(this.tasks.length / this.pageSize);
+        this.updatePagedData();
       },
       error: (e) => {
         console.error(e);
@@ -63,4 +71,22 @@ export class AdminTaskComponent {
     return this.http.get<ScheduledTask[]>(url, httpOptions);
   }
 
+  updatePagedData() {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.pagedTasks = this.tasks.slice(startIndex, endIndex);
+    this.pagedTasksToDisplay.set(this.pagedTasks);
+  }
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.updatePagedData();
+    }
+  }
+
+  getPages(): number[] {
+      return Array(this.totalPages).fill(0).map((_, index) => index + 1);
+  }
+ 
 }

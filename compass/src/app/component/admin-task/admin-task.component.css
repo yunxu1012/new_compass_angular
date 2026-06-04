@@ -3,7 +3,7 @@
     padding: 30px;
     width: 600px;
   }
-  
+
 .listBox {
     padding: 10px;
     width: 600px;
@@ -66,5 +66,20 @@
     overflow-y: hidden;
 }
 
+.footer {
+    padding: 50px;
+    float: right;
+    margin-right: 200px;
+}
 
-
+.buttonCenter {
+    text-align: center;
+    margin-left: 100px;
+    margin-right: 40px;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: purple;
+    color: white;
+    float: left;
+    width: 150px;
+  }
