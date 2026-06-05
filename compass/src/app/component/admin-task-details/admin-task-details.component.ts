@@ -59,7 +59,7 @@ export class AdminTaskDetailsComponent {
   
     }
     getTask(url: string): Observable<ScheduledTask> {
-      var token = localStorage.getItem('token');
+      var token = localStorage.getItem('admin_token');
       var authHeader = "Bearer ";
       if (token) {
         authHeader += token;
@@ -118,7 +118,7 @@ export class AdminTaskDetailsComponent {
     }
   
     updateTask(url: string, data: any): Observable<ScheduledTask> {
-      var token = localStorage.getItem('token');
+      var token = localStorage.getItem('admin_token');
       var authHeader = "Bearer ";
       if(token){
         authHeader +=token;

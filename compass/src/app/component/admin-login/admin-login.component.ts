@@ -54,10 +54,10 @@ export class AdminLoginComponent {
 
     this.createToken(this.authUrl, data).subscribe({
       next: (res) => {
-        localStorage.setItem('email', this.email);
+        localStorage.setItem('admin_email', this.email);
         this.jwtInfo = res;
         if (this.jwtInfo?.token) {
-          localStorage.setItem('token', this.jwtInfo?.token);
+          localStorage.setItem('admin_token', this.jwtInfo?.token);
         }
         this.router.navigate(['/customer-list']);
       },

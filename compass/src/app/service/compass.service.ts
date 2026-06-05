@@ -74,7 +74,7 @@ export class CompassService {
 
   clearFilter(){
     this.search = false;
-    var token = localStorage.getItem('token');
+    var token = localStorage.getItem('admin_token');
     var authHeader = "Bearer ";
     if(token){
       authHeader +=token;

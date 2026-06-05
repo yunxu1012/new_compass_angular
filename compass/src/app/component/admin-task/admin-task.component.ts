@@ -57,7 +57,7 @@ export class AdminTaskComponent {
   }
 
   getTasks(url: string): Observable<ScheduledTask[]> {
-    var token = localStorage.getItem('token');
+    var token = localStorage.getItem('admin_token');
     var authHeader = "Bearer ";
     if (token) {
       authHeader += token;
