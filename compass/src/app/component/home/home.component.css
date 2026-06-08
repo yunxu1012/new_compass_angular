@@ -1,0 +1,20 @@
+.box_no_border {
+    margin-left: 60px;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    padding: 0px;
+    width: 350px;
+    line-height: 150%;
+  }
+
+  .linkLabelLeft {
+    display: inline-block;
+    width: 150px;
+    text-align: left;
+    padding-right: 10px;
+  }
+
+  .rowClass {
+    padding: 10px;
+    width: 350px;
+}
