@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import {Router } from '@angular/router';
 import { JwtInfo } from '../../model/jwt-info.model';
 import { CompassService } from '../../service/compass.service';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
     selector: 'app-login',
@@ -17,6 +18,7 @@ export class LoginComponent {
   password:string = '';
   readonly errorMsg = signal<string>('');
   jwtInfo?:JwtInfo;
+  
   loginForm = new FormGroup({
     email: new FormControl('',  [Validators.required, Validators.email]),
     password: new FormControl('',  Validators.required),

@@ -15,14 +15,18 @@ import { CustomerTaskDetailsComponent } from './component/customer-task-details/
 import { RegisterValidationComponent } from './component/register-validation/register-validation.component';
 import { ForgotPasswordCodeComponent } from './component/forgot-password-code/forgot-password-code.component';
 import { ForgotPasswordEmailComponent } from './component/forgot-password-email/forgot-password-email.component';
+import { loggedinGuard } from './loggedin.guard';
+import { adminLoggedinGuard } from './admin-loggedin.guard';
+import { HomeComponent } from './component/home/home.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: "full"},
-  { path: 'login', component: LoginComponent },
-  { path: 'admin_login', component: AdminLoginComponent },
+  { path: '', redirectTo: 'home', pathMatch: "full"},
+  { path: 'home', component: HomeComponent },
+  { path: 'login', component: LoginComponent,  canActivate: [loggedinGuard]},
+  { path: 'admin_login', component: AdminLoginComponent, canActivate: [adminLoggedinGuard]},
   { path: 'admin-task', component: AdminTaskComponent },
   { path: 'admin-task-details/:taskId', component: AdminTaskDetailsComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'register', component: RegisterComponent, canActivate: [loggedinGuard]},
   { path: 'register-validation', component: RegisterValidationComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'preference', component: PreferenceComponent },

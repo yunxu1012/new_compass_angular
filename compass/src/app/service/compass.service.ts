@@ -134,8 +134,12 @@ export class CompassService {
     localStorage.removeItem('token');
   }
 
+  adminLogout(){
+    localStorage.removeItem('admin_email');
+    localStorage.removeItem('admin_token');
+  }
   adminLoginAgain(){
-    this.logout();
+    this.adminLogout();
     this.adminTimeOut.set("Your session is end. Please login again");
   }
 

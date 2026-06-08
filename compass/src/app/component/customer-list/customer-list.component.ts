@@ -17,7 +17,7 @@ export class CustomerListComponent {
   ngOnInit(): void {
     // this.compassService.clearFilter();
     if (!this.compassService.search) {
-      var token = localStorage.getItem('token');
+      var token = localStorage.getItem('admin_token');
       var authHeader = "Bearer ";
       if (token) {
         authHeader += token;

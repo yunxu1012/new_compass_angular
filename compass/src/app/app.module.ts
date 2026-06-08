@@ -25,9 +25,12 @@ import { CustomerTaskDetailsComponent } from './component/customer-task-details/
 import { ForgotPasswordEmailComponent } from './component/forgot-password-email/forgot-password-email.component';
 import { ForgotPasswordCodeComponent } from './component/forgot-password-code/forgot-password-code.component';
 import { RouterLink, ActivatedRoute } from '@angular/router';
+import { loggedinGuard } from './loggedin.guard';
+import { HomeComponent } from './component/home/home.component';
 
 @NgModule({ declarations: [
         AppComponent,
+        HomeComponent,
         LoginComponent,
         AdminLoginComponent,
         AdminTaskComponent,
@@ -44,7 +47,7 @@ import { RouterLink, ActivatedRoute } from '@angular/router';
         CustomerTaskComponent,
         CustomerTaskDetailsComponent,
         ForgotPasswordEmailComponent,
-        ForgotPasswordCodeComponent
+        ForgotPasswordCodeComponent,
     ],
     bootstrap: [AppComponent], 
     imports: [BrowserModule,
