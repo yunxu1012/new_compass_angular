@@ -35,8 +35,12 @@
         <label class="blue"> {{ task?.zipcode }} </label> 
       </div>
       <div class="row">
-        <label class="textLabel">Comment</label>
+        <label class="textLabel">Customer Comment: </label>
         <label class="blue"> {{ task?.comment }} </label> 
+      </div>
+      <div class="row">
+        <label class="textLabel">Agent Note: </label>
+        <label class="blue"> {{ task?.note }} </label> 
       </div>
     </div>
     <div><a [routerLink]="['/customer-task']">Back</a></div>

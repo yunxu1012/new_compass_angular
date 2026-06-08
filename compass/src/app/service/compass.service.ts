@@ -12,13 +12,14 @@ import { signal } from '@angular/core';
   providedIn: 'root'
 })
 export class CompassService {
-  basicUrl: string = "http://localhost:8080/api/"
-  //basicUrl: string = "http://100.54.246.90:8080/api/"
+  basicUrl: string = "http://100.54.246.90:8080/api/"
+  //basicUrl: string = "http://localhost:8080/api/"
   cities: City[] = [];
   registerCustomer: Customer;
   customers: Customer[] = [];
   pagedCustomers?: Customer[];
   search:boolean = false;
+  currentCustomer?:Customer;
   readonly adminTimeOut = signal<string>('');
   readonly customerTimeOut = signal<string>('');
   constructor(private http: HttpClient, private router: Router) { 

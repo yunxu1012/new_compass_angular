@@ -44,7 +44,7 @@
                     <label class="blue"> {{ task?.zipcode }} </label>
                 </div>
                 <div class="row">
-                    <label class="textLabel">Comment:</label>
+                    <label class="textLabel">Customer Comment:</label>
                     <label class="blue"> {{ task?.comment }} </label>
                 </div>
                 @if(!isPending()){
@@ -59,7 +59,7 @@
                 }
                 @if(isPending()){
                     <div class="row">
-                        <label class="textLabel">Note</label>
+                        <label class="textLabel">Agent Note:</label>
                         <input id="note" type="text" formControlName="note">
                     </div>
                     <div class="row">
