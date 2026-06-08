@@ -15,8 +15,10 @@ import { CustomerTaskDetailsComponent } from './component/customer-task-details/
 import { RegisterValidationComponent } from './component/register-validation/register-validation.component';
 import { ForgotPasswordCodeComponent } from './component/forgot-password-code/forgot-password-code.component';
 import { ForgotPasswordEmailComponent } from './component/forgot-password-email/forgot-password-email.component';
-import { loggedinGuard } from './loggedin.guard';
-import { adminLoggedinGuard } from './admin-loggedin.guard';
+import { loggedinGuard } from './guards/loggedin.guard';
+import { adminLoggedinGuard } from './guards/admin-loggedin.guard';
+import { authGuard } from './guards/auth.guard';
+import { adminAuthGuard } from './guards/admin-auth.guard';
 import { HomeComponent } from './component/home/home.component';
 
 const routes: Routes = [
@@ -24,17 +26,17 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent,  canActivate: [loggedinGuard]},
   { path: 'admin_login', component: AdminLoginComponent, canActivate: [adminLoggedinGuard]},
-  { path: 'admin-task', component: AdminTaskComponent },
-  { path: 'admin-task-details/:taskId', component: AdminTaskDetailsComponent },
+  { path: 'admin-task', component: AdminTaskComponent, canActivate: [adminAuthGuard] },
+  { path: 'admin-task-details/:taskId', component: AdminTaskDetailsComponent, canActivate: [adminAuthGuard]},
   { path: 'register', component: RegisterComponent, canActivate: [loggedinGuard]},
   { path: 'register-validation', component: RegisterValidationComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'preference', component: PreferenceComponent },
-  { path: 'customer-list', component: CustomerListComponent },
-  { path: 'customer-search', component: CustomerSearchComponent },
- { path: 'customer-detail/:email', component: CustomerDetailComponent },
- { path: 'customer-task', component: CustomerTaskComponent },
- { path: 'customer-task-details/:taskId', component: CustomerTaskDetailsComponent },
+  { path: 'profile', component: ProfileComponent , canActivate: [authGuard]},
+  { path: 'preference', component: PreferenceComponent, canActivate: [authGuard] },
+  { path: 'customer-list', component: CustomerListComponent,  canActivate: [adminAuthGuard] },
+  { path: 'customer-search', component: CustomerSearchComponent,  canActivate: [adminAuthGuard]  },
+ { path: 'customer-detail/:email', component: CustomerDetailComponent,  canActivate: [adminAuthGuard]  },
+ { path: 'customer-task', component: CustomerTaskComponent, canActivate: [authGuard]},
+ { path: 'customer-task-details/:taskId', component: CustomerTaskDetailsComponent, canActivate: [authGuard] },
  { path: 'forgot-password-email', component: ForgotPasswordEmailComponent },
  { path: 'forgot-password-code', component: ForgotPasswordCodeComponent },
 ];
