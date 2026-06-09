@@ -24,7 +24,12 @@
 .error{
     color:red;
 }
-
+.welcome{
+   padding-left:40px;
+}
+.blue{
+  color:blue;
+}
 
 .buttonRow{
   padding: 10px;

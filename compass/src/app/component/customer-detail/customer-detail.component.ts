@@ -16,7 +16,7 @@ import { CompassService } from '../../service/compass.service';
 export class CustomerDetailComponent {
   constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient,
     private compassService: CompassService) { }
-  email?: string;
+  customerId?: string;
   profileUrl = this.compassService.basicUrl+'admin/customers/';
   customer?: Customer;
   selectedCityNames: string[] = [];
@@ -25,19 +25,19 @@ export class CustomerDetailComponent {
   search: boolean = false;
 
   ngOnInit(): void {
-    let cEmail = this.route.snapshot.paramMap.get('email');
+    let cId = this.route.snapshot.paramMap.get('customerId');
     let search = this.route.snapshot.paramMap.get('search');
     if (search != null && search == "true") {
       this.search = true;
     }
-    if (cEmail) {
-      this.email = cEmail;
+    if (cId) {
+      this.customerId = cId;
       this.loadCustomer();
     }
 
   }
   loadCustomer() {
-    var url = this.profileUrl + this.email;
+    var url = this.profileUrl + this.customerId;
     this.getProfile(url).subscribe({
       next: (data) => {
         this.customer = data;

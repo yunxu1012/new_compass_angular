@@ -34,7 +34,7 @@ const routes: Routes = [
   { path: 'preference', component: PreferenceComponent, canActivate: [authGuard] },
   { path: 'customer-list', component: CustomerListComponent,  canActivate: [adminAuthGuard] },
   { path: 'customer-search', component: CustomerSearchComponent,  canActivate: [adminAuthGuard]  },
- { path: 'customer-detail/:email', component: CustomerDetailComponent,  canActivate: [adminAuthGuard]  },
+ { path: 'customer-detail/:customerId', component: CustomerDetailComponent,  canActivate: [adminAuthGuard]  },
  { path: 'customer-task', component: CustomerTaskComponent, canActivate: [authGuard]},
  { path: 'customer-task-details/:taskId', component: CustomerTaskDetailsComponent, canActivate: [authGuard] },
  { path: 'forgot-password-email', component: ForgotPasswordEmailComponent },

@@ -1,4 +1,9 @@
 <div class="box">
+    <div class="welcome">
+        Welcome <label class="blue">{{customerName}}</label>,&nbsp;  If you are not 
+        <label class="blue">{{customerName}}</label>&nbsp;, please 
+        <a routerLink="/login" (click)="compassService.logout()">Logout.</a>
+      </div>
     <app-menu></app-menu>
 
     <form [formGroup]="taskForm">

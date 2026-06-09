@@ -21,6 +21,7 @@ export class CustomerTaskComponent {
   readonly timeList = signal<String[] | undefined>(undefined);
   readonly errorMsg = signal<string>('');
   taskForm!: FormGroup;
+  customerName?:string;
   constructor(private http: HttpClient, private router: Router, public compassService: CompassService) {
 
   }
@@ -65,6 +66,10 @@ export class CustomerTaskComponent {
   loadCustomerTasks() {
     console.log("load customer task");
     var email = localStorage.getItem('email');
+    var name  = localStorage.getItem('name');
+    if(name){
+      this.customerName = name;
+    }
     var url = this.profileUrl + email + "/tasks";
     this.getTasks(url).subscribe({
       next: (data) => {

@@ -58,7 +58,12 @@ export class LoginComponent {
         this.jwtInfo = res;
         if(this.jwtInfo?.token){
             localStorage.setItem('token',this.jwtInfo?.token);
+            console.log("token: "+this.jwtInfo?.token);
         }
+        console.log("name: "+this.jwtInfo?.name);
+        if(this.jwtInfo?.name){
+          localStorage.setItem('name',this.jwtInfo?.name);
+      }
         this.router.navigate(['/profile']);
       },
       error: (e) => {

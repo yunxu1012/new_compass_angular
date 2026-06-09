@@ -15,7 +15,8 @@ export class ProfileComponent {
   isEditMode: boolean = false;
   profileForm!: FormGroup;
   customer?: Customer;
-  constructor(private http: HttpClient, private router: Router, private compassService: CompassService) {
+  customerName?:string;
+  constructor(private http: HttpClient, private router: Router, public compassService: CompassService) {
 
   }
   ngOnInit(): void {
@@ -50,7 +51,13 @@ export class ProfileComponent {
 
   profileUrl = this.compassService.basicUrl+'customers/';
   loadCustomerProfile() {
+    console.log("load customer here: ");
     var email = localStorage.getItem('email');
+    var name  = localStorage.getItem('name');
+    console.log("name: "+name);
+    if(name){
+      this.customerName = name;
+    }
     var url = this.profileUrl + email;
     this.getProfile(url).subscribe({
       next: (data) => {

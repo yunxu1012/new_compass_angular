@@ -27,6 +27,7 @@ export class PreferenceComponent {
   selectedCityNames: string[] = [];
   cityError: boolean = false;
   readonly cityErrMsg = signal<string>('');
+  customerName?:string;
 
   constructor(private http: HttpClient, private router: Router, public compassService: CompassService) {
 
@@ -105,6 +106,10 @@ export class PreferenceComponent {
   profileUrl = this.compassService.basicUrl+'customersPreferences/';
   loadCustomerPreference() {
     var email = localStorage.getItem('email');
+    var name  = localStorage.getItem('name');
+    if(name){
+      this.customerName = name;
+    }
     var url = this.profileUrl + email;
     this.getPreference(url).subscribe({
       next: (data) => {
