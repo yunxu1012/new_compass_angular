@@ -13,7 +13,7 @@ import { FormGroup, FormControl, Validators, ReactiveFormsModule} from '@angular
 export class ForgotPasswordEmailComponent {
   readonly errorMsg = signal<string>('');
   emailForm!: FormGroup;
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, public compassService: CompassService) {
     console.log('MyComponent initialized!');
   }
   ngOnInit(): void {
@@ -31,7 +31,7 @@ export class ForgotPasswordEmailComponent {
     }
     //var authUrl =  this.compassService.basicUrl+'auth/customer/signup';
     var email = this.emailForm.get('email')?.value;
-    var authUrl = "http://localhost:8080/api/auth/sendCode?email="+email+"&firstTime=true";
+    var authUrl = this.compassService.basicUrl+"auth/sendCode?email="+email+"&firstTime=true";
     console.log("authUrl: "+authUrl);
     localStorage.setItem('email', email);
     this.sendCode(authUrl).subscribe({
