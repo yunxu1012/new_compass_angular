@@ -1,7 +1,12 @@
 <div class="box_no_border">
     <form [formGroup]="validationForm">
-        <p>We send a text to your email. Please check both your inbox and spam folder.</p>
+        <p class="phText">We send a token to your email account:&nbsp;  
+            <label class="blue">{{registerEmail}}</label>. &nbsp;  
+            Please check both your inbox and spam folder. </p>
         <p><button class="buttonResend" (click)="sendAgain()">Send code again</button></p>
+        <div class="error">
+            {{timeMsg()}}
+          </div>
         <p>Enter your code here:</p>
         <p><input id="code" type="text" formControlName="code" /> 
         </p>

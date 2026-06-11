@@ -43,5 +43,14 @@
 
   .error {
     color: red;
-    width: 250px;
+    width: 350px;
+    line-height: 180%;
+  }
+
+  .phText{
+    line-height: 180%;
+  }
+
+  .blue{
+    color:blue;
   }

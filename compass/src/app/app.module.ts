@@ -26,6 +26,7 @@ import { ForgotPasswordEmailComponent } from './component/forgot-password-email/
 import { ForgotPasswordCodeComponent } from './component/forgot-password-code/forgot-password-code.component';
 import { RouterLink, ActivatedRoute } from '@angular/router';
 import { HomeComponent } from './component/home/home.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -54,8 +55,9 @@ import { HomeComponent } from './component/home/home.component';
         ReactiveFormsModule,
         FormsModule,
         MultiSelectModule,
-        NgSelectModule], 
+        NgSelectModule,], 
         providers: [
+        DatePipe,
         provideClientHydration(),
         provideHttpClient(withInterceptorsFromDi())
     ] })

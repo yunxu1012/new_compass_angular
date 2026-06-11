@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { CompassService } from '../../service/compass.service';
 import { Observable } from 'rxjs';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors,} from '@angular/forms';
-
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-forgot-password-code',
   templateUrl: './forgot-password-code.component.html',
@@ -15,9 +15,11 @@ import { FormGroup, FormControl, Validators, ReactiveFormsModule, AbstractContro
 export class ForgotPasswordCodeComponent {
 
   readonly errorMsg = signal<string>('');
+  readonly timeMsg = signal<string>('');
   validationForm!: FormGroup;
+  fEmail?:string;
   constructor(private http: HttpClient, private router: Router,
-    public compassService: CompassService) {
+    public compassService: CompassService, private datePipe: DatePipe) {
     console.log('MyComponent initialized!');
   }
 
@@ -27,6 +29,10 @@ export class ForgotPasswordCodeComponent {
       password: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]),
       confirmPassword: new FormControl('', [Validators.required]),
     }, { validators: this.matchValidator });
+    var email = localStorage.getItem('email');
+    if(email){
+      this.fEmail = email;
+    }
   }
   private matchValidator(control: AbstractControl): ValidationErrors | null {
     const password = control?.get('password');
@@ -41,7 +47,12 @@ export class ForgotPasswordCodeComponent {
       
     this.sendCode(authUrl).subscribe({
       next: (res) => {
-        
+        var codeTime = res;
+        if(codeTime.time){
+          console.log("time: "+codeTime.time);
+          this.timeMsg.set("We send you token again at: "+this.getFormattedTime(codeTime.time)
+          +",  Please use the latest token.")
+        }
       },
       error: (e) => {
         console.log("error here");
@@ -49,6 +60,11 @@ export class ForgotPasswordCodeComponent {
         this.errorMsg.set(e.error);
       }
     });
+  }
+
+  getFormattedTime(rawDate: Date | string | number): string {
+    // Arguments: (value, format, timezone, locale)
+    return this.datePipe.transform(rawDate, 'MM/dd/yyyy HH:mm:ss') || '';
   }
 
   sendCode(baseUrl: string): Observable<any> {

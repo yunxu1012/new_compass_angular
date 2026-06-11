@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CompassService } from '../../service/compass.service';
 import { Observable } from 'rxjs';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule} from '@angular/forms';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-register-validation',
   templateUrl: './register-validation.component.html',
@@ -13,8 +14,10 @@ import { FormGroup, FormControl, Validators, ReactiveFormsModule} from '@angular
 export class RegisterValidationComponent {
   readonly errorMsg = signal<string>('');
   validationForm!: FormGroup;
+  registerEmail?:string;
+  readonly timeMsg = signal<string>('');
   constructor(private http: HttpClient, private router: Router,
-    public compassService: CompassService) {
+    public compassService: CompassService, private datePipe:DatePipe) {
     console.log('MyComponent initialized!');
   }
 
@@ -22,6 +25,10 @@ export class RegisterValidationComponent {
     this.validationForm = new FormGroup({
       code: new FormControl('', [Validators.required]),
     });
+    var email = localStorage.getItem('email');
+    if(email){
+      this.registerEmail = email;
+    }
   }
   sendAgain(){
     var email = localStorage.getItem('email');
@@ -31,7 +38,12 @@ export class RegisterValidationComponent {
       
     this.sendCode(authUrl).subscribe({
       next: (res) => {
-        
+        var codeTime = res;
+        if(codeTime.time){
+          console.log("time: "+codeTime.time);
+          this.timeMsg.set("We send you token again at: "+this.getFormattedTime(codeTime.time)
+          +",  Please use the latest token.")
+        }
       },
       error: (e) => {
         console.log("error here");
@@ -43,6 +55,11 @@ export class RegisterValidationComponent {
 
   sendCode(baseUrl: string): Observable<any> {
     return this.http.get(baseUrl);
+  }
+
+  getFormattedTime(rawDate: Date | string | number): string {
+    // Arguments: (value, format, timezone, locale)
+    return this.datePipe.transform(rawDate, 'MM/dd/yyyy HH:mm:ss') || '';
   }
 
   back() {
