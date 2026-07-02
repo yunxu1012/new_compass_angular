@@ -17,7 +17,7 @@
                 </div>
                 <div class="row">
                     <label class="textLabel">Date:</label>
-                    <label class="blue"> {{ task?.taskDate }}</label>
+                    <label class="blue"> {{ task?.taskDate | date: 'MM/dd/yyyy EEE'}}</label>
                 </div>
                 <div class="row">
                     <label class="textLabel">Time: </label>

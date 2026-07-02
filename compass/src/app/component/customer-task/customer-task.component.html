@@ -50,7 +50,7 @@
             <label class="labelClass">Date:</label>
             <select id="schedule" formControlName="selectedSchedule" (change)="changeSchedule()">
                 @for (schedule of schedules(); track schedule) {
-                <option [ngValue]="schedule">{{schedule.taskDate}}</option>
+                <option [ngValue]="schedule">{{schedule.taskDate | date:'MM/dd/yyyy EEE'}}</option>
                 }
             </select>
             @if (taskForm.get('selectedSchedule')?.hasError('required')

@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { CompassService } from '../../service/compass.service';
 import { Observable } from 'rxjs';
 import { ScheduledTask } from '../../model/scheduled-task.model';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-customer-task-details',
   templateUrl: './customer-task-details.component.html',
