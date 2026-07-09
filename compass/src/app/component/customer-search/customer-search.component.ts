@@ -63,7 +63,7 @@ export class CustomerSearchComponent {
     this.getFilteredCustomers(url, data).subscribe({
       next: (data) => {
         this.compassService.customers = data;
-        this.compassService.pagedCustomers = data;
+        this.compassService.pagedCustomers.set(data);
         this.compassService.totalPages = Math.ceil(this.compassService.customers.length
           / this.compassService.pageSize);
         this.compassService.updatePagedData();

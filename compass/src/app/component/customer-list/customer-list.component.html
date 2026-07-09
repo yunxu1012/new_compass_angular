@@ -5,7 +5,7 @@
         <label class="nameTitle">Last Name</label>
         <label class="emailTitle">Email</label>
         <label class="detailTitle">Details</label>
-        @for (customer of compassService.pagedCustomers; track customer) {
+        @for (customer of compassService.pagedCustomers(); track customer) {
         <p>
             <label class="nameText">{{customer.firstName}}</label>
             <label class="nameText">{{customer.lastName}}</label>

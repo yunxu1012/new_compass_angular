@@ -17,7 +17,7 @@ basicUrl: string = "http://100.31.117.71:8080/api/"
   cities: City[] = [];
   registerCustomer: Customer;
   customers: Customer[] = [];
-  pagedCustomers?: Customer[];
+  readonly pagedCustomers = signal<Customer[] | []>([]);;
   search:boolean = false;
   currentCustomer?:Customer;
   readonly adminTimeOut = signal<string>('');
@@ -105,7 +105,7 @@ basicUrl: string = "http://100.31.117.71:8080/api/"
     this.getCustomers(url).subscribe({
       next: (data) => {
         this.customers = data;
-        this.pagedCustomers = data;
+        this.pagedCustomers.set(data);
         this.totalPages = Math.ceil(this.customers.length / this.pageSize);
         this.updatePagedData();
       },
@@ -129,7 +129,7 @@ basicUrl: string = "http://100.31.117.71:8080/api/"
   updatePagedData() {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
-    this.pagedCustomers = this.customers.slice(startIndex, endIndex);
+    this.pagedCustomers.set(this.customers.slice(startIndex, endIndex));
   }
 
   goToPage(page: number) {

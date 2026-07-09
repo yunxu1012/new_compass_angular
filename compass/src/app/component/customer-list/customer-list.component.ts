@@ -24,6 +24,5 @@ export class CustomerListComponent {
 
   clearFilter() {
     this.compassService.clearFilter();
-    window.location.reload();
   }
 }
