@@ -42,16 +42,9 @@ export class CustomerTaskDetailsComponent {
   
     }
     getTask(url: string): Observable<ScheduledTask> {
-      var token = localStorage.getItem('token');
-      var authHeader = "Bearer ";
-      if (token) {
-        authHeader += token;
-      }
+      
       const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          'Authorization': authHeader
-        })
+        headers: this.compassService.getCustomerHttpHeaders()
       };
       return this.http.get<ScheduledTask>(url, httpOptions);
     }

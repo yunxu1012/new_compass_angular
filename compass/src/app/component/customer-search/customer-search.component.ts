@@ -86,16 +86,9 @@ export class CustomerSearchComponent {
   }
 
   getFilteredCustomers(url: string, data: any): Observable<Customer[]> {
-    var token = localStorage.getItem('admin_token');
-    var authHeader = "Bearer ";
-    if (token) {
-      authHeader += token;
-    }
+    
     const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': authHeader
-      })
+      headers: this.compassService.getAdminHttpHeaders()
     };
     return this.http.post<Customer[]>(url, data, httpOptions);
   }

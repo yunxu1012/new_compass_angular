@@ -58,16 +58,8 @@ export class AdminTaskComponent {
   }
 
   getTasks(url: string): Observable<ScheduledTask[]> {
-    var token = localStorage.getItem('admin_token');
-    var authHeader = "Bearer ";
-    if (token) {
-      authHeader += token;
-    }
     const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': authHeader
-      })
+      headers: this.compassService.getAdminHttpHeaders()
     };
     return this.http.get<ScheduledTask[]>(url, httpOptions);
   }

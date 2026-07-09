@@ -76,16 +76,8 @@ export class ProfileComponent {
   }
 
   getProfile(url: string): Observable<Customer> {
-    var token = localStorage.getItem('token');
-    var authHeader = "Bearer ";
-    if(token){
-      authHeader +=token;
-    }
     const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': authHeader
-      })
+      headers: this.compassService.getCustomerHttpHeaders()
     };
     return this.http.get<Customer>(url, httpOptions);
   }
@@ -120,16 +112,8 @@ export class ProfileComponent {
   }
 
   updateProfile(url: string, data: any): Observable<Customer> {
-    var token = localStorage.getItem('token');
-    var authHeader = "Bearer ";
-    if(token){
-      authHeader +=token;
-    }
     const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': authHeader
-      })
+      headers: this.compassService.getCustomerHttpHeaders()
     };
     return this.http.put<Customer>(url, data, httpOptions);
   }

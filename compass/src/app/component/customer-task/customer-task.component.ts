@@ -90,16 +90,8 @@ export class CustomerTaskComponent {
   }
 
   getTasks(url: string): Observable<ScheduledTask[]> {
-    var token = localStorage.getItem('token');
-    var authHeader = "Bearer ";
-    if (token) {
-      authHeader += token;
-    }
     const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': authHeader
-      })
+      headers: this.compassService.getCustomerHttpHeaders()
     };
     return this.http.get<ScheduledTask[]>(url, httpOptions);
   }
@@ -128,16 +120,9 @@ export class CustomerTaskComponent {
   }
 
   getSchedules(url: string): Observable<Schedule[]> {
-    var token = localStorage.getItem('token');
-    var authHeader = "Bearer ";
-    if (token) {
-      authHeader += token;
-    }
+  
     const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': authHeader
-      })
+      headers: this.compassService.getCustomerHttpHeaders()
     };
     return this.http.get<Schedule[]>(url, httpOptions);
   }
@@ -179,16 +164,8 @@ export class CustomerTaskComponent {
     });
   }
   createTask(url: string, data: any): Observable<ScheduledTask> {
-    var token = localStorage.getItem('token');
-    var authHeader = "Bearer ";
-    if (token) {
-      authHeader += token;
-    }
     const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': authHeader
-      })
+      headers: this.compassService.getCustomerHttpHeaders()
     };
     return this.http.post<ScheduledTask>(url, data, httpOptions);
   }
@@ -222,17 +199,8 @@ export class CustomerTaskComponent {
     });
   }
   updateTask(url: string): Observable<ScheduledTask> {
-    var token = localStorage.getItem('token');
-    var authHeader = "Bearer ";
-    if (token) {
-      authHeader += token;
-    }
-    console.log("header: "+ authHeader);
     const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': authHeader
-      })
+      headers: this.compassService.getCustomerHttpHeaders()
     };
     return this.http.put<ScheduledTask>(url,null, httpOptions);
   }

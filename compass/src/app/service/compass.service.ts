@@ -12,8 +12,8 @@ import { signal } from '@angular/core';
   providedIn: 'root'
 })
 export class CompassService {
-  //basicUrl: string = "http://100.54.246.90:8080/api/"
-  basicUrl: string = "http://localhost:8080/api/"
+basicUrl: string = "http://100.31.117.71:8080/api/"
+  //basicUrl: string = "http://localhost:8080/api/"
   cities: City[] = [];
   registerCustomer: Customer;
   customers: Customer[] = [];
@@ -73,19 +73,36 @@ export class CompassService {
     return undefined;
   }
 
-  clearFilter(){
-    this.search = false;
+  getAdminHttpHeaders():HttpHeaders{
     var token = localStorage.getItem('admin_token');
-    var authHeader = "Bearer ";
-    if(token){
-      authHeader +=token;
-    }
-    this.listCustomers(authHeader);
+    return this.getHttpHeaders(token);
   }
 
-  listCustomers(authHeader:string): void {
+  getCustomerHttpHeaders():HttpHeaders{
+    var token = localStorage.getItem('token');
+    return this.getHttpHeaders(token);
+  }
+
+  getHttpHeaders(token:string|null):HttpHeaders{
+    var authHeader = "Bearer ";
+    if (token) {
+      authHeader += token;
+    }
+      var headers=  new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': authHeader
+      });
+      return headers;
+  }
+
+  clearFilter(){
+    this.search = false;
+    this.listCustomers();
+  }
+
+  listCustomers(): void {
     var url = this.basicUrl+"admin/customers";
-    this.getCustomers(url, authHeader).subscribe({
+    this.getCustomers(url).subscribe({
       next: (data) => {
         this.customers = data;
         this.pagedCustomers = data;
@@ -103,13 +120,9 @@ export class CompassService {
     });
   }
 
-  getCustomers(baseUrl: string, authHeader:string): Observable<Customer[]> {
-    const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': authHeader
-    };
+  getCustomers(baseUrl: string): Observable<Customer[]> {
     return this.http.get<Customer[]>(baseUrl, {
-      headers: headers
+      headers: this.getAdminHttpHeaders()
     });
   }
 
