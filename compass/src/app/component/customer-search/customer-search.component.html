@@ -13,22 +13,10 @@
                     </option>
                     }
                 </select>
-                @if (searchForm.get('homeType')?.hasError('required') &&
-                searchForm.get('homeType')?.touched) {
-                <label class="error">
-                    Home Type is required.
-                </label>
-                }
             </div>
             <div class="rowClass">
                 <label class="labelClass" for="price">Price:</label>
                 <input id="price" type="text" formControlName="price">
-                @if (searchForm.get('price')?.hasError('required') &&
-                searchForm.get('price')?.touched) {
-                <label class="error">
-                    Price is required.
-                </label>
-                }
                 @if (searchForm.get('price')?.hasError('pattern') &&
                 searchForm.get('price')?.touched) {
                 <label class="error">
@@ -46,12 +34,6 @@
                     </option>
                     }
                 </select>
-                @if (searchForm.get('bedCount')?.hasError('required') &&
-                searchForm.get('bedCount')?.touched) {
-                <label class="error">
-                    Bed Count is required.
-                </label>
-                }
             </div>
             <div class="rowClass">
                 <label class="labelClass">Bath Count:</label>
@@ -63,12 +45,6 @@
                     </option>
                     }
                 </select>
-                @if (searchForm.get('bathCount')?.hasError('required') &&
-                searchForm.get('bathCount')?.touched) {
-                <label class="error">
-                    Bath Count is required.
-                </label>
-                }
             </div>
             <div class="rowClass">
                 <label class="labelClass" for="squareFeet">Square Feet:</label>
@@ -79,12 +55,6 @@
                     Square Feet is required.
                 </label>
                 }
-                @if (searchForm.get('squareFeet')?.hasError('pattern') &&
-                searchForm.get('squareFeet')?.touched) {
-                <label class="error">
-                    Square feet value must be integer between 0 to 99999999.
-                </label>
-                }
             </div>
             <div class="rowClass">
                 <label class="labelClass" for="preferCity">City:</label>
@@ -92,13 +62,6 @@
                     bindLabel="cityId" bindLabel="name" [searchable]="true" (change)="selected($event)"
                     formControlName="city">
                 </ng-select>
-                <p></p>
-                @if (searchForm.get('city')?.hasError('required')
-                && searchForm.get('city')?.touched) {
-                <label class="error">
-                    City is required.
-                </label>
-                }
             </div>
             <div class="buttonRow">
                 <button class="buttonLeft" (click)="cancel()">Cancel</button>

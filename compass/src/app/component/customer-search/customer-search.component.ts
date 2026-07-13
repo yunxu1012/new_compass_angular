@@ -28,12 +28,12 @@ export class CustomerSearchComponent {
   ngOnInit(): void {
 
     this.searchForm = new FormGroup({
-      homeType: new FormControl('', Validators.required),
-      price: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{0,8}$')]),
-      squareFeet: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{0,8}$')]),
-      bedCount: new FormControl('', Validators.required),
-      bathCount: new FormControl('', Validators.required),
-      city: new FormControl('', Validators.required),
+      homeType: new FormControl(''),
+      price: new FormControl('', [ Validators.pattern('^[0-9]{0,8}$')]),
+      squareFeet: new FormControl('', [Validators.pattern('^[0-9]{0,8}$')]),
+      bedCount: new FormControl(''),
+      bathCount: new FormControl(''),
+      city: new FormControl(''),
     });
     this.compassService.loadCities();
   }
@@ -52,13 +52,37 @@ export class CustomerSearchComponent {
     }
     this.compassService.search = true;
     var url = this.compassService.basicUrl+'admin/search';
+    var homeTypeValue = null;
+    if(this.searchForm.get('homeType')?.value!=""){
+      homeTypeValue = this.searchForm.get('homeType')?.value;
+    }
+    var bedCountValue = null;
+    if(this.searchForm.get('bedCount')?.value!=""){
+      bedCountValue = this.searchForm.get('bedCount')?.value;
+    }
+    var bathCountValue = null;
+    if(this.searchForm.get('bathCount')?.value!=""){
+      bathCountValue = this.searchForm.get('bathCount')?.value;
+    }
+    var priceValue = null;
+    if(this.searchForm.get('price')?.value!=""){
+       priceValue = this.searchForm.get('price')?.value;
+    }
+    var squareFeetValue = null;
+    if(this.searchForm.get('squareFeet')?.value!=""){
+      squareFeetValue = this.searchForm.get('squareFeet')?.value;
+    }
+    var cityIdValue = null;
+    if(this.searchForm.get('city')?.value.cityId){
+       cityIdValue = this.searchForm.get('city')?.value.cityId;
+    }
     const data = {
-      homeType: this.searchForm.get('homeType')?.value,
-      bedCount: this.searchForm.get('bedCount')?.value,
-      bathCount: this.searchForm.get('bathCount')?.value,
-      price: this.searchForm.get('price')?.value,
-      squareFeet: this.searchForm.get('squareFeet')?.value,
-      cityId: this.searchForm.get('city')?.value.cityId,
+      homeType: homeTypeValue,
+      bedCount: bedCountValue,
+      bathCount: bathCountValue,
+      price: priceValue,
+      squareFeet: squareFeetValue,
+      cityId: cityIdValue,
     };
     this.getFilteredCustomers(url, data).subscribe({
       next: (data) => {
@@ -71,11 +95,13 @@ export class CustomerSearchComponent {
       },
       error: (e) => {
         console.error(e);
+        if(e && e.error){
         var msg = e.error.message;
         if (msg === "JWT token expired") {
           this.compassService.adminLoginAgain();
           this.router.navigate(['/admin_login']);
         }
+      }
       }
     });
   }
