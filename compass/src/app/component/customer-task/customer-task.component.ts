@@ -58,14 +58,12 @@ export class CustomerTaskComponent {
   }
   changeSchedule() {
     const value = this.taskForm.get('selectedSchedule')?.value;
-    console.log("value: " + value.taskDate);
     this.currentSchedule.set(value);
     this.timeList.set(this.currentSchedule()?.taskTime);
   }
 
   profileUrl = this.compassService.basicUrl + 'customers/';
   loadCustomerTasks() {
-    console.log("load customer task");
     var email = localStorage.getItem('email');
     var name  = localStorage.getItem('name');
     if(name){
@@ -75,7 +73,6 @@ export class CustomerTaskComponent {
     this.getTasks(url).subscribe({
       next: (data) => {
         this.tasks.set(data);
-        console.log("task size: "+this.tasks().length);
       },
       error: (e) => {
         console.error(e);
@@ -171,7 +168,6 @@ export class CustomerTaskComponent {
   }
 
   removeTask(taskId:string|undefined){
-    console.log("remove task: "+taskId);
     var email = localStorage.getItem('email');
     var url = this.compassService.basicUrl + "customers/" + email + "/tasks/"+taskId+"/done";
     this.changeTask(taskId, url);

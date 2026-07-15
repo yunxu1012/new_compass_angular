@@ -55,8 +55,7 @@ export class RegisterComponent {
     var email = this.registerForm.get('email')?.value;
     //var authUrl = "http://100.54.246.90:8080/api/auth/registerCode?email="+email+"&firstTime=true";
     var authUrl = this.compassService.basicUrl+"auth/registerCode?email="+email+"&firstTime=true";
-    console.log("authUrl: "+authUrl);
-      
+  
     localStorage.setItem('firstName', this.registerForm.get('firstName')?.value);
     localStorage.setItem('lastName',  this.registerForm.get('lastName')?.value);
     localStorage.setItem('email', email);
@@ -67,7 +66,6 @@ export class RegisterComponent {
         this.router.navigate(['/register-validation']);
       },
       error: (e) => {
-        console.log("error here");
         console.error(e);
         this.errorMsg.set(e.error);
       }

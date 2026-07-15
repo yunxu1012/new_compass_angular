@@ -29,17 +29,14 @@ export class ForgotPasswordEmailComponent {
       this.emailForm.markAllAsTouched(); // Mark all controls as touched
       return; // Prevent submission if form is invalid
     }
-    //var authUrl =  this.compassService.basicUrl+'auth/customer/signup';
     var email = this.emailForm.get('email')?.value;
     var authUrl = this.compassService.basicUrl+"auth/sendCode?email="+email+"&firstTime=true";
-    console.log("authUrl: "+authUrl);
     localStorage.setItem('email', email);
     this.sendCode(authUrl).subscribe({
       next: (res) => {
         this.router.navigate(['/forgot-password-code']);
       },
       error: (e) => {
-        console.log("error here");
         console.error(e);
         this.errorMsg.set(e.error);
       }

@@ -43,13 +43,11 @@ export class ForgotPasswordCodeComponent {
     var email = localStorage.getItem('email');
     //var authUrl = "http://100.54.246.90:8080/api/auth/sendCode?email="+email+"&firstTime=false";
     var authUrl = this.compassService.basicUrl+"auth/sendCode?email="+email+"&firstTime=false";
-    console.log("authUrl: "+authUrl);
       
     this.sendCode(authUrl).subscribe({
       next: (res) => {
         var codeTime = res;
         if(codeTime.time){
-          console.log("time: "+codeTime.time);
           this.timeMsg.set("We send you token again at: "+this.getFormattedTime(codeTime.time)
           +",  Please use the latest token.")
         }

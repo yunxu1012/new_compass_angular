@@ -51,10 +51,8 @@ export class ProfileComponent {
 
   profileUrl = this.compassService.basicUrl+'customers/';
   loadCustomerProfile() {
-    console.log("load customer here: ");
     var email = localStorage.getItem('email');
     var name  = localStorage.getItem('name');
-    console.log("name: "+name);
     if(name){
       this.customerName = name;
     }

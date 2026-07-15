@@ -68,7 +68,6 @@ export class AdminTaskDetailsComponent {
 
     approve(){
       var agent =  this.taskForm.get('agent')?.value;
-      console.log("agent :"+agent+"!");
       if(agent == null || agent == ""){
         this.errorMsg.set("Agent can't be empty for appoving appointments.");
         return;
@@ -76,7 +75,6 @@ export class AdminTaskDetailsComponent {
       if(this.task){
        this.task.status = "APPROVED";
       }
-      console.log("appove task");
       this.saveTask();
     }
     reject(){
@@ -93,13 +91,10 @@ export class AdminTaskDetailsComponent {
       this.task.note  = this.taskForm.get('note')?.value;
       }
       const data = this.task;
-      console.log("update task");
       this.updateTask(url, data).subscribe({
         next: (data) => {
-          console.log("update task01");
         },
         error: (e) => {
-          console.log("error: "+e);
          var msg = e.error.message;
          if(msg==="JWT token expired"){
           this.compassService.customerLoginAgain();

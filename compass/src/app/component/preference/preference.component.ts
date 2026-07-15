@@ -68,8 +68,6 @@ export class PreferenceComponent {
   }
   private validateBed(control: AbstractControl): ValidationErrors | null {
     const minBed = control.get('minBed')?.value;
-    console.log(minBed);
-
     const maxBed = control.get('maxBed')?.value;
     let minValue = "";
     let maxValue = "";
